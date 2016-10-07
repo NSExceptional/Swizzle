@@ -62,6 +62,29 @@ extern NSString * TBStringFromValueType(TBValueType type) {
     }
 }
 
+extern BOOL TBValueTypeIsCollection(TBValueType type) {
+    switch (type) {
+        case TBValueTypeUnmodified:
+        case TBValueTypeNilValue:
+        case TBValueTypeChirpValue:
+        case TBValueTypeClass:
+        case TBValueTypeSelector:
+        case TBValueTypeNumber:
+        case TBValueTypeString:
+        case TBValueTypeMutableString:
+        case TBValueTypeDate:
+        case TBValueTypeColor:
+            return NO;
+        case TBValueTypeArray:
+        case TBValueTypeDictionary:
+        case TBValueTypeSet:
+        case TBValueTypeMutableArray:
+        case TBValueTypeMutableSet:
+        case TBValueTypeMutableDictionary:
+            return YES;
+    }
+}
+
 @implementation TBValue
 
 #pragma mark Initialization

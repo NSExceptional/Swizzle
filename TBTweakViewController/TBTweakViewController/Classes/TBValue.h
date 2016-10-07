@@ -22,17 +22,18 @@ typedef NS_ENUM(NSUInteger, TBValueType)
     TBValueTypeDate,
     TBValueTypeColor,
     TBValueTypeArray,
-    TBValueTypeDictionary,
     TBValueTypeSet,
+    TBValueTypeDictionary,
     TBValueTypeMutableArray,
     TBValueTypeMutableSet,
     TBValueTypeMutableDictionary
 };
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * TBStringFromValueType(TBValueType type);
+extern BOOL TBValueTypeIsCollection(TBValueType type);
+
 
 /// Use +value: to override with a value.
 /// +null is for convenience, value:nil works too.

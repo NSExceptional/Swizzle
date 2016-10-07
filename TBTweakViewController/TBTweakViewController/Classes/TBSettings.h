@@ -13,6 +13,6 @@
 /// relying on NSUserDefaults for preferences.
 @interface TBSettings : NSObject
 
-@property (nonatomic, class) BOOL expertMode;
+@property (nonatomic, readonly, class) BOOL expertMode;
 
 @end

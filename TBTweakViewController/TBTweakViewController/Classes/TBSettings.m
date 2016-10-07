@@ -11,4 +11,9 @@
 
 @implementation TBSettings
 
+static BOOL _expertMode;
++ (BOOL)expertMode {
+    return _expertMode;
+}
+
 @end
