@@ -78,10 +78,6 @@
     self.saveAction();
 }
 
-- (BOOL)expertMode {
-    return NO;
-}
-
 - (void)setTweakType:(TBTweakType)tweakType {
     if (_tweakType == tweakType) return;
     _tweakType = tweakType;

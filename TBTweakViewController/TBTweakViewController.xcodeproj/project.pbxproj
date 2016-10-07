@@ -16,6 +16,7 @@
 		B43BF1821D6E492600E94501 /* TBClassPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BF1811D6E492600E94501 /* TBClassPickerViewController.m */; };
 		B440A9171D779ACC00320C54 /* TBNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B440A9161D779ACC00320C54 /* TBNumberCell.m */; };
 		B44936EF1DA73C71008DB45E /* TBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B44936EE1DA73C71008DB45E /* TBSettings.m */; };
+		B44936F21DA7501F008DB45E /* TBDetailDisclosureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44936F11DA7501F008DB45E /* TBDetailDisclosureCell.m */; };
 		B4504C771D65230700C4B568 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504C761D65230700C4B568 /* main.m */; };
 		B4504C7A1D65230700C4B568 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504C791D65230700C4B568 /* AppDelegate.m */; };
 		B4504C7C1D65230700C4B568 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4504C7B1D65230700C4B568 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		B478B6CB1D77D79C009E7771 /* TBColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6CA1D77D79C009E7771 /* TBColorCell.m */; };
 		B478B6DF1D78CA6B009E7771 /* TBConfigureTweakViewController+UITableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+UITableViewDataSource.m */; };
 		B478B6E21D78CAB9009E7771 /* TBSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6E11D78CAB9009E7771 /* TBSwitchCell.m */; };
+		B48E37311DA75A16002B9899 /* TBValue+ValueHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E37301DA75A16002B9899 /* TBValue+ValueHelpers.m */; };
 		B4B9C7E61D70D0EA0025E1FB /* TBChirpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B9C7E51D70D0EA0025E1FB /* TBChirpCell.m */; };
 		B4B9C7EC1D70D1670025E1FB /* TBValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B9C7EB1D70D1670025E1FB /* TBValueViewController.m */; };
 		B4B9C7EF1D70D3160025E1FB /* TBAddValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B9C7EE1D70D3160025E1FB /* TBAddValueCell.m */; };
@@ -86,6 +88,8 @@
 		B440A9161D779ACC00320C54 /* TBNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBNumberCell.m; sourceTree = "<group>"; };
 		B44936ED1DA73C71008DB45E /* TBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSettings.h; sourceTree = "<group>"; };
 		B44936EE1DA73C71008DB45E /* TBSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSettings.m; sourceTree = "<group>"; };
+		B44936F01DA7501F008DB45E /* TBDetailDisclosureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDetailDisclosureCell.h; sourceTree = "<group>"; };
+		B44936F11DA7501F008DB45E /* TBDetailDisclosureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDetailDisclosureCell.m; sourceTree = "<group>"; };
 		B4504C721D65230700C4B568 /* TBTweakViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBTweakViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4504C761D65230700C4B568 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B4504C781D65230700C4B568 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+UITableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBConfigureTweakViewController+UITableViewDataSource.m"; sourceTree = "<group>"; };
 		B478B6E01D78CAB9009E7771 /* TBSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSwitchCell.h; sourceTree = "<group>"; };
 		B478B6E11D78CAB9009E7771 /* TBSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSwitchCell.m; sourceTree = "<group>"; };
+		B48E372F1DA75A16002B9899 /* TBValue+ValueHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBValue+ValueHelpers.h"; sourceTree = "<group>"; };
+		B48E37301DA75A16002B9899 /* TBValue+ValueHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBValue+ValueHelpers.m"; sourceTree = "<group>"; };
 		B4B9C7E41D70D0EA0025E1FB /* TBChirpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChirpCell.h; sourceTree = "<group>"; };
 		B4B9C7E51D70D0EA0025E1FB /* TBChirpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChirpCell.m; sourceTree = "<group>"; };
 		B4B9C7EA1D70D1670025E1FB /* TBValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBValueViewController.h; sourceTree = "<group>"; };
@@ -239,6 +245,8 @@
 				B4504C9C1D652C7100C4B568 /* TBMethodHook.m */,
 				B4504C9E1D65316E00C4B568 /* TBValue.h */,
 				B4504C9F1D65316E00C4B568 /* TBValue.m */,
+				B48E372F1DA75A16002B9899 /* TBValue+ValueHelpers.h */,
+				B48E37301DA75A16002B9899 /* TBValue+ValueHelpers.m */,
 				B4504CA11D6535B300C4B568 /* NSScanner+ChirpParser.h */,
 				B4504CA21D6535B300C4B568 /* NSScanner+ChirpParser.m */,
 				B4504CAA1D6AAF9300C4B568 /* NSInvocation+Tweaking.h */,
@@ -285,6 +293,8 @@
 				B4B9C7EB1D70D1670025E1FB /* TBValueViewController.m */,
 				B4B9C7FF1D70E75F0025E1FB /* TBValueViewControllerDataSource.h */,
 				B4B9C8001D70E75F0025E1FB /* TBValueViewControllerDataSource.m */,
+				B44936F01DA7501F008DB45E /* TBDetailDisclosureCell.h */,
+				B44936F11DA7501F008DB45E /* TBDetailDisclosureCell.m */,
 				B4B9C8021D70E97E0025E1FB /* TBValueCells.h */,
 				B4B9C7F91D70D4340025E1FB /* TBBaseValueCell.h */,
 				B4B9C7FA1D70D4340025E1FB /* TBBaseValueCell.m */,
@@ -478,6 +488,7 @@
 				B4504C9D1D652C7100C4B568 /* TBMethodHook.m in Sources */,
 				B43BF17F1D6E48C900E94501 /* TBMethodPickerViewController.m in Sources */,
 				B43BF1821D6E492600E94501 /* TBClassPickerViewController.m in Sources */,
+				B44936F21DA7501F008DB45E /* TBDetailDisclosureCell.m in Sources */,
 				B4B9C7EC1D70D1670025E1FB /* TBValueViewController.m in Sources */,
 				B478B6E21D78CAB9009E7771 /* TBSwitchCell.m in Sources */,
 				B478B6CB1D77D79C009E7771 /* TBColorCell.m in Sources */,
@@ -485,6 +496,7 @@
 				B4B9C7F21D70D3240025E1FB /* TBStringCell.m in Sources */,
 				B43BF17C1D6D7D1800E94501 /* NSMapTable+Subscripting.m in Sources */,
 				B4504CA01D65316E00C4B568 /* TBValue.m in Sources */,
+				B48E37311DA75A16002B9899 /* TBValue+ValueHelpers.m in Sources */,
 				B4504CA31D6535B300C4B568 /* NSScanner+ChirpParser.m in Sources */,
 				B4504C7A1D65230700C4B568 /* AppDelegate.m in Sources */,
 				B4B9C7FE1D70D5D40025E1FB /* TBKeyValuePairCell.m in Sources */,

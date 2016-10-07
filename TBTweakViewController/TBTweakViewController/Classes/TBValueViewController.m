@@ -44,13 +44,6 @@
     self.navigationItem.rightBarButtonItem = set;
     
     // Table view stuff
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTypeCellReuse];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kValueCellReuse];
-    [self.tableView registerClass:[TBAddValueCell class] forCellReuseIdentifier:kAddValueCellReuse];
-    [self.tableView registerClass:[TBChirpCell class] forCellReuseIdentifier:kChirpCellReuse];
-    [self.tableView registerClass:[TBDateCell class] forCellReuseIdentifier:kDateCellReuse];
-    [self.tableView registerClass:[TBNumberCell class] forCellReuseIdentifier:kNumberCellReuse];
-    [self.tableView registerClass:[TBStringCell class] forCellReuseIdentifier:kStringClassSELCellReuse];
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
