@@ -1,5 +1,5 @@
-Package: com.pantsthief.muta
-Name: Muta
+Package: com.pantsthief.swizzle
+Name: Swizzle
 Depends: mobilesubstrate
 Version: 0.0.1
 Architecture: iphoneos-arm

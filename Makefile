@@ -1,11 +1,11 @@
 export TARGET = iphone:latest:latest
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = Muta
+TWEAK_NAME = Swizzle
 Muta_FILES = Tweak.xm
-#Muta_FRAMEWORKS = UIKit
-#Muta_PRIVATE_FRAMEWORKS = ChatKit
-#Muta_CFLAGS = -fobjc-arc
+#Swizzle_FRAMEWORKS = UIKit
+#Swizzle_PRIVATE_FRAMEWORKS = ChatKit
+#Swizzle_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
