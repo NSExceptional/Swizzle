@@ -1,0 +1,25 @@
+PODS:
+  - Masonry (1.0.1)
+  - MirrorKit (1.2.0)
+  - TBAlertController (3.0.1)
+
+DEPENDENCIES:
+  - Masonry
+  - MirrorKit (from `https://github.com/ThePantsThief/MirrorKit.git`)
+  - TBAlertController
+
+EXTERNAL SOURCES:
+  MirrorKit:
+    :git: https://github.com/ThePantsThief/MirrorKit.git
+
+CHECKOUT OPTIONS:
+  MirrorKit:
+    :commit: 6d5a94b6972d2d03c0801c0362b50821289da340
+    :git: https://github.com/ThePantsThief/MirrorKit.git
+
+SPEC CHECKSUMS:
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MirrorKit: 964963791d5efbe197acced933a015094dc30648
+  TBAlertController: cadaec5909aa7af37f4a345fb260ce9b3b0ad0c6
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,15 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+target 'TBTweakViewController' do
+  pod 'MirrorKit', :git => 'https://github.com/ThePantsThief/MirrorKit.git'
+  pod 'TBAlertController', :inhibit_warnings => true
+  pod 'Masonry'
+end
+
+target 'TBTweakViewControllerTests' do
+
+end
+

@@ -1,0 +1,9 @@
+Package: com.pantsthief.muta
+Name: Muta
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Make tweaks from anywhere!
+Maintainer: Tanner Bennett
+Author: Tanner Bennett
+Section: Tweaks
