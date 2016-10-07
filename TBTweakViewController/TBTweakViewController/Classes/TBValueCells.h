@@ -7,9 +7,13 @@
 //
 
 
+// Not a value cell, here anyway
+#import "TBDetailDisclosureCell.h"
+
 #import "TBChirpCell.h"
 #import "TBAddValueCell.h"
 #import "TBStringCell.h"
 #import "TBNumberCell.h"
 #import "TBDateCell.h"
 #import "TBKeyValuePairCell.h"
+#import "TBColorCell.h"

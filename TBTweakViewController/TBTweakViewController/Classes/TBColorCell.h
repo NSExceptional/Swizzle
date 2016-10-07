@@ -7,7 +7,11 @@
 //
 
 #import "TBBaseValueCell.h"
+#import <UIKit/UIColor.h>
+
 
 @interface TBColorCell : TBBaseValueCell
+
+@property (nonatomic) UIColor *color;
 
 @end

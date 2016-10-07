@@ -7,9 +7,12 @@
 //
 
 #import "TBBaseValueCell.h"
+#import "MirrorKit-Constants.h"
+
 
 @interface TBNumberCell : TBBaseValueCell
 
 @property (nonatomic) NSString *text;
+@property (nonatomic) MKTypeEncoding numberType;
 
 @end

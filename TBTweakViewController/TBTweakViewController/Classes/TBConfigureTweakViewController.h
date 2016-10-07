@@ -31,6 +31,4 @@
 @property (nonatomic) TBSwitchCell *overrideArgumentValuesCell;
 @property (nonatomic) TBSwitchCell *overrideWithChirpCell;
 
-@property (nonatomic, readonly) BOOL expertMode;
-
 @end

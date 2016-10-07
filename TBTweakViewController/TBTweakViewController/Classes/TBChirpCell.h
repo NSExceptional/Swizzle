@@ -11,6 +11,7 @@
 
 @interface TBChirpCell : TBBaseValueCell
 
+/// The chirp text.
 @property (nonatomic) NSString *text;
 
 @end

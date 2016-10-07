@@ -20,7 +20,6 @@
     _textField = [[UITextField alloc] initWithFrame:CGRectZero];
     _textField.text = @"";
     self.textField.delegate = self;
-    self.textField.placeholder = @"true, false, yes, no, 5, 3.14…";
     self.textField.autocorrectionType     = UITextAutocorrectionTypeNo;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -45,6 +44,18 @@
 - (void)setText:(NSString *)text {
     self.textField.text = text;
     [self setNeedsUpdateConstraints];
+}
+
+- (void)setNumberType:(MKTypeEncoding)numberType {
+    _numberType = numberType;
+    
+    if (numberType == MKTypeEncodingFloat || numberType == MKTypeEncodingDouble) {
+        self.textField.placeholder = @"3.14159";
+    } else if (numberType == MKTypeEncodingCBool || numberType == MKTypeEncodingChar) {
+        self.textField.placeholder = @"true, false, yes, no";
+    } else {
+        self.textField.placeholder = @"1, 5, 1024";
+    }
 }
 
 #pragma mark UItextFieldDelegate

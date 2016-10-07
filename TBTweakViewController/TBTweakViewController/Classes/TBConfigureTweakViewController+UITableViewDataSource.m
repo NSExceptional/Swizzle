@@ -7,21 +7,23 @@
 //
 
 #import "TBConfigureTweakViewController+UITableViewDataSource.h"
+#import "TBSettings.h"
+#import "TBValue+ValueHelpers.h"
 
 
 #define dequeue dequeueReusableCellWithIdentifier
+#define format(...) [NSString stringWithFormat:__VA_ARGS__]
 #define THEOS 0
 
 NSString * const kTweakTypeCellReuse = @"kTweakTypeCellReuse";
 
-NSString * const kTypeCellReuse     = @"kTypeCellReuse";
-NSString * const kValueCellReuse    = @"kValueCellReuse";
-NSString * const kAddValueCellReuse = @"kAddValueCellReuse";
-NSString * const kChirpCellReuse    = @"kChirpCellReuse";
-NSString * const kDateCellReuse     = @"kDateCellReuse";
-NSString * const kColorCellReuse    = @"kColorCellReuse";
-NSString * const kNumberCellReuse   = @"kNumberCellReuse";
-NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
+NSString * const kDisclosureIndicatorCellReuse = @"kDisclosureIndicatorCellReuse";
+NSString * const kAddValueCellReuse            = @"kAddValueCellReuse";
+NSString * const kChirpCellReuse               = @"kChirpCellReuse";
+NSString * const kDateCellReuse                = @"kDateCellReuse";
+NSString * const kColorCellReuse               = @"kColorCellReuse";
+NSString * const kNumberCellReuse              = @"kNumberCellReuse";
+NSString * const kStringClassSELCellReuse      = @"kStringClassSELCellReuse";
 
 
 @interface TBConfigureTweakViewController ()
@@ -44,8 +46,8 @@ NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
 
 - (void)configureTableViewForCellReuseAndAutomaticRowHeight {
     // Cell classes
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTweakTypeCellReuse];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kValueCellReuse];
+    [self.tableView registerClass:[TBSwitchCell class] forCellReuseIdentifier:kTweakTypeCellReuse];
+    [self.tableView registerClass:[TBDetailDisclosureCell class] forCellReuseIdentifier:kDisclosureIndicatorCellReuse];
     [self.tableView registerClass:[TBChirpCell class] forCellReuseIdentifier:kChirpCellReuse];
     
     // Row height
@@ -154,16 +156,126 @@ NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
 
 #pragma mark Other sections
 
-- (UITableViewCell *)valueDescriptionCellForSection:(NSUInteger)section {
-    if (section == 1 && self.tweakType & TBTweakTypeHookReturnValue) {
-        
+- (UITableViewCell *)valueDescriptionCellForIndexPath:(NSIndexPath *)ip {
+    BOOL hookingReturnValue = self.tweakType & TBTweakTypeHookReturnValue;
+    
+    if (ip.section == 1 && hookingReturnValue) {
+        return [self valueTypePickerCellForValueType:self.hookedReturnValue.type forIndexPath:ip];
     } else {
-        NSInteger offset = self.tweakType & TBTweakTypeHookReturnValue ? 1 : 0;
+        // Offset from first section and return value section if present
+        NSInteger offset = (NSInteger)hookingReturnValue + 1;
+        TBValueType type = self.hookedArguments[ip.row - offset].type;
+        return [self valueTypePickerCellForValueType:type forIndexPath:ip];
     }
 }
 
-- (TBBaseValueCell *)valueCellForSection:(NSUInteger)section {
+- (TBDetailDisclosureCell *)valueTypePickerCellForValueType:(TBValueType)type forIndexPath:(NSIndexPath *)ip {
+    TBDetailDisclosureCell *cell = [self.tableView dequeue:kDisclosureIndicatorCellReuse forIndexPath:ip];
+    cell.detailTextLabel.text = TBStringFromValueType(type);
+    cell.textLabel.text = @"Value Kind";
     
+    return cell;
+}
+
+- (UITableViewCell *)valueCellForValue:(TBValue *)value forIndexPath:(NSIndexPath *)ip {
+    NSString *reuse = [self cellReuseIdentifierForValueCellForValueType:value.type];
+    UITableViewCell *cell = [self.tableView dequeue:reuse forIndexPath:ip];
+    
+    switch (value.type) {
+        case TBValueTypeUnmodified:
+        case TBValueTypeNilValue: {
+            break;
+        }
+        case TBValueTypeChirpValue: {
+            TBChirpCell *celll = (id)cell;
+            celll.text = value.chirpValue;
+            break;
+        }
+        case TBValueTypeClass: {
+            TBStringCell *celll = (id)cell;
+            celll.text = value.classNameValue;
+            break;
+        }
+        case TBValueTypeSelector: {
+            TBStringCell *celll = (id)cell;
+            celll.text = value.selectorValue;
+            break;
+        }
+        case TBValueTypeNumber: {
+            TBNumberCell *celll = (id)cell;
+            celll.text = value.numberValue.description;
+            break;
+        }
+        case TBValueTypeString: {
+            TBStringCell *celll = (id)cell;
+            celll.text = value.stringValue;
+            break;
+        }
+        case TBValueTypeMutableString: {
+            TBStringCell *celll = (id)cell;
+            celll.text = value.mutableStringValue;
+            break;
+        }
+        case TBValueTypeDate: {
+            TBDateCell *celll = (id)cell;
+            celll.date = value.dateValue;
+            break;
+        }
+        case TBValueTypeColor: {
+            TBColorCell *celll = (id)cell;
+            celll.color = value.colorValue;
+            break;
+        }
+        case TBValueTypeArray:
+        case TBValueTypeSet:
+        case TBValueTypeMutableArray:
+        case TBValueTypeMutableSet: {
+            TBDetailDisclosureCell *celll = (id)cell;
+            celll.textLabel.text = @"Edit";
+            celll.detailTextLabel.text = format(@"%lu element(s)", ((NSArray*)value.value).count);
+            break;
+        }
+        case TBValueTypeDictionary:
+        case TBValueTypeMutableDictionary: {
+            TBDetailDisclosureCell *celll = (id)cell;
+            celll.textLabel.text = @"Edit";
+            celll.detailTextLabel.text = format(@"%lu key-value pair(s)", ((NSArray*)value.value).count);
+            break;
+        }
+    }
+    
+    return cell;
+}
+
+- (NSString *)cellReuseIdentifierForValueCellForValueType:(TBValueType)type {
+    switch (type) {
+        case TBValueTypeUnmodified:
+        case TBValueTypeNilValue:
+            return nil;
+        case TBValueTypeChirpValue:
+            return kChirpCellReuse;
+        case TBValueTypeClass:
+            return kStringClassSELCellReuse;
+        case TBValueTypeSelector:
+            return kStringClassSELCellReuse;
+        case TBValueTypeNumber:
+            return kNumberCellReuse;
+        case TBValueTypeString:
+            return kStringClassSELCellReuse;
+        case TBValueTypeMutableString:
+            return kStringClassSELCellReuse;
+        case TBValueTypeDate:
+            return kDateCellReuse;
+        case TBValueTypeColor:
+            return kColorCellReuse;
+        case TBValueTypeArray:
+        case TBValueTypeDictionary:
+        case TBValueTypeSet:
+        case TBValueTypeMutableArray:
+        case TBValueTypeMutableSet:
+        case TBValueTypeMutableDictionary:
+            return kDisclosureIndicatorCellReuse;
+    }
 }
 
 #pragma mark Toggling sections
@@ -180,14 +292,14 @@ NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
 
 - (void)didToggleHookReturnValueCellState:(BOOL)on {
     NSInteger desired = on ? 2 : 1;
-    if (self.expertMode && self.overrideArgumentValuesCell.switchh.isOn) {
+    if (TBSettings.expertMode && self.overrideArgumentValuesCell.switchh.isOn) {
         desired += self.tweak.hook.method.numberOfArguments;
     }
     NSInteger sectionDifference = self.totalNumberOfSections - desired;
     
     TBTweakType newType = TBTweakTypeHookReturnValue;
     self.overrideWithChirpCell.switchh.on = NO;
-    if (!self.expertMode) {
+    if (!TBSettings.expertMode) {
         self.overrideArgumentValuesCell.switchh.on = NO;
     }
     else if (self.overrideArgumentValuesCell.switchh.isOn) {
@@ -200,14 +312,14 @@ NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
 
 - (void)didToggleHookArgumentValuesCellState:(BOOL)on {
     NSInteger desired = on ? 1 + self.tweak.hook.method.numberOfArguments : 1;
-    if (self.expertMode && self.overrideReturnValueCell.switchh.isOn) {
+    if (TBSettings.expertMode && self.overrideReturnValueCell.switchh.isOn) {
         desired += 1;
     }
     NSInteger sectionDifference = self.totalNumberOfSections - desired;
     
     TBTweakType newType = TBTweakTypeHookArguments;
     self.overrideWithChirpCell.switchh.on = NO;
-    if (!self.expertMode) {
+    if (!TBSettings.expertMode) {
         self.overrideReturnValueCell.switchh.on = NO;
     }
     else if (self.overrideReturnValueCell.switchh.isOn) {
@@ -222,10 +334,12 @@ NSString * const kStringClassSELCellReuse = @"kStringClassSELCellReuse";
     if (sectionDifference > 0) {
         NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(total, sectionDifference)];
         [self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else if (sectionDifference == 0) {
+    }
+    else if (sectionDifference == 0) {
         NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, total-1)];
         [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else {
+    }
+    else {
         NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, labs(sectionDifference))];
         [self.tableView insertSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
     }
