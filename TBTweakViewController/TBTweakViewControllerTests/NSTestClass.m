@@ -24,6 +24,14 @@
     return arg1 && arg2 && arg3 ? arg1 : nil;
 }
 
+- (Twenty)returnsAndTakesAnonymousStructs:(Six)s {
+    Twenty t;
+    t.a = s.a;
+    t.b = s.b;
+    t.c = s.c;
+    return t;
+}
+
 + (NSInteger)classLength {
     return 10;
 }

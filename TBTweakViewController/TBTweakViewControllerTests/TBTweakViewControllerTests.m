@@ -78,7 +78,7 @@
 
 - (void)testHookReturnValue_primitive {
     TBTweak *tweak = Tweak(NSTestClass, length);
-    tweak.hook.hookedReturnValue = [TBValue value:@1337];
+    tweak.hook.hookedReturnValue = [TBValue value:@1337 type:TBValueTypeInteger];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
@@ -96,7 +96,7 @@
 - (void)testHookReturnValue_object {
     TBTweak *tweak = Tweak(NSString, lastPathComponent);
     XCTAssertNotNil(tweak);
-    tweak.hook.hookedReturnValue = [TBValue value:@"foo"];
+    tweak.hook.hookedReturnValue = [TBValue value:@"foo" type:TBValueTypeString];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
@@ -120,7 +120,7 @@
     
     TBTweak *tweak = Tweak(NSTestClass, frame);
     XCTAssertTrue(tweak.hook.canOverrideReturnValue);
-    tweak.hook.hookedReturnValue = [TBValue value:[NSValue valueWithCGRect:r]];
+    tweak.hook.hookedReturnValue = [TBValue value:[NSValue valueWithCGRect:r] structType:TBStructTypeRect];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
@@ -139,7 +139,7 @@
     id val = [NSDate date];
     id param = @"foo";
     TBTweak *tweak = Tweak(NSTestClass, multiple:param:method:);
-    tweak.hook.hookedArguments = @[[TBValue value:val], [TBValue orig], [TBValue orig]];
+    tweak.hook.hookedArguments = @[[TBValue value:val type:TBValueTypeDate], [TBValue orig], [TBValue orig]];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
@@ -157,7 +157,7 @@
 
 - (void)testHookSecondArgument {
     TBTweak *tweak = Tweak(NSTestClass, multiple:param:method:);
-    tweak.hook.hookedArguments = @[[TBValue orig], [TBValue value:@NO], [TBValue orig]];
+    tweak.hook.hookedArguments = @[[TBValue orig], [TBValue value:@NO type:TBValueTypeInteger], [TBValue orig]];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
@@ -191,7 +191,7 @@
 
 - (void)testHookClassMethod {
     TBTweak *tweak = ClassTweak(NSTestClass, classLength);
-    tweak.hook.hookedReturnValue = [TBValue value:@8];
+    tweak.hook.hookedReturnValue = [TBValue value:@8 type:TBValueTypeInteger];
     
     // Enable and test
     [tweak tryEnable:^(NSError * _Nonnull error) {
