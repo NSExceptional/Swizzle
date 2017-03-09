@@ -10,13 +10,19 @@
 #import "TBValue.h"
 
 
-NSInvocation * _Nonnull TBInvocationFromArguments(NSMethodSignature * _Nonnull signature, NSArray<TBValue*> * _Nonnull args);
-BOOL TBCanHookMethodReturnType(MKMethod * _Nonnull method);
-BOOL TBCanHookAllArgumentTypes(MKMethod * _Nonnull method);
-
 NS_ASSUME_NONNULL_BEGIN
+
+NSInvocation * TBInvocationFromArguments(NSMethodSignature *signature, NSArray<TBValue*> *args);
+IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
+
+/// Helper class used by TBTweak to toggle the state of a method hook.
+/// Two TBMethodHooks are considered equal if the following property key-paths are equal:
+/// `isClassMethod`, `canOverrideReturnValue`, `canOverrideAllArgumentValues`, `method.selectorString`
 @interface TBMethodHook : NSObject <NSCoding>
 
+/// @param cls The target class to hook.
+/// @param selector The selector of the method to hook. Must be registered with the runtime.
+/// @param classMethod `YES` if the method is a class method, `NO` for instance methods.
 + (instancetype)target:(Class)cls action:(SEL)selector isClassMethod:(BOOL)classMethod;
 
 @property (nonatomic, readonly) BOOL canOverrideReturnValue;
@@ -31,19 +37,39 @@ NS_ASSUME_NONNULL_BEGIN
 /// A reference to the original implementation of the method.
 @property (nonatomic, readonly) IMP originalImplementation;
 
-/// May leave nil to use original return value.
-/// `hookedArguments` and `chirpString` are set to nil when this property is set.
+/// @brief May leave nil to use original return value.
+///
+/// @discussion Hooking the return value will completely replace the method implementation,
+/// which means if the original method does anything other than compute and return a value,
+/// that code will not be executed. In the future I will provide a mechanism to choose whether
+/// or not the original method be invoked before returning a value.
+///
+/// @note `hookedArguments` and `chirpString` are set to nil when this property is set.
 @property (nonatomic, nullable, copy) TBValue *hookedReturnValue;
-/// Each argument must be present to hook any arguments.
-/// `hookedReturnValue` and `chirpString` are set to nil when this property is set.
+
+/// @brief Use [TBValue orig] to leave an argument unmodified if you only wish to hook some arguments.
+///
+/// @discussion Each argument must be present to hook any arguments. Behavior is undefined
+/// if this array has fewer arguments than the method takes, excluding `self` and `_cmd` which
+/// are implicit parameters to every method call. In the future I will provide a property
+/// called `fullyHookedArguments` or something to allow overriding `self` and `_cmd` as well.
+///
+/// @note `hookedReturnValue` and `chirpString` are set to nil when this property is set.
 @property (nonatomic, nullable, copy) NSArray<TBValue*> *hookedArguments;
 
-/// `hookedReturnValue` and `hookedArguments` are set to nil when this property is set.
-/// @discussion You can set this property to an empty string to make the method
-/// not do anything.
+/// @brief The Chirp language implementation for the method.
+///
+/// @discussion Chirp is a simple runtime-interpreted language I'm writing to
+/// allow overriding specific types or entire methods. You can set this property
+/// to an empty string to make the method not do anything.
+///
+/// @warning I have not implemented or documented Chirp yet so the only thing you can use this
+/// for is to make the method do nothing by providing an empty string.
+/// @note `hookedReturnValue` and `hookedArguments` are set to nil when this property is set.
 @property (nonatomic, nullable, copy) NSString *chirpString;
 
-/// Block takes the new implementation and an error indicating why the implementation may be null.
+/// @brief Block takes the new implementation OR an error indicating why the implementation may be null if it is nil.
+/// At least one parameter will not be nil.
 - (void)getImplementation:(void(^)(IMP _Nullable implementation,  NSError * _Nullable error))implementationHandler;
 
 @end
