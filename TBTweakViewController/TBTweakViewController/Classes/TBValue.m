@@ -7,101 +7,120 @@
 //
 
 #import "TBValue.h"
+#import <UIKit/UIColor.h>
 
-
-extern NSString * TBStringFromValueType(TBValueType type) {
-    switch (type) {
-        case TBValueTypeUnmodified: {
-            return @"Unmodified";
-        }
-        case TBValueTypeNilValue: {
-            return @"nil / NULL";
-        }
-        case TBValueTypeChirpValue: {
-            return @"Return value of Chirp function";
-        }
-        case TBValueTypeClass: {
-            return @"Class object";
-        }
-        case TBValueTypeSelector: {
-            return @"Selector (SEL)";
-        }
-        case TBValueTypeNumber: {
-            return @"Number (NSNumber, BOOL, int, etc)";
-        }
-        case TBValueTypeString: {
-            return @"String (NSString, char *)";
-        }
-        case TBValueTypeMutableString: {
-            return @"NSMutableString";
-        }
-        case TBValueTypeDate: {
-            return @"NSDate";
-        }
-        case TBValueTypeColor: {
-            return @"UIColor";
-        }
-        case TBValueTypeArray: {
-            return @"NSArray";
-        }
-        case TBValueTypeDictionary: {
-            return @"NSDictionary";
-        }
-        case TBValueTypeSet: {
-            return @"NSSet";
-        }
-        case TBValueTypeMutableArray: {
-            return @"NSMutableArray";
-        }
-        case TBValueTypeMutableSet: {
-            return @"NSMutableSet";
-        }
-        case TBValueTypeMutableDictionary: {
-            return @"NSMutableDictionary";
-        }
-    }
-}
-
-extern BOOL TBValueTypeIsCollection(TBValueType type) {
-    switch (type) {
-        case TBValueTypeUnmodified:
-        case TBValueTypeNilValue:
-        case TBValueTypeChirpValue:
-        case TBValueTypeClass:
-        case TBValueTypeSelector:
-        case TBValueTypeNumber:
-        case TBValueTypeString:
-        case TBValueTypeMutableString:
-        case TBValueTypeDate:
-        case TBValueTypeColor:
-            return NO;
-        case TBValueTypeArray:
-        case TBValueTypeDictionary:
-        case TBValueTypeSet:
-        case TBValueTypeMutableArray:
-        case TBValueTypeMutableSet:
-        case TBValueTypeMutableDictionary:
-            return YES;
-    }
-}
 
 @implementation TBValue
 
 #pragma mark Initialization
 
-+ (instancetype)orig { return [self new]; }
++ (instancetype)orig {
+    static TBValue *sharedValue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedValue = [self new];
+    });
+    
+    return sharedValue;
+}
 
 + (instancetype)null {
-    TBValue *value = [TBValue new];
-    value->_overriden = YES;
-    return value;
+    static TBValue *sharedValue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedValue = [self new];
+        sharedValue->_overriden = YES;
+        sharedValue->_type = TBValueTypeNilValue;
+    });
+    
+    return sharedValue;
 }
 
 + (instancetype)value:(id)v type:(TBValueType)t {
-    TBValue *value = [TBValue null];
-    value->_value  = v;
-    value->_type   = t;
+    if (t == TBValueTypeStruct) @throw NSInvalidArgumentException;
+
+    TBValue *value    = [self new];
+    value->_overriden = YES;
+    value->_value     = v;
+    value->_type      = t;
+
+    if ([v isKindOfClass:[NSValue class]]) {
+        value->_structValue = TBStructFromNSValue(TBStructTypePrimitiveValue, v);
+    } else {
+        value->_structValue.object = (__bridge void *)v;
+    }
+    
     return value;
+}
+
++ (instancetype)value:(NSValue *)v structType:(TBStructType)structType {
+    if (structType == TBStructTypeNotStruct) @throw NSInvalidArgumentException;
+
+    TBValue *value      = [self new];
+    value->_overriden   = YES;
+    value->_value       = v;
+    value->_type        = TBValueTypeStruct;
+    value->_structType  = structType;
+    value->_structValue = TBStructFromNSValue(structType, v);
+    return value;
+}
+
++ (instancetype)defaultForValueType:(TBValueType)type {
+    switch (type) {
+        case TBValueTypeUnmodified: {
+            return [self orig];
+        }
+        case TBValueTypeNilValue: {
+            return [self null];
+        }
+        case TBValueTypeChirpValue: {
+            return [self value:@"" type:type];
+        }
+        case TBValueTypeClass: {
+            return [self value:[NSObject class] type:type];
+        }
+        case TBValueTypeSelector: {
+            return [self value:[NSValue valueWithPointer:"foo:bar:"] type:type];
+        }
+        case TBValueTypeFloat:
+        case TBValueTypeDouble:
+        case TBValueTypeInteger: {
+            return [self value:@1 type:type];
+        }
+        case TBValueTypeString: {
+            return [self value:@"foo" type:type];
+        }
+        case TBValueTypeMutableString: {
+            return [self value:@"foo".mutableCopy type:type];
+        }
+        case TBValueTypeDate: {
+            return [self value:[NSDate date] type:type];
+        }
+        case TBValueTypeColor: {
+            return [self value:[UIColor redColor] type:type];
+        }
+        case TBValueTypeArray: {
+            return [self value:@[] type:type];
+        }
+        case TBValueTypeDictionary: {
+            return [self value:@{} type:type];
+        }
+        case TBValueTypeSet: {
+            return [self value:[NSSet set] type:type];
+        }
+        case TBValueTypeMutableArray: {
+            return [self value:[NSMutableArray array] type:type];
+        }
+        case TBValueTypeMutableSet: {
+            return [self value:[NSMutableSet set] type:type];
+        }
+        case TBValueTypeMutableDictionary: {
+            return [self value:[NSMutableDictionary dictionary] type:type];
+        }
+        case TBValueTypeStruct:
+            @throw NSInvalidArgumentException;
+            return nil;
+    }
 }
 
 - (NSString *)description {
@@ -138,7 +157,7 @@ extern BOOL TBValueTypeIsCollection(TBValueType type) {
 #pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    TBValue *val    = [[self class] orig];
+    TBValue *val    = [[self class] new];
     val->_overriden = self.overriden;
     val->_value     = self.value;
     val->_type      = self.type;

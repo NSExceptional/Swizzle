@@ -29,7 +29,11 @@
 }
 
 - (NSNumber *)numberValue {
-    assertType(TBValueTypeNumber);
+    if (self.type != TBValueTypeFloat || self.type != TBValueTypeDouble || self.type != TBValueTypeInteger) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
+    }
+    
     return (NSNumber *)self.value;
 }
 
