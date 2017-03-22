@@ -28,8 +28,35 @@
     return (NSString *)self.value;
 }
 
+- (NSNumber *)integerValue {
+    if (self.type != TBValueTypeInteger) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
+    }
+
+    return (NSNumber *)self.value;
+}
+
+- (NSNumber *)floatValue {
+    if (self.type != TBValueTypeFloat) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
+    }
+
+    return (NSNumber *)self.value;
+}
+
+- (NSNumber *)doubleValue {
+    if (self.type != TBValueTypeDouble) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
+    }
+
+    return (NSNumber *)self.value;
+}
+
 - (NSNumber *)numberValue {
-    if (self.type != TBValueTypeFloat || self.type != TBValueTypeDouble || self.type != TBValueTypeInteger) {
+    if (self.type != TBValueTypeFloat && self.type != TBValueTypeDouble && self.type != TBValueTypeInteger) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
     }

@@ -8,6 +8,7 @@
 
 #import "TBValue.h"
 #import <UIKit/UIColor.h>
+#import "MirrorKit-Constants.h"
 
 
 @implementation TBValue
@@ -79,6 +80,9 @@
         case TBValueTypeClass: {
             return [self value:[NSObject class] type:type];
         }
+        case TBValueTypeObject: {
+            return [self null];
+        }
         case TBValueTypeSelector: {
             return [self value:[NSValue valueWithPointer:"foo:bar:"] type:type];
         }
@@ -123,6 +127,23 @@
     }
 }
 
++ (instancetype)defaultValueForStruct:(const char *)encoding {
+    return [self value:TBDefaultValueForStruct(encoding) structType:TBStructTypeFromTypeEncoding(encoding)];
+}
+
++ (instancetype)defaultValueForTypeEncoding:(const char *)encoding {
+    TBValueType type = TBValueTypeFromTypeEncoding(encoding);
+    if (type == TBValueTypeStruct) {
+        return [self defaultValueForStruct:encoding];
+    } else {
+        return [self defaultForValueType:type];
+    }
+}
+
++ (instancetype)defaultForAgumentAtIndex:(NSUInteger)idx ofMethodWith:(NSMethodSignature *)signature {
+    return [self defaultValueForTypeEncoding:[signature getArgumentTypeAtIndex:idx]];
+}
+
 - (NSString *)description {
     if (self.overriden) {
         if (self.value) {
@@ -133,6 +154,10 @@
     } else {
         return @"Unmodified";
     }
+}
+
+- (BOOL)notOverridden {
+    return !_overriden;
 }
 
 #pragma mark NSCoding

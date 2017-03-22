@@ -19,6 +19,9 @@
 @property (nonatomic, readonly) NSString *classNameValue;
 @property (nonatomic, readonly) NSString *selectorValue;
 @property (nonatomic, readonly) NSNumber *numberValue;
+@property (nonatomic, readonly) NSNumber *integerValue;
+@property (nonatomic, readonly) NSNumber *floatValue;
+@property (nonatomic, readonly) NSNumber *doubleValue;
 @property (nonatomic, readonly) NSString *stringValue;
 @property (nonatomic, readonly) NSMutableString *mutableStringValue;
 @property (nonatomic, readonly) NSDate *dateValue;

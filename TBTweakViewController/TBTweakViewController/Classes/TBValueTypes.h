@@ -9,6 +9,9 @@
 #import <UIKit/UIGeometry.h>
 #import <QuartzCore/QuartzCore.h>
 #import <CoreMedia/CoreMedia.h>
+#import "MirrorKit-Constants.h"
+
+@class TBValue, EnumSet;
 
 typedef NS_ENUM(NSUInteger, TBValueType)
 {
@@ -16,6 +19,7 @@ typedef NS_ENUM(NSUInteger, TBValueType)
     TBValueTypeNilValue,
     TBValueTypeChirpValue,
     TBValueTypeClass,
+    TBValueTypeObject,
     TBValueTypeSelector,
     TBValueTypeFloat,
     TBValueTypeDouble,
@@ -52,7 +56,7 @@ typedef NS_OPTIONS(NSUInteger, TBStructType)
     TBStructTypeCGAffineTransform = 1 << 11,
     TBStructTypeCATransform3D     = 1 << 12,
 
-    TBStructTypePrimitiveValue    = 1 << 31
+    TBStructTypePrimitiveValue    = 1 << 30
 };
 
 typedef union _TBStruct {
@@ -72,12 +76,23 @@ typedef union _TBStruct {
     NSRange range;
     CGAffineTransform transform;
     CATransform3D transform3D;
+    struct {
+        NSUInteger a, b, c, d;
+    } quadNSInteger;
 } TBStruct;
 
-/// Calls into TBStringFromValueType if structType != TBValueTypeStruct, else calls into TBStringFromStructType.
-extern NSString * TBStringFromValueOrStructType(TBValueType type, TBStructType structType);
-extern NSString * TBStringFromValueType(TBValueType type);
-extern NSString * TBStringFromStructType(TBStructType type);
 extern BOOL TBValueTypeIsCollection(TBValueType type);
+extern BOOL TBCanChangeType(MKTypeEncoding encoding);
 
+extern NSString * TBStringFromValueType(TBValueType type);
+extern NSString * TBStringFromValueOrStructType(TBValueType type, TBStructType structType);
+extern NSString * TBStringFromStruct(TBValue *value);
+
+extern TBValueType TBValueTypeFromTypeEncoding(const char *encoding);
+extern TBStructType TBStructTypeFromTypeEncoding(const char *encoding);
+extern TBStruct TBDefaultValueForStructType(TBStructType type);
+extern NSValue * TBNSValueFromStruct(TBStruct structt, TBStructType type);
+extern NSValue * TBDefaultValueForStruct(const char *encoding);
 extern TBStruct TBStructFromNSValue(TBStructType type, NSValue *value);
+
+extern EnumSet * TBAllowedTypesForEncoding(MKTypeEncoding encoding);

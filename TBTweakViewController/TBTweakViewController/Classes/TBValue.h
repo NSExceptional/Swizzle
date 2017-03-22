@@ -50,8 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)defaultForAgumentAtIndex:(NSUInteger)idx ofMethodWith:(NSMethodSignature *)signature;
 
++ (instancetype)defaultValueForTypeEncoding:(const char *)encoding;
+
 /// Only `NO` if you use +new or +orig to initialize
 @property (nonatomic, readonly) BOOL overriden;
+@property (nonatomic, readonly) BOOL notOverridden;
 @property (nonatomic, readonly) id<NSObject, NSCoding> value;
 @property (nonatomic, readonly) TBValueType type;
 @property (nonatomic, readonly) TBStructType structType;
@@ -61,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-inline void TBValueMemcpyIfOverride(TBValue *value, void *dest, ssize_t byteCount) {
+static inline void TBValueMemcpyIfOverride(TBValue *value, void *dest, ssize_t byteCount) {
     if (value.overriden) {
         memcpy(dest, &value->_structValue, byteCount);
     }
