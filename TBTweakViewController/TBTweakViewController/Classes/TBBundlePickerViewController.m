@@ -52,10 +52,9 @@ static NSMutableDictionary<NSString*,NSString*> *longNamesToShortNames;
     self.searchBar.placeholder = @"Filter";
     [self.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchBar;
-    
+
     // Cancel button
-    id cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                              target:self.navigationController action:@selector(dismissAnimated)];
+    id cancel = [UIBarButtonItem item:UIBBItemCancel target:self.navigationController action:@selector(dismissAnimated)];
     self.navigationItem.leftBarButtonItem = cancel;
     
     // Table view stuff
