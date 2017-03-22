@@ -10,6 +10,8 @@
 #import "TBTweakListViewController.h"
 #import "TBTweakManager.h"
 
+#import "UIViewController+Convenience.h"
+
 
 @implementation TBTweakRootViewController
 
@@ -21,8 +23,8 @@
             manager.systemTweaksTableViewController) {
             self.viewControllers = @[manager.appTweaksTableViewController, manager.systemTweaksTableViewController];
         } else {
-            self.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:[TBTweakListViewController appTweaks]],
-                                     [[UINavigationController alloc] initWithRootViewController:[TBTweakListViewController systemTweaks]]];
+            self.viewControllers = @[[TBTweakListViewController appTweaks].inNavController,
+                                     [TBTweakListViewController systemTweaks].inNavController];
             manager.appTweaksTableViewController = [self.viewControllers[0] viewControllers][0];
             manager.systemTweaksTableViewController = [self.viewControllers[1] viewControllers][0];
         }

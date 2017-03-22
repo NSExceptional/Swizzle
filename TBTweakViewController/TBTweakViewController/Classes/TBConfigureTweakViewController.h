@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TBTweak.h"
-@class TBSwitchCell;
+@class TBSectionController, TBTweakTypeSectionController;
+@class TBReturnValueHookSectionController, TBSwitchCell;
 
 
 /// Used to edit the configuration of a tweak, existing or new.
@@ -20,15 +21,15 @@
 // Internal
 
 @property (nonatomic, readonly) TBTweak *tweak;
-@property (nonatomic) TBTweakType tweakType;
-@property (nonatomic, copy) void (^saveAction)();
+@property (nonatomic          ) TBTweakType tweakType;
+@property (nonatomic, copy    ) void (^saveAction)();
 
 @property (nonatomic) TBValue *hookedReturnValue;
 @property (nonatomic) NSMutableArray<TBValue*> *hookedArguments;
 @property (nonatomic) NSString *chirpString;
 
-@property (nonatomic) TBSwitchCell *overrideReturnValueCell;
-@property (nonatomic) TBSwitchCell *overrideArgumentValuesCell;
-@property (nonatomic) TBSwitchCell *overrideWithChirpCell;
+@property (nonatomic, readonly) TBTweakTypeSectionController *tweakTypeSectionController;
+@property (nonatomic, readonly) TBReturnValueHookSectionController *returnValueHookSectionController;
+@property (nonatomic, readonly) NSMutableArray<TBSectionController*> *dynamicSectionControllers;
 
 @end

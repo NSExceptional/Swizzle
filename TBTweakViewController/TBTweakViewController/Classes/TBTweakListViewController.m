@@ -9,6 +9,7 @@
 #import "TBTweakListViewController.h"
 #import "TBBundlePickerViewController.h"
 #import "TBConfigureTweakViewController.h"
+#import "Categories.h"
 
 #import "TBTweakManager.h"
 #import "TBTweakCell.h"
@@ -24,7 +25,7 @@
 
 + (instancetype)appTweaks {
     TBTweakListViewController *me = [self new];
-    me.tabBarItem.image = [self appsTabImage];
+    me.tabBarItem.image = [UIImage appsTabImage];
     me.tabBarItem.title = @"Local Tweaks";
     return me;
 }
@@ -32,43 +33,20 @@
 + (instancetype)systemTweaks {
     TBTweakListViewController *me = [self new];
     
-    me.tabBarItem.image = [self systemTabImage];
+    me.tabBarItem.image = [UIImage systemTabImage];
     me.tabBarItem.title = @"System Tweaks";
     me->_isSystemTab = YES;
     return me;
-}
-
-#define THEOS 0
-+ (NSBundle *)bundleForImages {
-    return [NSBundle bundleForClass:[self class]];
-}
-
-+ (UIImage *)appsTabImage {
-#if THEOS
-    NSString *imagePath = [[self bundleForImages] pathForResource:@"tab_app" ofType:@"png"];
-    return [UIImage imageWithContentsOfFile:imagePath];
-#else
-    return [UIImage imageNamed:@"tab_app"];
-#endif
-}
-
-+ (UIImage *)systemTabImage {
-#if THEOS
-    NSString *imagePath = [[self bundleForImages] pathForResource:@"tab_system" ofType:@"png"];
-    return [UIImage imageWithContentsOfFile:imagePath];
-#else
-    return [UIImage imageNamed:@"tab_system"];
-#endif
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Bar buttons
-    id add  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTweak)];
-    id done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                            target:self.navigationController.tabBarController
-                                                            action:@selector(dismissViewControllerAnimated:completion:)];
+    UITabBarController *tabBarController = self.navigationController.tabBarController;
+    id add = [UIBarButtonItem item:UIBBItemAdd target:self action:@selector(addTweak)];
+    id done = [UIBarButtonItem item:UIBBItemDone target:tabBarController action:@selector(dismissAnimated)];
+
     self.navigationItem.leftBarButtonItem  = done;
     self.navigationItem.rightBarButtonItem = add;
     
@@ -83,8 +61,7 @@
 
 - (void)addTweak {
     [TBTweakManager sharedManager].nextTweakIsSystemTweak = self.isSystemTab;
-    id nav = [[UINavigationController alloc] initWithRootViewController:[TBBundlePickerViewController new]];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self presentViewController:[TBBundlePickerViewController new].inNavController animated:YES completion:nil];
 }
 
 @end
