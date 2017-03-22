@@ -19,10 +19,11 @@ NSCharacterSet *HFACharacters;
 void TBMethodStoreInit() {
     #define TBRetain(value) (__bridge id)(__bridge_retained CFTypeRef)value;
 
+    NSPointerFunctionsOptions options = NSPointerFunctionsIntegerPersonality | NSPointerFunctionsOpaqueMemory;
     HFACharacters = [NSCharacterSet characterSetWithCharactersInString:@"df"];
     methodStore.typeEncodings = TBRetain([NSMutableDictionary dictionary]);
-    methodStore.lookup = TBRetain([NSHashTable hashTableWithOptions:NSPointerFunctionsOpaqueMemory]);
-    methodStore.storage = TBRetain([NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory
+    methodStore.lookup = TBRetain([NSHashTable hashTableWithOptions:options]);
+    methodStore.storage = TBRetain([NSMapTable mapTableWithKeyOptions:options
                                                 valueOptions:NSPointerFunctionsObjectPersonality]);
 }
 
@@ -31,6 +32,11 @@ void TBMethodStoreInit() {
 void TBMethodStorePut(Method key, TBMethodHook *value) {
     [methodStore.lookup addObject:(__bridge id)key];
     [methodStore.storage setObject:value forKey:(__bridge id)key];
+}
+
+void TBMethodStoreRemove(Method key) {
+    [methodStore.lookup removeObject:(__bridge id)key];
+    [methodStore.storage removeObjectForKey:(__bridge id)key];
 }
 
 //inline TBMethodInfo * TBMethodStoreGet(Method method) {

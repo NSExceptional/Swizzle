@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "TBMethodStore.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+        TBMethodStoreInit();
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
