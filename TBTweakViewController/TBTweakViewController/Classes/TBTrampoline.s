@@ -64,7 +64,7 @@ landing_func_call:
     // Maybe skip restore Floating-point registers
     movz    x9, #0
     cmp     x4, x9
-    b.e     restore_gp_registers
+    b.eq    restore_gp_registers
 
     // Restore Floating-point registers
     ldp     s0, s1, [sp], #16

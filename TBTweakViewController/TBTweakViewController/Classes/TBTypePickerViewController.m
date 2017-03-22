@@ -7,7 +7,6 @@
 //
 
 #import "TBTypePickerViewController.h"
-#import "TBTypePickerViewControllerDataSource.h"
 #import "TBConfigureTweakViewController+Protocols.h"
 #import "TBValueCells.h"
 #import "UITableView+Convenience.h"
