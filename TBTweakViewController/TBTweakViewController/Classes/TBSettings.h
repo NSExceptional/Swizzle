@@ -10,9 +10,11 @@
 
 
 /// A class to abstract the rest of the app from
-/// relying on NSUserDefaults for preferences.
+/// relying on NSUserDefaults for in-app tweaks,
+/// and outside storage for global tweaks.
 @interface TBSettings : NSObject
 
 @property (nonatomic, readonly, class) BOOL expertMode;
+@property (nonatomic, readonly, class) BOOL chirpEnabled;
 
 @end

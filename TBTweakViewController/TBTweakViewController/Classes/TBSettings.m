@@ -11,9 +11,13 @@
 
 @implementation TBSettings
 
-static BOOL _expertMode;
+static BOOL _expertMode = NO;
 + (BOOL)expertMode {
     return _expertMode;
+}
+
++ (BOOL)chirpEnabled {
+    return NO;
 }
 
 @end
