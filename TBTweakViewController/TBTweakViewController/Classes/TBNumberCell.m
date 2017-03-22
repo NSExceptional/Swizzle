@@ -7,44 +7,11 @@
 //
 
 #import "TBNumberCell.h"
-#import "Masonry.h"
 
-
-@interface TBNumberCell () <UITextFieldDelegate>
-@property (nonatomic) UITextField *textField;
-@end
 
 @implementation TBNumberCell
 
-- (void)initSubviews {
-    _textField = [[UITextField alloc] initWithFrame:CGRectZero];
-    _textField.text = @"";
-    self.textField.delegate = self;
-    self.textField.autocorrectionType     = UITextAutocorrectionTypeNo;
-    self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.textField.keyboardType = UIKeyboardTypeDecimalPad;
-    
-    [self.contentView addSubview:self.textField];
-}
-
-- (void)updateConstraints {
-    [super updateConstraints];
-    
-    [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(11, 16, 11, 0));
-    }];
-}
-
 #pragma mark Public interface
-
-- (NSString *)text {
-    return self.textField.text;
-}
-
-- (void)setText:(NSString *)text {
-    self.textField.text = text;
-    [self setNeedsUpdateConstraints];
-}
 
 - (void)setNumberType:(MKTypeEncoding)numberType {
     _numberType = numberType;
@@ -54,15 +21,11 @@
     } else if (numberType == MKTypeEncodingCBool || numberType == MKTypeEncodingChar) {
         self.textField.placeholder = @"true, false, yes, no";
     } else {
-        self.textField.placeholder = @"1, 5, 1024";
+        self.textField.placeholder = @"1048576";
     }
 }
 
-#pragma mark UItextFieldDelegate
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.delegate.currentResponder = textField;
-}
+#pragma mark UITextFieldDelegate overrides
 
 - (BOOL)textField:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     static NSCharacterSet *disallowedCharacters = nil;
@@ -75,16 +38,17 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    [super textFieldDidEndEditing:textField];
+    
     NSNumber *number = nil;
     if ([self.textField.text.lowercaseString hasPrefix:@"y"] ||
         [self.textField.text.lowercaseString hasPrefix:@"t"]) {
         number = @YES;
     } else {
-        number = [NSNumber numberWithFloat:MAX(self.text.floatValue, self.text.integerValue)];
+        number = [NSNumber numberWithFloat:MAX(self.text.doubleValue, self.text.integerValue)];
     }
     
     self.delegate.number = number;
-    self.delegate.currentResponder = nil;
 }
 
 @end

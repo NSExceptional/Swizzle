@@ -6,16 +6,9 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBBaseValueCell.h"
+#import "TBTextViewCell.h"
 
 
-@interface TBStringCell : TBBaseValueCell
-
-@property (nonatomic) NSString *text;
-
-@property (nonatomic, readonly) TBValue *stringValue;
-@property (nonatomic, readonly) TBValue *numberValue;
-@property (nonatomic, readonly) TBValue *selectorValue;
-@property (nonatomic, readonly) TBValue *classValue;
+@interface TBStringCell : TBTextViewCell
 
 @end

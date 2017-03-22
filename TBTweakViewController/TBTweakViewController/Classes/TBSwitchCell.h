@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBTableViewCell.h"
 
 
-@interface TBSwitchCell : UITableViewCell
+@interface TBSwitchCell : TBTableViewCell
 
 @property (nonatomic, readonly) UISwitch *switchh;
 @property (nonatomic, copy) void (^switchToggleAction)(BOOL on);

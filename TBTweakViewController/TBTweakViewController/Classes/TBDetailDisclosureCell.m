@@ -7,22 +7,20 @@
 //
 
 #import "TBDetailDisclosureCell.h"
+#import "Categories.h"
 
 
 @implementation TBDetailDisclosureCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self awakeFromNib];
-    }
-    
-    return self;
++ (UITableViewCellStyle)defaultStyle {
+    return UITableViewCellStyleValue1;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+- (void)initSubviews {
+    [super initSubviews];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    self.detailTextLabel.font = UIFont.codeFont;
 }
 
 @end

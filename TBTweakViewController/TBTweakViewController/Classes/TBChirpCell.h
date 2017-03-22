@@ -6,12 +6,9 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBBaseValueCell.h"
+#import "TBStringCell.h"
 
 
-@interface TBChirpCell : TBBaseValueCell
-
-/// The chirp text.
-@property (nonatomic) NSString *text;
+@interface TBChirpCell : TBStringCell
 
 @end

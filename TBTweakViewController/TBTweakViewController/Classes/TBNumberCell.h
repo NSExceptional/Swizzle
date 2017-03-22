@@ -6,13 +6,12 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBBaseValueCell.h"
+#import "TBTextFieldCell.h"
 #import "MirrorKit-Constants.h"
 
 
-@interface TBNumberCell : TBBaseValueCell
+@interface TBNumberCell : TBTextFieldCell
 
-@property (nonatomic) NSString *text;
 @property (nonatomic) MKTypeEncoding numberType;
 
 @end
