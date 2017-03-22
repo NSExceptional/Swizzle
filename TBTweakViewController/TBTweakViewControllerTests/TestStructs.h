@@ -7,7 +7,7 @@
 //
 
 typedef struct _Two {
-    char a, char b;
+    char a, b;
 } Two;
 
 typedef struct _Six {
