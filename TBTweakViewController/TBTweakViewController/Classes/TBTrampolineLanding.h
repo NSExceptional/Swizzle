@@ -15,4 +15,4 @@ typedef uint8_t byte;
 #define kArgRegCount 8
 
 /// Function to prepare trampoline landing to receive arguments. FPRegisters may be NULL.
-IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, byte *GPRegisters, double *FPRegisters);
+IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters, double *FPRegisters);

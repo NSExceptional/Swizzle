@@ -13,7 +13,12 @@
 
 #if __arm64__
 _TBTrampolineFP:
-    mov     x9, 0xbabefeeddeadbeef
+    // FP denoted by x12 == x9 == 0xbabefeeddeadbeef
+    movz	x9, #0xbabe, lsl #48
+    movk	x9, #0xfeed, lsl #32
+    movk	x9, #0xdead, lsl #16
+    movk	x9, #0xbeef
+    mov     x12, x9
     b       _TBTrampoline
 
 _TBTrampoline:
@@ -22,14 +27,17 @@ _TBTrampoline:
     mov     x29, sp                     // (x29 is frame pointer, not fp)
 
     // Save general purpose registers
-    stp     x8, x9, [sp, #-16]!        // Struct return storage address and floating-point flag
+    stp     x11, x12, [sp, #-16]!       // x11 for no reason and x12 for Floating-point flag
+    stp     x8, x9, [sp, #-16]!         // x8 for struct return addr and x9 for Floating-point flag
     stp     x6, x7, [sp, #-16]!
     stp     x4, x5, [sp, #-16]!
     stp     x2, x3, [sp, #-16]!
     stp     x0, x1, [sp, #-16]!
+    mov     x3, sp                      // General purpose registers in r3
+    sub     x4, x4, x4                  // NULL in r4
 
     // Maybe skip save Floating-point registers
-    cmp     x9, 0xbabefeeddeadbeef
+    cmp     x9, x12
     b.ne    landing_func_call
 
     // Save Floating-point registers
@@ -37,23 +45,26 @@ _TBTrampoline:
     stp     s4, s5, [sp, #-16]!
     stp     s2, s3, [sp, #-16]!
     stp     s0, s1, [sp, #-16]!
+    mov     x4, sp                      // Floating-point registers in r4
 
 landing_func_call:
+
+    stp     xzr, x4, [sp, #-16]!        // Save x4 as new Floating-point flag
 
     // self and _cmd already in
     // x0 and x1, as arg0 and arg1
     //
-    // TBTrampolineLanding(self, _cmd, stackArgs, GPRegisters)
+    // TBTrampolineLanding(self, _cmd, stackArgs, GPRegisters, FPRegisters)
     add     x2, x29, #16                // Stack arguments in r2
-    mov     x3, sp                      // General purpose registers in r3
-    bl      TBTrampolineLanding         // Replace arguments, get original IMP
+    bl      _TBTrampolineLanding        // Replace arguments, get original IMP
 
     // Save original IMP in x10
     mov     x10, x0
 
     // Maybe skip restore Floating-point registers
-    cmp     x9, 0xbabefeeddeadbeef
-    b.ne    restore_gp_registers
+    movz    x9, #0
+    cmp     x4, x9
+    b.e     restore_gp_registers
 
     // Restore Floating-point registers
     ldp     s0, s1, [sp], #16
@@ -74,29 +85,28 @@ restore_gp_registers:
     ldp     x29, x30, [sp], #16         // `[sp], #16` loads at sp then adds 16 to sp
 
     // Call original method
-    b       x10
+    br       x10
+
 
 #elif __arm__
+_TBTrampolineFP:
+movt	r12, #0xdead
+movw	r12, #0xbeef
+movt	r9,  #0xdead
+movw	r9,  #0xbeef
+b       _TBTrampoline
+
 _TBTrampoline:
     // Prologue
     push    {r7, lr}
-    mov     r7, sp          // Frame pointer
+    mov     r7, sp                  // Frame pointer
 
     // Save argument registers
-    push {r3, r2, r1, r0}
+    push    {r3, r2, r1, r0}
 
-    sub     sp, sp, #16     // Allocate 8 bytes for `size`
-    mov     r2, sp          // &size in r2 as arg2 to _TBTrampolineArgBufferMake()
-    // self and _cmd already in r0 and x1 as arg0 and arg1
-
-    bl      _TBTrampolineLanding  // Make arguments buffer
-    mov     r2, r8                      // `buffer` in r2
-    ldr     r3, [r7, #8]                // `size` in r3
-
-    add     sp, sp, #16     // Point sp back
-
-
-    // Copy method arguments into buffer (TODO)
+    // exit(1), no armv7 support at the moment
+    mov     x0, #1
+    b       _exit
 
     // Epilogue
     mov     sp, r7
@@ -105,20 +115,11 @@ _TBTrampoline:
     // Jump back to Objc land
     b       _TBTrampolineLanding
 
-#elif TARGET_OS_SIMULATOR
+#else
+_TBTrampolineFP:
+    xorl	%edi, %edi
+    callq   _exit
 _TBTrampoline:
-//    mov     x29, sp         // Frame pointer
-//    sub     sp, sp, #8      // Allocate 8 bytes for `size`
-//    sub     x2, x29, #8     // &size in r2 as arg2 to _TBTrampolineArgBufferMake()
-//    // self and _cmd already in r0 and x1 as arg0 and arg1
-//
-//    bl      _TBTrampolineArgBufferMake  // Make arguments buffer
-//    mov     x2, x8                      // `buffer` in r2
-//    ldr     x3, [x29, #8]               // `size` in r3
-//
-//
-//    // Copy method arguments into buffer (TODO)
-//
-//    // Jump back to Objc land
-    jmp     _TBTrampolineLanding
+    xorl	%edi, %edi
+    callq   _exit
 #endif

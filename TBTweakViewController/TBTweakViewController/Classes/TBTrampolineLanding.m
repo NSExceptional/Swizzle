@@ -34,14 +34,12 @@
 
 #pragma mark Prototypes
 
-static inline uint8_t * TBTrampolineArgBufferMake(NSMethodSignature *signature, uint8_t argc);
 static inline NSString * TBHFALayoutInMemory(NSString *type);
 static inline NSString * TBTypeIsHFA(const char * fullType);
-static inline NSUInteger TBRoundStackToTypeAlignment(const char *type, byte *stack);
 
 #pragma mark PUBLIC
 
-IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, byte *GPRegisters, double *FPRegisters) {
+IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters, double *FPRegisters) {
     // Get method info
     Method method                 = TBMethodStoreGetKey(obj, sel);
     TBMethodHook *hook            = TBMethodStoreGet(method);
