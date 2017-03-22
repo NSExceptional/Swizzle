@@ -44,5 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The value is `TBTweakTypeUnspecified` if `hook` is not configured to override anything.
 @property (nonatomic, readonly) TBTweakType  tweakType;
 
+@property (nonatomic, readonly) NSString *sortByThis;
+
 @end
 NS_ASSUME_NONNULL_END

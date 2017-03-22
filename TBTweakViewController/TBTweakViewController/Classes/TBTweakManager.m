@@ -103,15 +103,15 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     for (int i = 0; i < collation.sectionTitles.count; i++)
         [temp addObject:[NSMutableArray array]];
     
-    // Index tweaks
+    // Index tweaks, grouped by target class
     for (TBTweak *tweak in tweaks) {
         NSInteger section = [collation sectionForObject:tweak.hook collationStringSelector:@selector(target)];
         [temp[section] addObject:tweak];
     }
     
     // Sort individual sections
-    for (NSArray *unsorted in temp) {
-        NSArray *sorted = [collation sortedArrayFromArray:unsorted collationStringSelector:@selector(target)];
+    for (NSArray<TBTweak*> *unsorted in temp) {
+        NSArray *sorted = [collation sortedArrayFromArray:unsorted collationStringSelector:@selector(sortByThis)];
         [dataSource addObject:sorted];
     }
 }

@@ -7,6 +7,8 @@
 //
 
 #import "TBTweak.h"
+#import "TBMethodStore.h"
+#import "Categories.h"
 
 
 NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
@@ -14,9 +16,19 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
 
 @interface TBTweak ()
 @property (nonatomic, readonly) BOOL loadTweaksAtLaunch;
+@property (nonatomic, readonly) NSString *methodDescription;
 @end
 
 @implementation TBTweak
+
+- (NSString *)sortByThis {
+    if (_methodDescription) {
+        return _methodDescription;
+    }
+
+    _methodDescription = [self.hook.method debugNameGivenClassName:_hook.target];
+    return _methodDescription;
+}
 
 #pragma mark Initialization
 
@@ -90,9 +102,15 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
     
     [self.hook getImplementation:^(IMP _Nullable implementation, NSError * _Nullable error) {
         if (implementation) {
-            Class cls = NSClassFromString(self.hook.target);
-            [cls replaceImplementationOfMethod:self.hook.method with:implementation useInstance:self.hook.method.isInstanceMethod];
-            _enabled = YES;
+            // Check if already set
+            if (TBMethodStoreGet(self.hook.method.objc_method)) {
+                callback([NSError error:@"You can only hook a method once."]);
+            } else {
+                TBMethodStorePut(self.hook.method.objc_method, self.hook);
+                Class cls = NSClassFromString(self.hook.target);
+                [cls replaceImplementationOfMethod:self.hook.method with:implementation useInstance:self.hook.method.isInstanceMethod];
+                _enabled = YES;
+            }
         } else {
             assert(error);
             callback(error);
@@ -102,6 +120,8 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
 
 - (void)disable {
     NSAssert(self.enabled, @"Cannot disable tweak that is not enabled");
+    TBMethodStoreRemove(self.hook.method.objc_method);
+    
     Class cls = NSClassFromString(self.hook.target);
     [cls replaceImplementationOfMethod:self.hook.method with:self.hook.originalImplementation
                            useInstance:self.hook.method.isInstanceMethod];
