@@ -93,32 +93,28 @@
         case MKTypeEncodingUnion:
         case MKTypeEncodingBitField:
         case MKTypeEncodingArray: {
-            // Get return size of method
-            NSUInteger returnSize;
-            NSGetSizeAndAlignment(self.method.signature.methodReturnType, &returnSize, NULL);
+            const char *returnType = self.method.signature.methodReturnType;
+            #define SAME(str, Type) (strcmp(str, @encode(Type)) == 0)
 
-
-            if (returnSize == sizeof(NSRange)) {
+            if (SAME(returnType, NSRange)) {
                 return BlockReturnSelector(rangeValue);
             }
 
-            // Skip CGVector, CGSize
-            else if (returnSize == sizeof(CGPoint)) {
+            else if (SAME(returnType, CGPoint) ||
+                     SAME(returnType, CGVector) ||
+                     SAME(returnType, CGSize) ||
+                     SAME(returnType, UIOffset) ||
+                     SAME(returnType, UIEdgeInsets)) {
                 return BlockReturnSelector(CGPointValue);
             }
-            else if (returnSize == sizeof(CGRect)) {
+            else if (SAME(returnType, CGRect)) {
                 return BlockReturnSelector(CGRectValue);
             }
-            else if (returnSize == sizeof(CGAffineTransform)) {
+            else if (SAME(returnType, CGAffineTransform)) {
                 return BlockReturnSelector(CGAffineTransformValue);
             }
 
-            // Skip UIOffset
-            else if (returnSize == sizeof(UIEdgeInsets)) {
-                return BlockReturnSelector(UIEdgeInsetsValue);
-            }
-
-            else if (returnSize == sizeof(CATransform3D)) {
+            else if (SAME(returnType, CATransform3D)) {
                 return BlockReturnSelector(CATransform3DValue);
             }
 
@@ -145,7 +141,10 @@
     }
 
     for (TBValue *value in self.hookedArguments) {
-        if (value.type == TBValueTypeFloat || value.type == TBValueTypeDouble) {
+        if (value.type == TBValueTypeFloat ||
+            value.type == TBValueTypeDouble ||
+            value.structType & TBStructTypeDualCGFloat ||
+            value.structType & TBStructTypeQuadCGFloat) {
             return (IMP)TBTrampolineFP;
         }
     }
