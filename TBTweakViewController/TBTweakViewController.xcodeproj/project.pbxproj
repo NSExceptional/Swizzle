@@ -690,7 +690,9 @@
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
 				C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */,
 				B4B9C7EF1D70D3160025E1FB /* TBAddValueCell.m in Sources */,
+				C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */,
 				C3B676A61E71FE46004E5122 /* UIViewController+Convenience.m in Sources */,
+				C3E530FD1E8330C9001D33E1 /* TBKeyPathTokenizer.m in Sources */,
 				C3601AD21E7C733300985E0D /* TBObjcCells.m in Sources */,
 				C3B676AD1E720055004E5122 /* UIBarButtonItem+Convenience.m in Sources */,
 				B4504CB31D6BB8E300C4B568 /* TBTweakCell.m in Sources */,
@@ -702,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4504C8A1D65230800C4B568 /* TBTweakViewControllerTests.m in Sources */,
+				C3E5310B1E836802001D33E1 /* TBKeyPathTokenizerTests.m in Sources */,
 				B4504CA91D6A444100C4B568 /* NSTestClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
