@@ -70,6 +70,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runtime = [self new];
+        [runtime loadBinaryImages];
     });
 
     return runtime;
@@ -86,8 +87,6 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 }
 
 #pragma mark - Private
-
-#pragma mark Binary Images
 
 - (void)loadBinaryImages {
     unsigned int imageCount = 0;
@@ -133,23 +132,6 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     return shortName;
 }
 
-#pragma mark Bundles and classes
-
-/// Full bundle paths, not just UI strings
-- (NSMutableArray<NSString*> *)_bundlesForKeyPath:(TBKeyPath *)keyPath {
-    if (self.imageNames.count) {
-        TBWildcardOptions options = keyPath.bundleKey.options;
-        NSString *token = keyPath.bundleKey.string;
-
-        return [self.imageNames map:^id(NSString *binary) {
-            NSString *UIName = [self shortNameForImageName:binary];
-            return TBWildcardMap_(token, UIName, binary, options);
-        }];
-    }
-
-    return [NSMutableArray array];
-}
-
 - (NSMutableArray<NSString*> *)classNamesInImageAtPath:(NSString *)path {
     // Check cache
     NSMutableArray *classNameStrings = _bundles_pathToClassNames[path];
@@ -178,30 +160,42 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 
 #pragma mark - Public
 
-- (NSMutableArray<NSString*> *)bundlesForKeyPath:(TBKeyPath *)keyPath {
+- (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token {
     if (self.imageNames.count) {
-        TBWildcardOptions options = keyPath.bundleKey.options;
-        NSString *token = keyPath.bundleKey.string;
+        TBWildcardOptions options = token.options;
+        NSString *query = token.string;
 
         return [self.imageNames map:^id(NSString *binary) {
             NSString *UIName = [self shortNameForImageName:binary];
-            return TBWildcardMap(token, UIName, options);
+            return TBWildcardMap(query, UIName, options);
         }];
     }
 
     return [NSMutableArray array];
 }
 
-- (NSMutableArray<NSString*> *)classesForKeyPath:(TBKeyPath *)keyPath {
-    NSMutableArray<NSString*> *bundles = [self _bundlesForKeyPath:keyPath];
+- (NSMutableArray<NSString*> *)bundlePathsForToken:(TBToken *)token {
+    if (self.imageNames.count) {
+        TBWildcardOptions options = token.options;
+        NSString *query = token.string;
 
+        return [self.imageNames map:^id(NSString *binary) {
+            NSString *UIName = [self shortNameForImageName:binary];
+            return TBWildcardMap_(query, UIName, binary, options);
+        }];
+    }
+
+    return [NSMutableArray array];
+}
+
+- (NSMutableArray<NSString*> *)classesForToken:(TBToken *)token inBundles:(NSMutableArray<NSString*> *)bundles {
     if (bundles.count) {
-        TBWildcardOptions options = keyPath.classKey.options;
-        NSString *token = keyPath.classKey.string;
+        TBWildcardOptions options = token.options;
+        NSString *query = token.string;
 
         return [bundles flatmap:^NSArray *(NSString *bundlePath) {
             return [[self classNamesInImageAtPath:bundlePath] map:^id(NSString *className) {
-                return TBWildcardMap(token, className, options);
+                return TBWildcardMap(query, className, options);
             }];
         }];
     }
@@ -209,16 +203,16 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     return [NSMutableArray array];
 }
 
-- (NSMutableArray<MKMethod*> *)methodsForKeyPath:(TBKeyPath *)keyPath {
-    NSMutableArray *classes = [self classesForKeyPath:keyPath];
-
+- (NSMutableArray<MKMethod*> *)methodsForToken:(TBToken *)token
+                                      instance:(NSNumber *)onlyInstanceMethods
+                                     inClasses:(NSMutableArray *)classes {
     if (classes.count) {
-        TBWildcardOptions options = keyPath.methodKey.options;
-        BOOL instance = keyPath.instanceMethods.boolValue;
-        NSString *selector = keyPath.methodKey.string;
+        TBWildcardOptions options = token.options;
+        BOOL instance = onlyInstanceMethods.boolValue;
+        NSString *selector = token.string;
 
         // Remove leading - or +
-        if (keyPath.instanceMethods) {
+        if (instance) {
             selector = [selector substringFromIndex:1];
         }
 
@@ -279,21 +273,8 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             }
         }
     }
-
+    
     return [NSMutableArray array];
-}
-
-- (MKMethod *)methodForAbsoluteKeyPath:(TBKeyPath *)keyPath {
-    if (keyPath.isAbsolute) {
-        @try {
-            return [self methodsForKeyPath:keyPath][0];
-        } @catch (NSException *exception) {
-            return nil;
-        }
-    }
-
-    @throw NSInternalInconsistencyException;
-    return nil;
 }
 
 @end

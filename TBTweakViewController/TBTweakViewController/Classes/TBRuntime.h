@@ -6,7 +6,7 @@
 //  Copyright © 2017 Tanner Bennett. All rights reserved.
 //
 
-#import "TBKeyPath.h"
+#import "TBToken.h"
 @class MKMethod;
 
 
@@ -15,15 +15,13 @@
 
 + (instancetype)runtime;
 
-- (void)loadBinaryImages;
-
 /// @return Bundle names for the UI
-- (NSMutableArray<NSString*> *)bundlesForKeyPath:(TBKeyPath *)keyPath;
+- (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token;
+/// @return Bundle paths for more queries
+- (NSMutableArray<NSString*> *)bundlePathsForToken:(TBToken *)token;
 /// @return Class names
-- (NSMutableArray<NSString*> *)classesForKeyPath:(TBKeyPath *)keyPath;
+- (NSMutableArray<NSString*> *)classesForToken:(TBToken *)token inBundles:(NSMutableArray<NSString*> *)bundlePaths;
 /// @return Actual methods
-- (NSMutableArray<MKMethod*> *)methodsForKeyPath:(TBKeyPath *)keyPath;
-
-- (MKMethod *)methodForAbsoluteKeyPath:(TBKeyPath *)keyPath;
+- (NSMutableArray<MKMethod*> *)methodsForToken:(TBToken *)token inClasses:(NSMutableArray<NSString*> *)classNames;
 
 @end
