@@ -8,7 +8,12 @@
 
 #import "NSArray+Functional.h"
 
+#define TBIsMutableArray(me) ([self superclass] == [NSMutableArray class])
+
 @implementation NSArray (Functional)
+
+void test() {
+}
 
 + (instancetype)of:(id)obj count:(NSUInteger)count {
     NSMutableArray *array = [NSMutableArray array];
@@ -32,7 +37,7 @@
         }
     }
 
-    if (bound < 2048) {
+    if (bound < 2048 && !TBIsMutableArray(self)) {
         return array.copy;
     }
 
@@ -48,7 +53,23 @@
         }
     }
 
-    if (self.count < 2048) {
+    if (self.count < 2048 && !TBIsMutableArray(self)) {
+        return array.copy;
+    }
+
+    return array;
+}
+
+- (instancetype)flatmap:(NSArray *(^)(id))block {
+    NSMutableArray *array = [NSMutableArray array];
+    for (id element in self) {
+        NSArray *obj = block(element);
+        if (obj) {
+            [array addObjectsFromArray:obj];
+        }
+    }
+
+    if (array.count < 2048 && !TBIsMutableArray(self)) {
         return array.copy;
     }
 

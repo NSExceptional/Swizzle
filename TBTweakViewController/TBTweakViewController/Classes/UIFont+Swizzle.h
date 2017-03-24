@@ -11,5 +11,6 @@
 @interface UIFont (Swizzle)
 
 @property (nonatomic, readonly, class) UIFont *codeFont;
+@property (nonatomic, readonly, class) UIFont *smallCodeFont;
 
 @end

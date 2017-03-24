@@ -11,7 +11,11 @@
 @implementation UIFont (Swizzle)
 
 + (UIFont *)codeFont {
-    return [self fontWithName:@"Menlo-Regular" size:[UIFont systemFontSize]];
+    return [self fontWithName:@"Menlo-Regular" size:[self systemFontSize]];
+}
+
++ (UIFont *)smallCodeFont {
+    return [self fontWithName:@"Menlo-Regular" size:[self smallSystemFontSize]];
 }
 
 @end

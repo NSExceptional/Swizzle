@@ -9,6 +9,7 @@
 #import "NSArray+Functional.h"
 #import "NSError+Message.h"
 #import "NSMapTable+Subscripting.h"
+#import "NSTimer+Blocks.h"
 #import "UIBarButtonItem+Convenience.h"
 #import "UIFont+Swizzle.h"
 #import "UIImage+TBBundleResources.h"

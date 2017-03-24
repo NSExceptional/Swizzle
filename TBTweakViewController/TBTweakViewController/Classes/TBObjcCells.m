@@ -8,6 +8,7 @@
 
 #import "TBObjcCells.h"
 
+
 @implementation TBObjcCell
 @dynamic disallowedCharacters;
 static NSString *_bothAllowed = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$1234567890";
