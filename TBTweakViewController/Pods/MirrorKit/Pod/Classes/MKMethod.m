@@ -10,8 +10,15 @@
 #import "MKMirror.h"
 
 
+@interface MKMethod () {
+    NSString *__description;
+}
+@end
+
 @implementation MKMethod
 @dynamic implementation;
+
+#pragma mark Broken
 
 + (instancetype)buildMethodNamed:(NSString *)name withTypes:(NSString *)typeEncoding implementation:(IMP)implementation {
     [NSException raise:NSInternalInconsistencyException format:@"Class instance should not be created with +buildMethodNamed:withTypes:implementation"]; return nil;
@@ -19,22 +26,21 @@
 
 - (id)init { [NSException raise:NSInternalInconsistencyException format:@"Class instance should not be created with -init"]; return nil; }
 
-#pragma mark Initializers
+#pragma mark Initialization
 
-+ (instancetype)method:(Method)method {
-    return [[self alloc] initWithMethod:method isInstanceMethod:YES];
++ (nullable instancetype)method:(Method)method class:(Class)cls {
+    return [[self alloc] initWithMethod:method class:cls isInstanceMethod:YES];
 }
 
-+ (instancetype)method:(Method)method isInstanceMethod:(BOOL)isInstanceMethod {
-    return [[self alloc] initWithMethod:method isInstanceMethod:isInstanceMethod];
++ (nullable instancetype)method:(Method)method class:(Class)cls isInstanceMethod:(BOOL)isInstanceMethod {
+    return [[self alloc] initWithMethod:method class:cls isInstanceMethod:isInstanceMethod];
 }
 
 + (instancetype)methodForSelector:(SEL)selector class:(Class)cls instance:(BOOL)instance {
-    Method m = instance ? class_getInstanceMethod([cls class], selector) : class_getClassMethod([cls class], selector);
+    Method m = instance ? class_getInstanceMethod(cls, selector) : class_getClassMethod(cls, selector);
     if (m == NULL) return nil;
-    MKMethod *method = [self method:m];
-    method->_isInstanceMethod = instance;
-    return method;
+    
+    return [self method:m isInstanceMethod:instance];
 }
 
 + (instancetype)methodForSelector:(SEL)selector implementedInClass:(Class)cls instance:(BOOL)instance {
@@ -49,21 +55,61 @@
     return nil;
 }
 
-- (id)initWithMethod:(Method)method isInstanceMethod:(BOOL)isInstanceMethod {
++ (nullable instancetype)instanceMethod:(SEL)selector class:(Class)cls {
+    return [self methodForSelector:selector class:cls instance:YES];
+}
+
++ (nullable instancetype)instanceMethod:(SEL)selector implementedInClass:(Class)cls {
+    return [self methodForSelector:selector implementedInClass:cls instance:YES];
+}
+
++ (nullable instancetype)classMethod:(SEL)selector class:(Class)cls {
+    return [self methodForSelector:selector class:cls instance:NO];
+}
+
++ (nullable instancetype)classMethod:(SEL)selector implementedInClass:(Class)cls {
+    return [self methodForSelector:selector implementedInClass:cls instance:NO];
+}
+
+- (id)initWithMethod:(Method)method class:(Class)cls isInstanceMethod:(BOOL)isInstanceMethod {
     NSParameterAssert(method);
     
     self = [super init];
     if (self) {
-        _objc_method = method;
+        _objc_method      = method;
+        _targetClass      = cls;
         _isInstanceMethod = isInstanceMethod;
-        [self examine];
+        _fullName         = [self debugNameGivenClassName:NSStringFromClass(cls)];
+        @try {
+            _signatureString = @(method_getTypeEncoding(method));
+            _signature = [NSMethodSignature signatureWithObjCTypes:_signatureString.UTF8String];
+            [self examine];
+        } @catch (id exception) {
+            return nil;
+        } 
     }
     
     return self;
 }
 
+#pragma mark Deprecated
+
++ (instancetype)method:(Method)method {
+    return [[self alloc] initWithMethod:method class:nil isInstanceMethod:YES];
+}
+
++ (instancetype)method:(Method)method isInstanceMethod:(BOOL)isInstanceMethod {
+    return [[self alloc] initWithMethod:method class:nil isInstanceMethod:isInstanceMethod];
+}
+
+#pragma mark Descriptions
+
 - (NSString *)description {
-    return [MKMethod prettyNameForMethod:self.objc_method isClassMethod:!_isInstanceMethod];
+    if (!__description) {
+        __description = [MKMethod prettyNameForMethod:self.objc_method isClassMethod:!_isInstanceMethod];
+    }
+    
+    return __description;
 }
 
 - (NSString *)debugNameGivenClassName:(NSString *)name {
@@ -74,6 +120,8 @@
     [string appendString:@"]"];
     return string;
 }
+
+#pragma mark Private
 
 + (NSString *)prettyNameForMethod:(Method)method isClassMethod:(BOOL)isClassMethod {
     NSString *selectorName = NSStringFromSelector(method_getName(method));
@@ -239,14 +287,12 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
 }
 
 - (void)examine {
-    _implementation    = method_getImplementation(self.objc_method);
-    _selector          = method_getName(self.objc_method);
-    _numberOfArguments = method_getNumberOfArguments(self.objc_method);
-    _selectorString    = NSStringFromSelector(self.selector);
-    _signatureString   = @(method_getTypeEncoding(self.objc_method));
-    _signature         = [NSMethodSignature signatureWithObjCTypes:self.signatureString.UTF8String];
+    _implementation    = method_getImplementation(_objc_method);
+    _selector          = method_getName(_objc_method);
+    _numberOfArguments = method_getNumberOfArguments(_objc_method);
+    _selectorString    = NSStringFromSelector(_selector);
     _typeEncoding      = [_signatureString stringByReplacingOccurrencesOfString:@"[0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, _signatureString.length)];
-    _returnType        = (MKTypeEncoding)[self.signatureString characterAtIndex:0];
+    _returnType        = (MKTypeEncoding)[_signatureString characterAtIndex:0];
 }
 
 #pragma mark Setters
@@ -422,14 +468,16 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
 
 // Code borrowed from MAObjcRuntime, by Mike Ash.
 - (void)getReturnValue:(void *)retPtr forMessageSend:(id)target arguments:(va_list)args {
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:self.signature];
-    NSUInteger argumentCount = self.signature.numberOfArguments;
+    NSMethodSignature *signature = self.signature;
+
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    NSUInteger argumentCount = signature.numberOfArguments;
     
-    invocation.target   = target;
+    invocation.target = target;
     
-    for(NSUInteger i = 2; i < argumentCount; i++) {
+    for (NSUInteger i = 2; i < argumentCount; i++) {
         int cookie = va_arg(args, int);
-        if(cookie != MKMagicNumber) {
+        if (cookie != MKMagicNumber) {
             NSLog(@"%s: incorrect magic cookie %08x; make sure you didn\'t forget any arguments and that all arguments are wrapped in MKArg().", __func__, cookie);
             abort();
         }
@@ -438,11 +486,11 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
         
         NSUInteger inSize, sigSize;
         NSGetSizeAndAlignment(typeString, &inSize, NULL);
-        NSGetSizeAndAlignment([self.signature getArgumentTypeAtIndex:i], &sigSize, NULL);
+        NSGetSizeAndAlignment([signature getArgumentTypeAtIndex:i], &sigSize, NULL);
         
-        if(inSize != sigSize) {
+        if (inSize != sigSize) {
             NSLog(@"%s:size mismatch between passed-in argument and required argument; in type:%s (%lu) requested:%s (%lu)",
-                  __func__, typeString, (long)inSize, [self.signature getArgumentTypeAtIndex:i], (long)sigSize);
+                  __func__, typeString, (long)inSize, [signature getArgumentTypeAtIndex:i], (long)sigSize);
             abort();
         }
         
@@ -451,9 +499,9 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
     
     // Hack to make NSInvocation invoke the desired implementation
     void (*invokeWithIMP)(id, SEL, IMP) = (void *)[invocation methodForSelector:NSSelectorFromString(@"invokeUsingIMP:")];
-    invokeWithIMP(invocation, 0, self.implementation);
+    invokeWithIMP(invocation, 0, _implementation);
     
-    if(self.signature.methodReturnLength && retPtr)
+    if (signature.methodReturnLength && retPtr)
         [invocation getReturnValue:retPtr];
 }
 

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22CBAF868AC18D85112C1D23 /* libPods-TBTweakViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AB21C8DBC61607B17FC7D7 /* libPods-TBTweakViewController.a */; };
+		20EE7AAC8BEF704A64375426 /* libPods-TBTweakViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3611C365B73A76D2CFEF760C /* libPods-TBTweakViewController.a */; };
+		5C6F1EC54E538099A8204AD4 /* libPods-TBTweakViewControllerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 813C5EF7015CF4C2787F96F5 /* libPods-TBTweakViewControllerTests.a */; };
 		B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE6621DA869C400CFCCD7 /* TBArgValueHookSectionController.m */; };
 		B41AE6661DAAE77100CFCCD7 /* TBSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE6651DAAE77100CFCCD7 /* TBSectionController.m */; };
 		B41AE6691DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE6681DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m */; };
@@ -90,8 +91,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8C895EE7E260E0F4B3FD8319 /* Pods-TBTweakViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController.debug.xcconfig"; sourceTree = "<group>"; };
-		A362D9502D6163C59F7A9F1E /* Pods-TBTweakViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController.release.xcconfig"; sourceTree = "<group>"; };
+		3611C365B73A76D2CFEF760C /* libPods-TBTweakViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TBTweakViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		51E49DEA457EC2D735C8A9FF /* Pods-TBTweakViewControllerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewControllerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewControllerTests/Pods-TBTweakViewControllerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6E88550082165D15F0205EB4 /* Pods-TBTweakViewController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewController.release.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController.release.xcconfig"; sourceTree = "<group>"; };
+		813C5EF7015CF4C2787F96F5 /* libPods-TBTweakViewControllerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TBTweakViewControllerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41AE6611DA869C400CFCCD7 /* TBArgValueHookSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArgValueHookSectionController.h; sourceTree = "<group>"; };
 		B41AE6621DA869C400CFCCD7 /* TBArgValueHookSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArgValueHookSectionController.m; sourceTree = "<group>"; };
 		B41AE6641DAAE77100CFCCD7 /* TBSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSectionController.h; sourceTree = "<group>"; };
@@ -210,7 +213,8 @@
 		C3C384771E70CB2000B1BC55 /* TestStructs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestStructs.h; sourceTree = "<group>"; };
 		C3E530F21E808680001D33E1 /* UIFont+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Swizzle.h"; sourceTree = "<group>"; };
 		C3E530F31E808680001D33E1 /* UIFont+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Swizzle.m"; sourceTree = "<group>"; };
-		C4AB21C8DBC61607B17FC7D7 /* libPods-TBTweakViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TBTweakViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEB0269EED7ACDB5AAEBF18B /* Pods-TBTweakViewControllerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewControllerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewControllerTests/Pods-TBTweakViewControllerTests.release.xcconfig"; sourceTree = "<group>"; };
+		F220448A0847475F5C8C4DF2 /* Pods-TBTweakViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22CBAF868AC18D85112C1D23 /* libPods-TBTweakViewController.a in Frameworks */,
+				20EE7AAC8BEF704A64375426 /* libPods-TBTweakViewController.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,20 +230,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C6F1EC54E538099A8204AD4 /* libPods-TBTweakViewControllerTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		178986DC440407595504DD6A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3611C365B73A76D2CFEF760C /* libPods-TBTweakViewController.a */,
+				813C5EF7015CF4C2787F96F5 /* libPods-TBTweakViewControllerTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59A87BC3AB0BE681ABBF0F69 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F220448A0847475F5C8C4DF2 /* Pods-TBTweakViewController.debug.xcconfig */,
+				6E88550082165D15F0205EB4 /* Pods-TBTweakViewController.release.xcconfig */,
+				51E49DEA457EC2D735C8A9FF /* Pods-TBTweakViewControllerTests.debug.xcconfig */,
+				EEB0269EED7ACDB5AAEBF18B /* Pods-TBTweakViewControllerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B4504C691D65230700C4B568 = {
 			isa = PBXGroup;
 			children = (
 				B4504C741D65230700C4B568 /* TBTweakViewController */,
 				B4504C881D65230800C4B568 /* TBTweakViewControllerTests */,
 				B4504C731D65230700C4B568 /* Products */,
-				E23B02DA5B006DE13853E430 /* Pods */,
-				E5BF6256067EE30E860B5DBE /* Frameworks */,
+				59A87BC3AB0BE681ABBF0F69 /* Pods */,
+				178986DC440407595504DD6A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -470,23 +495,6 @@
 			name = Management;
 			sourceTree = "<group>";
 		};
-		E23B02DA5B006DE13853E430 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8C895EE7E260E0F4B3FD8319 /* Pods-TBTweakViewController.debug.xcconfig */,
-				A362D9502D6163C59F7A9F1E /* Pods-TBTweakViewController.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		E5BF6256067EE30E860B5DBE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4AB21C8DBC61607B17FC7D7 /* libPods-TBTweakViewController.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -494,12 +502,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4504C8E1D65230800C4B568 /* Build configuration list for PBXNativeTarget "TBTweakViewController" */;
 			buildPhases = (
-				7E499EECBDF71D20E6A8C6CC /* Check Pods Manifest.lock */,
+				44FFAE0D688ED89E42A89247 /* [CP] Check Pods Manifest.lock */,
 				B4504C6E1D65230700C4B568 /* Sources */,
 				B4504C6F1D65230700C4B568 /* Frameworks */,
 				B4504C701D65230700C4B568 /* Resources */,
-				6C86FD9BE460CC106B04FA61 /* Embed Pods Frameworks */,
-				5E78CA18933522CAD7DDC99D /* Copy Pods Resources */,
+				1E5B9FE97FF8BCD909528306 /* [CP] Embed Pods Frameworks */,
+				EA903C861BF6330F906B26E1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -514,10 +522,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4504C911D65230800C4B568 /* Build configuration list for PBXNativeTarget "TBTweakViewControllerTests" */;
 			buildPhases = (
+				81F43BF0748ED6A320C7BE09 /* [CP] Check Pods Manifest.lock */,
 				B4504C811D65230800C4B568 /* Sources */,
 				B4504C821D65230800C4B568 /* Frameworks */,
 				B4504C831D65230800C4B568 /* Resources */,
 				B478B6D41D7861E5009E7771 /* CopyFiles */,
+				C213809FCBC05300D608FB2A /* [CP] Embed Pods Frameworks */,
+				08CCE83F510933BFA9A77409 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -589,29 +600,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5E78CA18933522CAD7DDC99D /* Copy Pods Resources */ = {
+		08CCE83F510933BFA9A77409 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TBTweakViewControllerTests/Pods-TBTweakViewControllerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6C86FD9BE460CC106B04FA61 /* Embed Pods Frameworks */ = {
+		1E5B9FE97FF8BCD909528306 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,19 +630,64 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7E499EECBDF71D20E6A8C6CC /* Check Pods Manifest.lock */ = {
+		44FFAE0D688ED89E42A89247 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		81F43BF0748ED6A320C7BE09 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C213809FCBC05300D608FB2A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TBTweakViewControllerTests/Pods-TBTweakViewControllerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA903C861BF6330F906B26E1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TBTweakViewController/Pods-TBTweakViewController-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -690,9 +746,7 @@
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
 				C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */,
 				B4B9C7EF1D70D3160025E1FB /* TBAddValueCell.m in Sources */,
-				C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */,
 				C3B676A61E71FE46004E5122 /* UIViewController+Convenience.m in Sources */,
-				C3E530FD1E8330C9001D33E1 /* TBKeyPathTokenizer.m in Sources */,
 				C3601AD21E7C733300985E0D /* TBObjcCells.m in Sources */,
 				C3B676AD1E720055004E5122 /* UIBarButtonItem+Convenience.m in Sources */,
 				B4504CB31D6BB8E300C4B568 /* TBTweakCell.m in Sources */,
@@ -704,7 +758,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4504C8A1D65230800C4B568 /* TBTweakViewControllerTests.m in Sources */,
-				C3E5310B1E836802001D33E1 /* TBKeyPathTokenizerTests.m in Sources */,
 				B4504CA91D6A444100C4B568 /* NSTestClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -817,7 +870,7 @@
 		};
 		B4504C8F1D65230800C4B568 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C895EE7E260E0F4B3FD8319 /* Pods-TBTweakViewController.debug.xcconfig */;
+			baseConfigurationReference = F220448A0847475F5C8C4DF2 /* Pods-TBTweakViewController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -832,7 +885,7 @@
 		};
 		B4504C901D65230800C4B568 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A362D9502D6163C59F7A9F1E /* Pods-TBTweakViewController.release.xcconfig */;
+			baseConfigurationReference = 6E88550082165D15F0205EB4 /* Pods-TBTweakViewController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -847,7 +900,7 @@
 		};
 		B4504C921D65230800C4B568 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C895EE7E260E0F4B3FD8319 /* Pods-TBTweakViewController.debug.xcconfig */;
+			baseConfigurationReference = 51E49DEA457EC2D735C8A9FF /* Pods-TBTweakViewControllerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
@@ -862,7 +915,7 @@
 		};
 		B4504C931D65230800C4B568 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C895EE7E260E0F4B3FD8319 /* Pods-TBTweakViewController.debug.xcconfig */;
+			baseConfigurationReference = EEB0269EED7ACDB5AAEBF18B /* Pods-TBTweakViewControllerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = S6N2F22V2Z;

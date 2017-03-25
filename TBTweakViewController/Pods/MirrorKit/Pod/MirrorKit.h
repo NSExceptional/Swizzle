@@ -11,6 +11,7 @@
 #import "MKMirror.h"
 #import "MKIVar.h"
 #import "MKMethod.h"
+#import "MKLazyMethod.h"
 #import "MKProtocol.h"
 #import "MKProperty.h"
 #import "MKPropertyAttributes.h"

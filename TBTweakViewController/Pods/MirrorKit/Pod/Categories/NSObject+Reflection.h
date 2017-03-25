@@ -23,7 +23,7 @@ extern NSString * MKTypeEncodingString(const char *returnType, NSUInteger count,
 @interface NSObject (Reflection)
 
 + (MKMirror *)reflection;
-- (MKMirror *)reflection;
+@property (nonatomic, readonly) MKMirror *reflection;
 
 + (NSArray<Class> *)allSubclasses;
 
@@ -34,7 +34,8 @@ extern NSString * MKTypeEncodingString(const char *returnType, NSUInteger count,
 + (Class)metaclass;
 /// @return The size in bytes of instances of the recieving class, or \c 0 if \e cls is \c Nil.
 + (size_t)instanceSize;
-/// Sets the recieving class's superclass. "You should not use this method" — Apple.
+/// Sets the recieving class's superclass.
+/// @warning "You should not use this method" — Apple.
 /// @return The old superclass.
 + (Class)setSuperclass:(Class)superclass;
 

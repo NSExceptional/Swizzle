@@ -9,7 +9,7 @@
 #import "NSObject+Reflection.h"
 #import "MKMirror.h"
 #import "MKProperty.h"
-#import "MKMethod.h"
+#import "MKLazyMethod.h"
 #import "MKIVar.h"
 #import "MKPropertyAttributes.h"
 
@@ -107,33 +107,35 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     Method *objcmethods = class_copyMethodList([self class], &mcount);
     
     NSMutableArray *methods = [NSMutableArray array];
-    for (int i = 0; i < mcount; i++)
-        [methods addObject:[MKMethod method:objcmethods[i] isInstanceMethod:YES]];
+    for (int i = 0; i < mcount; i++) {
+        MKMethod *m = [MKMethod method:objcmethods[i] class:self isInstanceMethod:YES];
+        if (m) {
+            [methods addObject:m];
+        }
+    }
     
     free(objcmethods);
     objcmethods = NULL;
     mcount = 0;
     
     objcmethods = class_copyMethodList([self metaclass], &mcount);
-    for (int i = 0; i < mcount; i++)
-        [methods addObject:[MKMethod method:objcmethods[i] isInstanceMethod:NO]];
+    for (int i = 0; i < mcount; i++) {
+        MKMethod *m = [MKMethod method:objcmethods[i] class:self isInstanceMethod:NO];
+        if (m) {
+            [methods addObject:m];
+        }
+    }
     
     free(objcmethods);
     return methods;
 }
 
 + (MKMethod *)methodNamed:(NSString *)name {
-    Method m = class_getInstanceMethod([self class], NSSelectorFromString(name));
-    if (m == NULL)
-        return nil;
-    return [MKMethod method:m isInstanceMethod:YES];
+    return [MKLazyMethod instanceMethod:NSSelectorFromString(name) class:self];
 }
 
 + (MKMethod *)classMethodNamed:(NSString *)name {
-    Method m = class_getClassMethod([self class], NSSelectorFromString(name));
-    if (m == NULL)
-        return nil;
-    return [MKMethod method:m isInstanceMethod:NO];
+    return [MKLazyMethod classMethod:NSSelectorFromString(name) class:self];
 }
 
 + (BOOL)addMethod:(SEL)selector typeEncoding:(NSString *)typeEncoding implementation:(IMP)implementaiton toInstances:(BOOL)instance {

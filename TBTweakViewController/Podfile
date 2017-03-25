@@ -4,7 +4,7 @@
 # use_frameworks!
 
 target 'TBTweakViewController' do
-  pod 'MirrorKit', :git => 'https://github.com/ThePantsThief/MirrorKit.git'
+  pod 'MirrorKit', :git => 'https://github.com/ThePantsThief/MirrorKit.git', :branch => '2.0'
   pod 'TBAlertController', :inhibit_warnings => true
   pod 'Masonry'
 end

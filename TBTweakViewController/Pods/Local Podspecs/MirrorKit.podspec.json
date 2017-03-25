@@ -1,6 +1,6 @@
 {
   "name": "MirrorKit",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "summary": "A library for reflection in Objectice-C.",
   "homepage": "https://github.com/ThePantsThief/MirrorKit",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/ThePantsThief/MirrorKit.git",
-    "tag": "1.2.0"
+    "tag": "2.0.0"
   },
   "social_media_url": "https://twitter.com/ThePantsThief",
   "requires_arc": true,

@@ -1,25 +1,28 @@
 PODS:
-  - Masonry (1.0.1)
-  - MirrorKit (1.2.0)
+  - Masonry (1.0.2)
+  - MirrorKit (2.0.0)
   - TBAlertController (3.0.1)
 
 DEPENDENCIES:
   - Masonry
-  - MirrorKit (from `https://github.com/ThePantsThief/MirrorKit.git`)
+  - MirrorKit (from `https://github.com/ThePantsThief/MirrorKit.git`, branch `2.0`)
   - TBAlertController
 
 EXTERNAL SOURCES:
   MirrorKit:
+    :branch: '2.0'
     :git: https://github.com/ThePantsThief/MirrorKit.git
 
 CHECKOUT OPTIONS:
   MirrorKit:
-    :commit: 6d5a94b6972d2d03c0801c0362b50821289da340
+    :commit: c6af822f9dad26e425ccb28fef2a74a49c907214
     :git: https://github.com/ThePantsThief/MirrorKit.git
 
 SPEC CHECKSUMS:
-  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
-  MirrorKit: 964963791d5efbe197acced933a015094dc30648
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MirrorKit: 2b54172f6341dfc3fd8de142e8a5c246df83003a
   TBAlertController: cadaec5909aa7af37f4a345fb260ce9b3b0ad0c6
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 8803dd92067d200de6af42960225ca416032e819
+
+COCOAPODS: 1.2.0
