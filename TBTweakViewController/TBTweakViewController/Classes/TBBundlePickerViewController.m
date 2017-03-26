@@ -9,7 +9,7 @@
 #import "TBBundlePickerViewController.h"
 #import "TBClassPickerViewController.h"
 #import "TBMethodPickerViewController.h"
-#import "UIViewController+Dismissal.h"
+#import "Categories.h"
 #import <objc/runtime.h>
 
 
@@ -44,13 +44,12 @@ static NSMutableDictionary<NSString*,NSString*> *longNamesToShortNames;
     [super viewDidLoad];
     
     self.title = @"Loaded Bundles";
-    self.navigationItem.prompt = @"Choose a bundle to see its classes.";
+//    self.navigationItem.prompt = @"Choose a bundle to see its classes.";
     
     // Search bar stuff
     self.searchBar             = [UISearchBar new];
     self.searchBar.delegate    = self;
     self.searchBar.placeholder = @"Filter";
-    [self.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchBar;
 
     // Cancel button
@@ -64,11 +63,12 @@ static NSMutableDictionary<NSString*,NSString*> *longNamesToShortNames;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.searchBar resignFirstResponder];
+//    [self.searchBar resignFirstResponder];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -122,7 +122,7 @@ static NSMutableDictionary<NSString*,NSString*> *longNamesToShortNames;
 }
 
 - (void)setImageNames:(NSArray *)imageNames {
-    if (![_imageNames isEqual:imageNames]) {
+    if (_imageNames != imageNames) {
         _imageNames = imageNames;
         self.filteredImageNames = imageNames;
     }

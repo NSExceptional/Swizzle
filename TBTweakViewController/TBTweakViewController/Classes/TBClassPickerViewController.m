@@ -42,14 +42,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.prompt = @"Choose a class to see its methods.";
+//    self.navigationItem.prompt = @"Choose a class to see its methods.";
     
     self.searchBar             = [UISearchBar new];
     self.searchBar.placeholder = @"Filter";
     self.searchBar.delegate    = self;
     [self.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchBar;
-    
+
     // Table view stuff
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
