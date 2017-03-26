@@ -15,6 +15,14 @@
 
 + (instancetype)runtime;
 
+/// Called automatically when \c TBRuntime is first used.
+/// You may call it again when you think a library has
+/// been loaded since this method was first called.
+- (void)reloadLibrariesList;
+
+/// An array of strings representing the currently loaded libraries.
+@property (nonatomic, readonly) NSArray<NSString*> *imageDisplayNames;
+
 /// @return Bundle names for the UI
 - (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token;
 /// @return Bundle paths for more queries
@@ -22,6 +30,8 @@
 /// @return Class names
 - (NSMutableArray<NSString*> *)classesForToken:(TBToken *)token inBundles:(NSMutableArray<NSString*> *)bundlePaths;
 /// @return Actual methods
-- (NSMutableArray<MKMethod*> *)methodsForToken:(TBToken *)token inClasses:(NSMutableArray<NSString*> *)classNames;
+- (NSMutableArray<MKMethod*> *)methodsForToken:(TBToken *)token
+                                      instance:(NSNumber *)onlyInstanceMethods
+                                     inClasses:(NSMutableArray<NSString*> *)classes;
 
 @end

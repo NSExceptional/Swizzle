@@ -16,10 +16,14 @@
 #define TBHasSuffix(a, b) ([a rangeOfString:b options:NSCaseInsensitiveSearch].location == (a.length - b.length))
 
 
-@interface TBRuntime ()
+@interface TBRuntime () {
+    NSMutableArray<NSString*> *_imageDisplayNames;
+}
+
 @property (nonatomic) NSMutableDictionary *bundles_pathToShort;
-@property (nonatomic) NSMutableDictionary *bundles_pathToClassNames;
-@property (nonatomic) NSMutableArray<NSString*> *imageNames;
+@property (nonatomic) NSCache *bundles_pathToClassNames;
+@property (nonatomic) NSMutableArray<NSString*> *imagePaths;
+
 @end
 
 /// @return success if the map passes.
@@ -38,15 +42,19 @@ static inline NSString * TBWildcardMap_(NSString *token, NSString *candidate, NS
                     return success;
                 }
             }
-            // Only "if starts with"
+            // Only "if candidate ends with with token"
             else if (options & TBWildcardOptionsPrefix) {
-                if (TBHasPrefix(candidate, token)) {
+                if (TBHasSuffix(candidate, token)) {
                     return success;
                 }
             }
-            // Only "if ends with"
+            // Only "if candidate starts with with token"
             else if (options & TBWildcardOptionsSuffix) {
-                if (TBHasSuffix(candidate, token)) {
+                // Case like "Bundle." where we want "" to match anything
+                if (!token.length) {
+                    return success;
+                }
+                if (TBHasPrefix(candidate, token)) {
                     return success;
                 }
             }
@@ -70,7 +78,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         runtime = [self new];
-        [runtime loadBinaryImages];
+        [runtime reloadLibrariesList];
     });
 
     return runtime;
@@ -79,7 +87,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 - (id)init {
     self = [super init];
     if (self) {
-        _imageNames = [NSMutableArray array];
+        _imagePaths = [NSMutableArray array];
         _bundles_pathToShort = [NSMutableDictionary dictionary];
     }
 
@@ -88,7 +96,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 
 #pragma mark - Private
 
-- (void)loadBinaryImages {
+- (void)reloadLibrariesList {
     unsigned int imageCount = 0;
     const char **imageNames = objc_copyImageNames(&imageCount);
 
@@ -97,7 +105,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             return @(imageNames[i]);
         }];
 
-        self.imageNames = imageNameStrings;
+        self.imagePaths = imageNameStrings;
         free(imageNames);
 
         // Sort alphabetically
@@ -105,6 +113,11 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             NSString *shortName1 = [self shortNameForImageName:name1];
             NSString *shortName2 = [self shortNameForImageName:name2];
             return [shortName1 caseInsensitiveCompare:shortName2];
+        }];
+
+        // Cache image display names
+        _imageDisplayNames = [imageNameStrings map:^id(NSString *path) {
+            return [self shortNameForImageName:path];
         }];
     }
 }
@@ -134,7 +147,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 
 - (NSMutableArray<NSString*> *)classNamesInImageAtPath:(NSString *)path {
     // Check cache
-    NSMutableArray *classNameStrings = _bundles_pathToClassNames[path];
+    NSMutableArray *classNameStrings = [_bundles_pathToClassNames objectForKey:path];
     if (classNameStrings) {
         return classNameStrings.mutableCopy;
     }
@@ -150,7 +163,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         free(classNames);
 
         [classNameStrings sortUsingSelector:@selector(caseInsensitiveCompare:)];
-        _bundles_pathToClassNames[path] = classNameStrings;
+        [_bundles_pathToClassNames setObject:classNameStrings forKey:path];
 
         return classNameStrings.mutableCopy;
     }
@@ -161,11 +174,17 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 #pragma mark - Public
 
 - (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token {
-    if (self.imageNames.count) {
+    if (self.imagePaths.count) {
         TBWildcardOptions options = token.options;
         NSString *query = token.string;
 
-        return [self.imageNames map:^id(NSString *binary) {
+        // Optimization, avoid a loop
+        if (options == TBWildcardOptionsAny) {
+            return _imageDisplayNames;
+        }
+
+        // No dot syntax because imageDisplayNames is only mutable internally
+        return [_imageDisplayNames map:^id(NSString *binary) {
             NSString *UIName = [self shortNameForImageName:binary];
             return TBWildcardMap(query, UIName, options);
         }];
@@ -175,11 +194,16 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 }
 
 - (NSMutableArray<NSString*> *)bundlePathsForToken:(TBToken *)token {
-    if (self.imageNames.count) {
+    if (self.imagePaths.count) {
         TBWildcardOptions options = token.options;
         NSString *query = token.string;
 
-        return [self.imageNames map:^id(NSString *binary) {
+        // Optimization, avoid a loop
+        if (options == TBWildcardOptionsAny) {
+            return self.imagePaths;
+        }
+
+        return [self.imagePaths map:^id(NSString *binary) {
             NSString *UIName = [self shortNameForImageName:binary];
             return TBWildcardMap_(query, UIName, binary, options);
         }];
@@ -193,6 +217,13 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         TBWildcardOptions options = token.options;
         NSString *query = token.string;
 
+        // Optimization, avoid a loop
+        if (options == TBWildcardOptionsAny) {
+            return [bundles flatmap:^NSArray *(NSString *bundlePath) {
+                return [self classNamesInImageAtPath:bundlePath];
+            }];
+        }
+
         return [bundles flatmap:^NSArray *(NSString *bundlePath) {
             return [[self classNamesInImageAtPath:bundlePath] map:^id(NSString *className) {
                 return TBWildcardMap(query, className, options);
@@ -204,26 +235,32 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 }
 
 - (NSMutableArray<MKMethod*> *)methodsForToken:(TBToken *)token
-                                      instance:(NSNumber *)onlyInstanceMethods
+                                      instance:(NSNumber *)checkInstance
                                      inClasses:(NSMutableArray *)classes {
     if (classes.count) {
         TBWildcardOptions options = token.options;
-        BOOL instance = onlyInstanceMethods.boolValue;
+        BOOL instance = checkInstance.boolValue;
         NSString *selector = token.string;
 
         // Remove leading - or +
-        if (instance) {
+        if (instance && selector.length) {
             selector = [selector substringFromIndex:1];
         }
 
         switch (options) {
+            /// In practice, I don't think this case is ever used with methods
             case TBWildcardOptionsNone: {
                 SEL sel = (SEL)selector.UTF8String;
                 return [classes map:^id(NSString *name) {
                     Class cls = NSClassFromString(name);
 
                     // Method is absolute
-                    return [MKMethod methodForSelector:sel implementedInClass:cls instance:instance];
+                    return [MKLazyMethod methodForSelector:sel class:cls instance:instance];
+                }];
+            }
+            case TBWildcardOptionsAny: {
+                return [classes flatmap:^NSArray *(NSString *name) {
+                    return [NSClassFromString(name) allMethods];
                 }];
             }
             default: {
@@ -242,28 +279,39 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                         }];
                     }];
                 }
-                // Only "if starts with"
+                // Only "if method ends with with selector"
                 else if (options & TBWildcardOptionsPrefix) {
                     return [classes flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
-                        return [[cls allMethods] map:^id(MKMethod *method) {
 
+                        return [[cls allMethods] map:^id(MKMethod *method) {
                             // Method is a prefix wildcard
-                            if (TBHasPrefix(method.selectorString, selector)) {
+                            if (TBHasSuffix(method.selectorString, selector)) {
                                 return method;
                             }
                             return nil;
                         }];
                     }];
                 }
-                // Only "if ends with"
+                // Only "if method starts with with selector"
                 else if (options & TBWildcardOptionsSuffix) {
                     return [classes flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
+
                         return [[cls allMethods] map:^id(MKMethod *method) {
+                            // Make sure method is type we want
+                            // This only applies to suffix
+                            if (checkInstance && (method.isInstanceMethod != instance)) {
+                                return nil;
+                            }
+
+                            // Case like "Bundle.class.-" where we want "-" to match anything
+                            if (!selector.length) {
+                                return method;
+                            }
 
                             // Method is a suffix wildcard
-                            if (TBHasSuffix(method.selectorString, selector)) {
+                            if (TBHasPrefix(method.selectorString, selector)) {
                                 return method;
                             }
                             return nil;
