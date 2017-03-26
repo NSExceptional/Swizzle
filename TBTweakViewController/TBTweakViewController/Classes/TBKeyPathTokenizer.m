@@ -13,9 +13,12 @@
 
 @implementation TBKeyPathTokenizer
 
-static NSCharacterSet *firstAllowed = nil;
-static NSCharacterSet *allowed = nil;
-static NSCharacterSet *methodAllowed = nil;
+#pragma mark Initialization
+
+static NSCharacterSet *firstAllowed      = nil;
+static NSCharacterSet *allowed           = nil;
+static NSCharacterSet *keyPathDisallowed = nil;
+static NSCharacterSet *methodAllowed     = nil;
 + (void)initialize {
     if (self == [self class]) {
         NSString *_firstAllowed  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$";
@@ -24,20 +27,13 @@ static NSCharacterSet *methodAllowed = nil;
         firstAllowed  = [NSCharacterSet characterSetWithCharactersInString:_firstAllowed];
         allowed       = [NSCharacterSet characterSetWithCharactersInString:_bothAllowed];
         methodAllowed = [NSCharacterSet characterSetWithCharactersInString:_methodAllowed];
+
+        NSString *_kpDisallowed = [_bothAllowed stringByAppendingString:@"-+:\\.*"];
+        keyPathDisallowed = [NSCharacterSet characterSetWithCharactersInString:_kpDisallowed].invertedSet;
     }
 }
 
-+ (NSUInteger)tokenCountOfString:(NSString *)userInput {
-    NSUInteger escapedCount = TBCountOfStringOccurence(userInput, @"\\.");
-    NSUInteger tokenCount  = TBCountOfStringOccurence(userInput, @".") - escapedCount + 1;
-
-    // Case where string ends in . but no token follows
-    if ([userInput hasSuffix:@"."] && ![userInput hasSuffix:@"\\."]) {
-        tokenCount--;
-    }
-
-    return tokenCount;
-}
+#pragma mark Public
 
 + (TBKeyPath *)tokenizeString:(NSString *)userInput {
     if (!userInput.length) {
@@ -55,17 +51,39 @@ static NSCharacterSet *methodAllowed = nil;
 
     NSNumber *instance = nil;
     NSScanner *scanner = [NSScanner scannerWithString:userInput];
-    TBToken *bundle = [self scanToken:scanner allowed:allowed];
-    TBToken *cls = [self scanToken:scanner allowed:allowed];
+    TBToken *bundle    = [self scanToken:scanner allowed:allowed first:allowed];
+    TBToken *cls       = [self scanToken:scanner allowed:allowed first:firstAllowed];
+    TBToken *method    = tokens > 2 ? [self scanMethodToken:scanner instance:&instance] : nil;
 
     return [TBKeyPath bundle:bundle
                        class:cls
-                      method:[self scanMethodToken:scanner instance:&instance]
-                  isInstance:instance];
+                      method:method
+                  isInstance:instance
+                      string:userInput];
 }
 
-+ (TBToken *)scanToken:(NSScanner *)scanner allowed:(NSCharacterSet *)allowedChars {
++ (BOOL)allowedInKeyPath:(NSString *)text {
+    if (!text.length) {
+        return YES;
+    }
+    
+    return [text rangeOfCharacterFromSet:keyPathDisallowed].location == NSNotFound;
+}
+
+#pragma mark Private
+
++ (NSUInteger)tokenCountOfString:(NSString *)userInput {
+    NSUInteger escapedCount = TBCountOfStringOccurence(userInput, @"\\.");
+    NSUInteger tokenCount  = TBCountOfStringOccurence(userInput, @".") - escapedCount + 1;
+
+    return tokenCount;
+}
+
++ (TBToken *)scanToken:(NSScanner *)scanner allowed:(NSCharacterSet *)allowedChars first:(NSCharacterSet *)first {
     if (scanner.isAtEnd) {
+        if ([scanner.string hasSuffix:@"."]) {
+            return [TBToken string:nil options:TBWildcardOptionsAny];
+        }
         return nil;
     }
 
@@ -95,7 +113,7 @@ static NSCharacterSet *methodAllowed = nil;
     while (!stop && ![scanner scanString:@"." intoString:&tmp] && !scanner.isAtEnd) {
         // Scan word chars
         if (!didScanFirstAllowed) {
-            if ([scanner scanCharactersFromSet:firstAllowed intoString:&tmp]) {
+            if ([scanner scanCharactersFromSet:first intoString:&tmp]) {
                 [token appendString:tmp];
                 didScanFirstAllowed = YES;
             } else {
@@ -145,7 +163,15 @@ static NSCharacterSet *methodAllowed = nil;
 
 + (TBToken *)scanMethodToken:(NSScanner *)scanner instance:(NSNumber **)instance {
     if (scanner.isAtEnd) {
+        if ([scanner.string hasSuffix:@"."]) {
+            return [TBToken string:nil options:TBWildcardOptionsAny];
+        }
         return nil;
+    }
+
+    if ([scanner.string hasSuffix:@"."] && ![scanner.string hasSuffix:@"\\."]) {
+        // Methods cannot end with '.' except for '\.'
+        @throw NSInternalInconsistencyException;
     }
     
     if ([scanner scanString:@"-" intoString:nil]) {
@@ -165,8 +191,12 @@ static NSCharacterSet *methodAllowed = nil;
     if (*instance && [scanner scanString:@"*" intoString:nil]) {
         @throw NSInternalInconsistencyException;
     }
-    
-    return [self scanToken:scanner allowed:methodAllowed];
+
+    if (scanner.isAtEnd) {
+        return [TBToken string:@"" options:TBWildcardOptionsSuffix];
+    }
+
+    return [self scanToken:scanner allowed:methodAllowed first:firstAllowed];
 }
 
 @end

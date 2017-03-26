@@ -14,4 +14,6 @@
 + (NSUInteger)tokenCountOfString:(NSString *)userInput;
 + (TBKeyPath *)tokenizeString:(NSString *)userInput;
 
++ (BOOL)allowedInKeyPath:(NSString *)text;
+
 @end
