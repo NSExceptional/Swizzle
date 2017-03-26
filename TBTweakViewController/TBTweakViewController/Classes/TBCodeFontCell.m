@@ -14,6 +14,8 @@
 - (void)initSubviews {
     self.textLabel.font = [UIFont codeFont];
     self.detailTextLabel.font = [UIFont smallCodeFont];
+    self.detailTextLabel.alpha = 0.5;
+    self.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 @end
