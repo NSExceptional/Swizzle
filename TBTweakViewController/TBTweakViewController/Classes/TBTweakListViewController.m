@@ -7,6 +7,7 @@
 //
 
 #import "TBTweakListViewController.h"
+#import "TBKeyPathViewController.h"
 #import "TBBundlePickerViewController.h"
 #import "TBConfigureTweakViewController.h"
 #import "Categories.h"
@@ -61,7 +62,7 @@
 
 - (void)addTweak {
     [TBTweakManager sharedManager].nextTweakIsSystemTweak = self.isSystemTab;
-    [self presentViewController:[TBBundlePickerViewController new].inNavController animated:YES completion:nil];
+    [self presentViewController:[TBKeyPathViewController new].inNavController animated:YES completion:nil];
 }
 
 @end
