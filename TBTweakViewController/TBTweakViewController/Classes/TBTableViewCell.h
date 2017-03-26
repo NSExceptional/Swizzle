@@ -20,4 +20,6 @@
 - (void)initSubviews;
 + (NSString *)reuseIdentifierForValueType:(TBValueType)type;
 
++ (instancetype)dequeue:(UITableView *)tableView indexPath:(NSIndexPath *)ip;
+
 @end

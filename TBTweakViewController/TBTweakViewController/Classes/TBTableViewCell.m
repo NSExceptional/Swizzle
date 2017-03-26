@@ -79,4 +79,8 @@
     return nil;
 }
 
++ (instancetype)dequeue:(UITableView *)tableView indexPath:(NSIndexPath *)ip {
+    return (id)[tableView dequeueReusableCellWithIdentifier:self.reuseID forIndexPath:ip];
+}
+
 @end
