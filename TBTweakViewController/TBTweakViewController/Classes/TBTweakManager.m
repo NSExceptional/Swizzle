@@ -241,7 +241,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     TBTweak *tweak    = self.dataSources[tableView][indexPath.section][indexPath.row];
     
     cell.switchh.on     = tweak.enabled;
-    cell.textLabel.text = [tweak.hook.method debugNameGivenClassName:tweak.hook.target];
+    cell.textLabel.text = tweak.hook.method.fullName;
     cell.tweakType      = tweak.tweakType;
     
     // Actually toggles the tweak

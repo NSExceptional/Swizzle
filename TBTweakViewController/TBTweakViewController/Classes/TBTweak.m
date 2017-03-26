@@ -26,7 +26,7 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
         return _methodDescription;
     }
 
-    _methodDescription = [self.hook.method debugNameGivenClassName:_hook.target];
+    _methodDescription = self.hook.method.fullName;
     return _methodDescription;
 }
 
