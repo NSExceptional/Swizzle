@@ -24,7 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TBKeyPath : NSObject
 
 /// @param method must start with either a wildcard or a + or -.
-+ (instancetype)bundle:(TBToken *)bundle class:(TBToken *)cls method:(TBToken *)method isInstance:(NSNumber *)instance;
++ (instancetype)bundle:(TBToken *)bundle
+                 class:(TBToken *)cls
+                method:(TBToken *)method
+            isInstance:(NSNumber *)instance
+                string:(NSString *)keyPathString;
 
 @property (nonatomic, nullable, readonly) TBToken *bundleKey;
 @property (nonatomic, nullable, readonly) TBToken *classKey;
