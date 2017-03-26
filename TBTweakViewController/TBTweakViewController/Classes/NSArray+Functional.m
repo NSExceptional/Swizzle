@@ -8,7 +8,7 @@
 
 #import "NSArray+Functional.h"
 
-#define TBIsMutableArray(me) ([self superclass] == [NSMutableArray class])
+#define TBIsMutableArray(me) ([[self class] isSubclassOfClass:[NSMutableArray class]])
 
 @implementation NSArray (Functional)
 
