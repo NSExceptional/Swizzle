@@ -40,7 +40,7 @@
     Method m = instance ? class_getInstanceMethod(cls, selector) : class_getClassMethod(cls, selector);
     if (m == NULL) return nil;
     
-    return [self method:m isInstanceMethod:instance];
+    return [self method:m class:cls isInstanceMethod:instance];
 }
 
 + (instancetype)methodForSelector:(SEL)selector implementedInClass:(Class)cls instance:(BOOL)instance {
@@ -79,7 +79,6 @@
         _objc_method      = method;
         _targetClass      = cls;
         _isInstanceMethod = isInstanceMethod;
-        _fullName         = [self debugNameGivenClassName:NSStringFromClass(cls)];
         @try {
             _signatureString = @(method_getTypeEncoding(method));
             _signature = [NSMethodSignature signatureWithObjCTypes:_signatureString.UTF8String];
@@ -293,6 +292,7 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
     _selectorString    = NSStringFromSelector(_selector);
     _typeEncoding      = [_signatureString stringByReplacingOccurrencesOfString:@"[0-9]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, _signatureString.length)];
     _returnType        = (MKTypeEncoding)[_signatureString characterAtIndex:0];
+    _fullName          = [self debugNameGivenClassName:NSStringFromClass(_targetClass)];
 }
 
 #pragma mark Setters

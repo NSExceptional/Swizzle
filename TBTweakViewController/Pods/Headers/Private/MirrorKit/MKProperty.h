@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Classes/MKProperty.h
+../../../MirrorKit/MirrorKit/Classes/MKProperty.h

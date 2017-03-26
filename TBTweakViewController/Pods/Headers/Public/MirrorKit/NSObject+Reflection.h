@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Categories/NSObject+Reflection.h
+../../../MirrorKit/MirrorKit/Categories/NSObject+Reflection.h

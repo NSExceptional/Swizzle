@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Classes/MKIVar.h
+../../../MirrorKit/MirrorKit/Classes/MKIVar.h

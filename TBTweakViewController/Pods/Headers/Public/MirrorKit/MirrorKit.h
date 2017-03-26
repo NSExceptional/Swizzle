@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/MirrorKit.h
+../../../MirrorKit/MirrorKit/MirrorKit.h

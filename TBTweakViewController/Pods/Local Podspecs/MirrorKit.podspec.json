@@ -8,17 +8,23 @@
     "ThePantsThief": "tannerbennett@me.com"
   },
   "source": {
-    "git": "https://github.com/ThePantsThief/MirrorKit.git",
+    "git": "https://github.com/NSExceptional/MirrorKit.git",
     "tag": "2.0.0"
   },
-  "social_media_url": "https://twitter.com/ThePantsThief",
+  "social_media_url": "https://twitter.com/NSExceptional",
   "requires_arc": true,
   "platforms": {
     "ios": "7.0",
     "osx": "10.8"
   },
+  "private_header_files": "MirrorKit/Private/*.h",
+  "public_header_files": [
+    "MirrorKit/*.h",
+    "MirrorKit/Classes/*.h",
+    "MirrorKit/Categories/*.h"
+  ],
   "source_files": [
-    "Pod/**/*",
-    "Pod/*"
+    "MirrorKit/*.{h,m}",
+    "MirrorKit/**/*.{h,m}"
   ]
 }

@@ -12,6 +12,7 @@
 #import "MKLazyMethod.h"
 #import "MKIVar.h"
 #import "MKPropertyAttributes.h"
+#import "MKPrivate.h"
 
 
 NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
@@ -60,7 +61,11 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
         Class superclass = candidate;
         while(superclass) {
             if(superclass == self) {
-                [array addObject:candidate];
+                Class cls = buffer[i];
+                if (MKClassIsSafe(cls)) {
+                    [array addObject:candidate];
+                }
+
                 break;
             }
             superclass = class_getSuperclass(superclass);
@@ -68,7 +73,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     }
     
     free(buffer);
-    [array removeObject:[self class]];
+    [array removeObject:self.class];
     return array;
 }
 
@@ -104,7 +109,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 
 + (NSArray *)allMethods {
     unsigned int mcount;
-    Method *objcmethods = class_copyMethodList([self class], &mcount);
+    Method *objcmethods = class_copyMethodList(self, &mcount);
     
     NSMutableArray *methods = [NSMutableArray array];
     for (int i = 0; i < mcount; i++) {
@@ -118,7 +123,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     objcmethods = NULL;
     mcount = 0;
     
-    objcmethods = class_copyMethodList([self metaclass], &mcount);
+    objcmethods = class_copyMethodList(object_getClass(self), &mcount);
     for (int i = 0; i < mcount; i++) {
         MKMethod *m = [MKMethod method:objcmethods[i] class:self isInstanceMethod:NO];
         if (m) {
@@ -180,7 +185,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 
 + (NSArray *)allIVars {
     unsigned int ivcount;
-    Ivar *objcivars = class_copyIvarList([self class], &ivcount);
+    Ivar *objcivars = class_copyIvarList(self.class, &ivcount);
     
     NSMutableArray *ivars = [NSMutableArray array];
     for (int i = 0; i < ivcount; i++)
@@ -191,7 +196,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 }
 
 + (MKIVar *)IVarNamed:(NSString *)name {
-    Ivar i = class_getInstanceVariable([self class], name.UTF8String);
+    Ivar i = class_getInstanceVariable(self.class, name.UTF8String);
     if (i == NULL)
         return nil;
     return [MKIVar ivar:i];
@@ -258,7 +263,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 
 + (NSArray *)allProperties {
     unsigned int pcount;
-    objc_property_t *objcproperties = class_copyPropertyList([self class], &pcount);
+    objc_property_t *objcproperties = class_copyPropertyList(self.class, &pcount);
     
     NSMutableArray *properties = [NSMutableArray array];
     for (int i = 0; i < pcount; i++)
@@ -269,7 +274,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 }
 
 + (MKProperty *)propertyNamed:(NSString *)name {
-    objc_property_t p = class_getProperty([self class], name.UTF8String);
+    objc_property_t p = class_getProperty(self.class, name.UTF8String);
     if (p == NULL)
         return nil;
     return [MKProperty property:p];
@@ -282,7 +287,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 + (void)replaceProperty:(NSString *)name attributes:(MKPropertyAttributes *)attributes {
     unsigned int count;
     objc_property_attribute_t *objc_attributes = [attributes copyAttributesList:&count];
-    class_replaceProperty([self class], name.UTF8String, objc_attributes, count);
+    class_replaceProperty(self.class, name.UTF8String, objc_attributes, count);
     free(objc_attributes);
 }
 

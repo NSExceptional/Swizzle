@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Categories/NSDictionary+Utilities.h
+../../../MirrorKit/MirrorKit/Categories/NSDictionary+Utilities.h

@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Classes/MKProtocolBuilder.h
+../../../MirrorKit/MirrorKit/Classes/MKProtocolBuilder.h

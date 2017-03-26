@@ -1,1 +1,1 @@
-../../../MirrorKit/Pod/Classes/MKSimpleMethod.h
+../../../MirrorKit/MirrorKit/Classes/MKSimpleMethod.h
