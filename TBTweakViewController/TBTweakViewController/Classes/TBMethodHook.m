@@ -36,21 +36,31 @@
     if (!method) {
         return nil;
     }
-    
+
+    return [self initWithMethod:method];
+}
+
++ (instancetype)hook:(MKMethod *)method {
+    return [[self alloc] initWithMethod:method];
+}
+
+- (id)initWithMethod:(MKMethod *)method {
+    NSParameterAssert(method);
+
     self = [super init];
     if (self) {
         _method = method;
-        _target = NSStringFromClass(cls);
-        _action = NSStringFromSelector(selector);
-        _isClassMethod = classMethod;
+        _target = NSStringFromClass(method.targetClass);
+        _action = method.selectorString;
+        _isClassMethod = !method.isInstanceMethod;
         _originalImplementation = method.implementation;
-        
+
         _canOverrideReturnValue       = [TBMethodHook canHookReturnTypeOf:method];
         _canOverrideAllArgumentValues = [TBMethodHook canHookAllArgumentTypesOf:method];
 
         _hash = (NSUInteger)method.objc_method;
     }
-    
+
     return self;
 }
 

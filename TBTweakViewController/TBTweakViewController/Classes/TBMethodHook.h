@@ -25,6 +25,8 @@ IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
 /// @param classMethod `YES` if the method is a class method, `NO` for instance methods.
 + (instancetype)target:(Class)cls action:(SEL)selector isClassMethod:(BOOL)classMethod;
 
++ (instancetype)hook:(MKMethod *)method;
+
 @property (nonatomic, readonly) BOOL canOverrideReturnValue;
 @property (nonatomic, readonly) BOOL canOverrideAllArgumentValues;
 
