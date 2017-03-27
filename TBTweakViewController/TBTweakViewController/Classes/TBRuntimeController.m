@@ -8,6 +8,7 @@
 
 #import "TBRuntimeController.h"
 #import "TBRuntime.h"
+#import "MKMethod.h"
 
 
 @interface TBRuntimeController ()
@@ -68,43 +69,69 @@ static TBRuntimeController *controller = nil;
 #pragma mark Private
 
 - (NSMutableArray *)bundlePathsForToken:(TBToken *)token {
-    NSMutableArray *cached = [self.bundlePathsCache objectForKey:token];
-    if (cached) {
-        return cached;
-    }
+    // Only cache if no wildcard
+    BOOL shouldCache = token == TBWildcardOptionsNone;
 
-    NSMutableArray *bundles = [[TBRuntime runtime] bundlePathsForToken:token];
-    [self.bundlePathsCache setObject:bundles forKey:token];
-    return bundles;
+    if (shouldCache) {
+        NSMutableArray *cached = [self.bundlePathsCache objectForKey:token];
+        if (cached) {
+            return cached;
+        }
+
+        NSMutableArray *bundles = [[TBRuntime runtime] bundlePathsForToken:token];
+        [self.bundlePathsCache setObject:bundles forKey:token];
+        return bundles;
+    }
+    else {
+        return [[TBRuntime runtime] bundlePathsForToken:token];
+    }
 }
 
 - (NSMutableArray *)bundleNamesForToken:(TBToken *)token {
-    NSMutableArray *cached = [self.bundleNamesCache objectForKey:token];
-    if (cached) {
-        return cached;
-    }
+    // Only cache if no wildcard
+    BOOL shouldCache = token == TBWildcardOptionsNone;
 
-    NSMutableArray *bundles = [[TBRuntime runtime] bundleNamesForToken:token];
-    [self.bundleNamesCache setObject:bundles forKey:token];
-    return bundles;
+    if (shouldCache) {
+        NSMutableArray *cached = [self.bundleNamesCache objectForKey:token];
+        if (cached) {
+            return cached;
+        }
+
+        NSMutableArray *bundles = [[TBRuntime runtime] bundleNamesForToken:token];
+        [self.bundleNamesCache setObject:bundles forKey:token];
+        return bundles;
+    }
+    else {
+        return [[TBRuntime runtime] bundleNamesForToken:token];
+    }
 }
 
 - (NSMutableArray *)classesForClassToken:(TBToken *)clsToken andBundleToken:(TBToken *)bundleToken {
-    NSString *key = [@[bundleToken.description, clsToken.description] componentsJoinedByString:@"+"];
-    NSMutableArray *cached = [self.classNamesCache objectForKey:key];
-    if (cached) {
-        return cached;
+    // Only cache if no wildcard
+    BOOL shouldCache = bundleToken.options == 0 && clsToken.options == 0;
+    NSString *key = nil;
+
+    if (shouldCache) {
+        key = [@[bundleToken.description, clsToken.description] componentsJoinedByString:@"+"];
+        NSMutableArray *cached = [self.classNamesCache objectForKey:key];
+        if (cached) {
+            return cached;
+        }
     }
 
     NSMutableArray *bundles = [self bundlePathsForToken:bundleToken];
     NSMutableArray *classes = [[TBRuntime runtime] classesForToken:clsToken inBundles:bundles];
 
-    [self.classNamesCache setObject:classes forKey:key];
+    if (shouldCache) {
+        [self.classNamesCache setObject:classes forKey:key];
+    }
+
     return classes;
 }
 
 - (NSMutableArray *)methodsForKeyPath:(TBKeyPath *)keyPath {
-    NSMutableArray *cached = [self.bundleNamesCache objectForKey:keyPath];
+    // Only cache if no wildcard, but check cache anyway bc I'm lazy
+    NSMutableArray *cached = [self.methodsCache objectForKey:keyPath];
     if (cached) {
         return cached;
     }
@@ -113,7 +140,17 @@ static TBRuntimeController *controller = nil;
     NSMutableArray *methods = [[TBRuntime runtime] methodsForToken:keyPath.methodKey
                                                           instance:keyPath.instanceMethods
                                                           inClasses:classes];
-    [self.bundleNamesCache setObject:methods forKey:keyPath];
+
+    [methods sortUsingComparator:^NSComparisonResult(MKMethod *m1, MKMethod *m2) {
+        return [m1.fullName caseInsensitiveCompare:m2.fullName];
+    }];
+
+    // Only cache if no wildcard
+    if (keyPath.bundleKey.options == TBWildcardOptionsNone &&
+        keyPath.classKey.options == TBWildcardOptionsNone) {
+        [self.methodsCache setObject:methods forKey:keyPath];
+    }
+
     return methods;
 }
 
