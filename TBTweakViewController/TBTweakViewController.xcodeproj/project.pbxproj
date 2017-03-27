@@ -218,6 +218,7 @@
 		C3601AD01E7C733300985E0D /* TBObjcCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBObjcCells.h; sourceTree = "<group>"; };
 		C3601AD11E7C733300985E0D /* TBObjcCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBObjcCells.m; sourceTree = "<group>"; };
 		C3A3B19A1E7B29590022A9B8 /* SectionControllers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionControllers.h; sourceTree = "<group>"; };
+		C3AAF0A41E88DDC500C7DA38 /* SwizzleInit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwizzleInit.h; sourceTree = "<group>"; };
 		C3B676A41E71FE46004E5122 /* UIViewController+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Convenience.h"; sourceTree = "<group>"; };
 		C3B676A51E71FE46004E5122 /* UIViewController+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Convenience.m"; sourceTree = "<group>"; };
 		C3B676A71E71FF6F004E5122 /* UIImage+TBBundleResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBBundleResources.h"; sourceTree = "<group>"; };
@@ -359,6 +360,7 @@
 		B4504C971D65246B00C4B568 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3AAF0A41E88DDC500C7DA38 /* SwizzleInit.h */,
 				C326C2A81E79F46100039F4E /* TBTableViewCell.h */,
 				C326C2A91E79F46100039F4E /* TBTableViewCell.m */,
 				C3C384621E70813800B1BC55 /* Misc categories */,
@@ -402,16 +404,11 @@
 			children = (
 				C3E531051E8331C7001D33E1 /* Key paths */,
 				C3E530F71E833079001D33E1 /* Runtime helpers */,
+				C3AAF0A51E88E58000C7DA38 /* Simple view? */,
 				C358213E1E847819008FEF2E /* TBKeyPathViewController.h */,
 				C358213F1E847819008FEF2E /* TBKeyPathViewController.m */,
 				C34E04D01E847FA900688ED6 /* TBKeyPathSearchController.h */,
 				C34E04D11E847FA900688ED6 /* TBKeyPathSearchController.m */,
-				B43BF1711D6D74C400E94501 /* TBBundlePickerViewController.h */,
-				B43BF1721D6D74C400E94501 /* TBBundlePickerViewController.m */,
-				B43BF1801D6E492600E94501 /* TBClassPickerViewController.h */,
-				B43BF1811D6E492600E94501 /* TBClassPickerViewController.m */,
-				B43BF17D1D6E48C900E94501 /* TBMethodPickerViewController.h */,
-				B43BF17E1D6E48C900E94501 /* TBMethodPickerViewController.m */,
 				C34E04D91E85D9C700688ED6 /* TBCodeFontCell.h */,
 				C34E04DA1E85D9C700688ED6 /* TBCodeFontCell.m */,
 				B478B6E01D78CAB9009E7771 /* TBSwitchCell.h */,
@@ -452,6 +449,19 @@
 				B4B9C7E51D70D0EA0025E1FB /* TBChirpCell.m */,
 			);
 			name = "Text cells";
+			sourceTree = "<group>";
+		};
+		C3AAF0A51E88E58000C7DA38 /* Simple view? */ = {
+			isa = PBXGroup;
+			children = (
+				B43BF1711D6D74C400E94501 /* TBBundlePickerViewController.h */,
+				B43BF1721D6D74C400E94501 /* TBBundlePickerViewController.m */,
+				B43BF1801D6E492600E94501 /* TBClassPickerViewController.h */,
+				B43BF1811D6E492600E94501 /* TBClassPickerViewController.m */,
+				B43BF17D1D6E48C900E94501 /* TBMethodPickerViewController.h */,
+				B43BF17E1D6E48C900E94501 /* TBMethodPickerViewController.m */,
+			);
+			name = "Simple view?";
 			sourceTree = "<group>";
 		};
 		C3B676AE1E72092B004E5122 /* Cells */ = {
