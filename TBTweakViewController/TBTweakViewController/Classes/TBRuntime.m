@@ -217,18 +217,31 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         TBWildcardOptions options = token.options;
         NSString *query = token.string;
 
-        // Optimization, avoid a loop
-        if (options == TBWildcardOptionsAny) {
-            return [bundles flatmap:^NSArray *(NSString *bundlePath) {
-                return [self classNamesInImageAtPath:bundlePath];
-            }];
-        }
+        // Optimization, avoid unnecessary sorting
+        if (bundles.count == 1) {
+            // Optimization, avoid a loop
+            if (options == TBWildcardOptionsAny) {
+                return [self classNamesInImageAtPath:bundles.firstObject];
+            }
 
-        return [bundles flatmap:^NSArray *(NSString *bundlePath) {
-            return [[self classNamesInImageAtPath:bundlePath] map:^id(NSString *className) {
+            return [[self classNamesInImageAtPath:bundles.firstObject] map:^id(NSString *className) {
                 return TBWildcardMap(query, className, options);
             }];
-        }];
+        }
+        else {
+            // Optimization, avoid a loop
+            if (options == TBWildcardOptionsAny) {
+                return [[bundles flatmap:^NSArray *(NSString *bundlePath) {
+                    return [self classNamesInImageAtPath:bundlePath];
+                }] sortedUsingSelector:@selector(caseInsensitiveCompare:)];
+            }
+
+            return [[bundles flatmap:^NSArray *(NSString *bundlePath) {
+                return [[self classNamesInImageAtPath:bundlePath] map:^id(NSString *className) {
+                    return TBWildcardMap(query, className, options);
+                }];
+            }] sortedUsingSelector:@selector(caseInsensitiveCompare:)];
+        }
     }
 
     return [NSMutableArray array];
