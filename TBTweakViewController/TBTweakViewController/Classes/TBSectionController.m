@@ -36,7 +36,7 @@
 }
 
 - (BOOL)shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    TBAbstractImpl(nil);
+    TBAbstractImpl(NO);
 }
 
 - (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

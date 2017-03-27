@@ -74,14 +74,14 @@
         case TBValueTypeMutableSet: {
             TBDetailDisclosureCell *celll = (id)self;
             celll.textLabel.text = @"Edit";
-            celll.detailTextLabel.text = format(@"%lu element(s)", ((NSArray*)value.value).count);
+            celll.detailTextLabel.text = format(@"%ld element(s)", (long)((NSArray*)value.value).count);
             break;
         }
         case TBValueTypeDictionary:
         case TBValueTypeMutableDictionary: {
             TBDetailDisclosureCell *celll = (id)self;
             celll.textLabel.text = @"Edit";
-            celll.detailTextLabel.text = format(@"%lu key-value pair(s)", ((NSDictionary*)value.value).count);
+            celll.detailTextLabel.text = format(@"%ld key-value pair(s)", (long)((NSDictionary*)value.value).count);
             break;
         }
         case TBValueTypeStruct: {

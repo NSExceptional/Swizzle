@@ -55,7 +55,7 @@
 - (TBSwitchCell *)toggleForParameterAtIndexPath:(NSIndexPath *)ip {
     TBSwitchCell *cell = [super toggleForParameterAtIndexPath:ip];
 
-    NSUInteger userVisibleArgIdx = TBSettings.expertMode ? self.argIdx : self.argIdx - 2;
+    unsigned long userVisibleArgIdx = TBSettings.expertMode ? self.argIdx : self.argIdx - 2;
 
     cell.textLabel.text = format(@"Override arg%lu", userVisibleArgIdx);
     cell.switchToggleAction = ^(BOOL on) {
