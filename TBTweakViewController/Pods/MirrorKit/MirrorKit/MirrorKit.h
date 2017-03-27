@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tanner Bennett. All rights reserved.
 //
 
+#import "MKMirror+Reflection.h"
 #import "NSObject+Reflection.h"
 
 #import "MKMirror.h"

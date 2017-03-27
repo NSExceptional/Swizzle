@@ -13,6 +13,7 @@
 #import "MKIVar.h"
 #import "MKPropertyAttributes.h"
 #import "MKPrivate.h"
+#import "MKMirror+Reflection.h"
 
 
 NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
@@ -108,31 +109,7 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
 @implementation NSObject (Methods)
 
 + (NSArray *)allMethods {
-    unsigned int mcount;
-    Method *objcmethods = class_copyMethodList(self, &mcount);
-    
-    NSMutableArray *methods = [NSMutableArray array];
-    for (int i = 0; i < mcount; i++) {
-        MKMethod *m = [MKMethod method:objcmethods[i] class:self isInstanceMethod:YES];
-        if (m) {
-            [methods addObject:m];
-        }
-    }
-    
-    free(objcmethods);
-    objcmethods = NULL;
-    mcount = 0;
-    
-    objcmethods = class_copyMethodList(object_getClass(self), &mcount);
-    for (int i = 0; i < mcount; i++) {
-        MKMethod *m = [MKMethod method:objcmethods[i] class:self isInstanceMethod:NO];
-        if (m) {
-            [methods addObject:m];
-        }
-    }
-    
-    free(objcmethods);
-    return methods;
+    [MKMirror allMethodsOf:self];
 }
 
 + (MKMethod *)methodNamed:(NSString *)name {

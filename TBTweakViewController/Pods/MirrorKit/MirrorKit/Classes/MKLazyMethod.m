@@ -15,7 +15,6 @@
 - (id)initWithMethod:(Method)method class:(Class)cls isInstanceMethod:(BOOL)isInstanceMethod {
     NSParameterAssert(method);
 
-    self = [super init];
     if (self) {
         _objc_method      = method;
         _targetClass      = cls;
@@ -43,7 +42,7 @@
 
 - (NSString *)selectorString {
     if (!_selectorString) {
-        _selectorString = NSStringFromSelector(_selector);
+        _selectorString = NSStringFromSelector(self.selector);
     }
 
     return _selectorString;

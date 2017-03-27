@@ -111,6 +111,11 @@
     return __description;
 }
 
+- (NSString *)debugDescription {
+    return [NSString stringWithFormat:@"<%@ selector=%@, signature=%@>",
+            NSStringFromClass(self.class), self.selectorString, self.signatureString];
+}
+
 - (NSString *)debugNameGivenClassName:(NSString *)name {
     NSMutableString *string = [NSMutableString stringWithString:_isInstanceMethod ? @"-[" : @"+["];
     [string appendString:name];
@@ -278,11 +283,6 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
     
     // If we couldn't translate, just return the original encoding string
     return encodingString;
-}
-
-- (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"<%@ selector=%@, signature=%@>",
-            NSStringFromClass(self.class), self.selectorString, self.signatureString];
 }
 
 - (void)examine {
