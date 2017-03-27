@@ -8,7 +8,8 @@
 
 #import "TBRuntime.h"
 #import "Categories.h"
-#import "NSObject+Reflection.h"
+#import "MKMirror+Reflection.h"
+#import "MKMethod.h"
 
 #define TBEquals(a, b) ([a compare:b options:NSCaseInsensitiveSearch] == NSOrderedSame)
 #define TBContains(a, b) ([a rangeOfString:b options:NSCaseInsensitiveSearch].location != NSNotFound)
@@ -255,11 +256,6 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         BOOL instance = checkInstance.boolValue;
         NSString *selector = token.string;
 
-        // Remove leading - or +
-        if (instance && selector.length) {
-            selector = [selector substringFromIndex:1];
-        }
-
         switch (options) {
             /// In practice, I don't think this case is ever used with methods
             case TBWildcardOptionsNone: {
@@ -273,7 +269,9 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             }
             case TBWildcardOptionsAny: {
                 return [classes flatmap:^NSArray *(NSString *name) {
-                    return [NSClassFromString(name) allMethods];
+                    // Any means `instance` was not specified
+                    Class cls = NSClassFromString(name);
+                    return [MKMirror allMethodsOf:cls];
                 }];
             }
             default: {
@@ -282,7 +280,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                     options & TBWildcardOptionsSuffix) {
                     return [classes flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
-                        return [[cls allMethods] map:^id(MKMethod *method) {
+                        return [[MKMirror allMethodsOf:cls] map:^id(MKMethod *method) {
 
                             // Method is a prefix-suffix wildcard
                             if (TBContains(method.selectorString, selector)) {
@@ -297,7 +295,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                     return [classes flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
 
-                        return [[cls allMethods] map:^id(MKMethod *method) {
+                        return [[MKMirror allMethodsOf:cls] map:^id(MKMethod *method) {
                             // Method is a prefix wildcard
                             if (TBHasSuffix(method.selectorString, selector)) {
                                 return method;
@@ -308,16 +306,12 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                 }
                 // Only "if method starts with with selector"
                 else if (options & TBWildcardOptionsSuffix) {
+                    assert(checkInstance);
+
                     return [classes flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
 
-                        return [[cls allMethods] map:^id(MKMethod *method) {
-                            // Make sure method is type we want
-                            // This only applies to suffix
-                            if (checkInstance && (method.isInstanceMethod != instance)) {
-                                return nil;
-                            }
-
+                        id mapping = ^id(MKMethod *method) {
                             // Case like "Bundle.class.-" where we want "-" to match anything
                             if (!selector.length) {
                                 return method;
@@ -328,7 +322,13 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                                 return method;
                             }
                             return nil;
-                        }];
+                        };
+
+                        if (instance) {
+                            return [[MKMirror instanceMethodsOf:cls] map:mapping];
+                        } else {
+                            return [[MKMirror classMethodsOf:cls] map:mapping];
+                        }
                     }];
                 }
             }
