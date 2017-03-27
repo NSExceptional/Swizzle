@@ -76,4 +76,14 @@ void test() {
     return array;
 }
 
+- (instancetype)sortedUsingSelector:(SEL)selector {
+    if (TBIsMutableArray(self)) {
+        NSMutableArray *me = (id)self;
+        [me sortUsingSelector:selector];
+        return me;
+    } else {
+        return [self sortedArrayUsingSelector:selector];
+    }
+}
+
 @end

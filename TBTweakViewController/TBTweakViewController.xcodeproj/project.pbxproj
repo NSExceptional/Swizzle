@@ -58,6 +58,7 @@
 		C34E04DB1E85D9C700688ED6 /* TBCodeFontCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E04DA1E85D9C700688ED6 /* TBCodeFontCell.m */; };
 		C35821401E847819008FEF2E /* TBKeyPathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C358213F1E847819008FEF2E /* TBKeyPathViewController.m */; };
 		C35821431E8479EC008FEF2E /* TBRuntimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35821421E8479EC008FEF2E /* TBRuntimeController.m */; };
+		C35933FD1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C35933FC1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m */; };
 		C3601AC21E7C5FB100985E0D /* TBValueHookSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3601AC11E7C5FB100985E0D /* TBValueHookSectionController.m */; };
 		C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3601AC41E7C6D1700985E0D /* TBTextFieldCell.m */; };
 		C3601AC81E7C6E4D00985E0D /* TBTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3601AC71E7C6E4D00985E0D /* TBTextViewCell.m */; };
@@ -206,6 +207,8 @@
 		C358213F1E847819008FEF2E /* TBKeyPathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyPathViewController.m; sourceTree = "<group>"; };
 		C35821411E8479EC008FEF2E /* TBRuntimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRuntimeController.h; sourceTree = "<group>"; };
 		C35821421E8479EC008FEF2E /* TBRuntimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRuntimeController.m; sourceTree = "<group>"; };
+		C35933FB1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+Blocks.h"; sourceTree = "<group>"; };
+		C35933FC1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+Blocks.m"; sourceTree = "<group>"; };
 		C3601AC01E7C5FB100985E0D /* TBValueHookSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBValueHookSectionController.h; sourceTree = "<group>"; };
 		C3601AC11E7C5FB100985E0D /* TBValueHookSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBValueHookSectionController.m; sourceTree = "<group>"; };
 		C3601AC31E7C6D1700985E0D /* TBTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextFieldCell.h; sourceTree = "<group>"; };
@@ -508,6 +511,8 @@
 				C3B676AC1E720055004E5122 /* UIBarButtonItem+Convenience.m */,
 				C3E530F21E808680001D33E1 /* UIFont+Swizzle.h */,
 				C3E530F31E808680001D33E1 /* UIFont+Swizzle.m */,
+				C35933FB1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.h */,
+				C35933FC1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m */,
 				C3B676A71E71FF6F004E5122 /* UIImage+TBBundleResources.h */,
 				C3B676A81E71FF6F004E5122 /* UIImage+TBBundleResources.m */,
 				C3B676AF1E720DCC004E5122 /* UITableView+Convenience.h */,
@@ -838,6 +843,7 @@
 				C3E530F41E808680001D33E1 /* UIFont+Swizzle.m in Sources */,
 				C3B676A91E71FF6F004E5122 /* UIImage+TBBundleResources.m in Sources */,
 				C3601AC81E7C6E4D00985E0D /* TBTextViewCell.m in Sources */,
+				C35933FD1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m in Sources */,
 				B4504CA61D679C7200C4B568 /* NSError+Message.m in Sources */,
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
 				C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */,

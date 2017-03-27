@@ -20,4 +20,6 @@
 /// Adds all elements into a single array
 - (instancetype)flatmap:(NSArray *(^)(ObjectType obj))block;
 
+- (instancetype)sortedUsingSelector:(SEL)selector;
+
 @end

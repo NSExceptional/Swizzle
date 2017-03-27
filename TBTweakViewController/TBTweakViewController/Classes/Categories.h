@@ -12,6 +12,7 @@
 #import "NSTimer+Blocks.h"
 #import "UIBarButtonItem+Convenience.h"
 #import "UIFont+Swizzle.h"
+#import "UIGestureRecognizer+Blocks.h"
 #import "UIImage+TBBundleResources.h"
 #import "UITableView+Convenience.h"
 #import "UIViewController+Convenience.h"
