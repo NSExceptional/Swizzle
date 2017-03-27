@@ -6,3 +6,5 @@ obj
 .theos
 .DS_Store
 *.xcuserstate
+
+*.xcbkptlist
