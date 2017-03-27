@@ -13,10 +13,15 @@
 @property (nonatomic, readonly) UITableView *tableView;
 @property (nonatomic, readonly) UISearchBar *searchBar;
 @property (nonatomic, readonly) UINavigationController *navigationController;
+
+- (void)didSelectSuperclass:(UIMenuItem *)item;
 @end
 
 @interface TBKeyPathSearchController : NSObject <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 + (instancetype)delegate:(id<TBKeyPathSearchControllerDelegate>)delegate;
+
+- (void)longPressedRect:(CGRect)rect at:(NSIndexPath *)indexPath;
+- (void)didSelectKeyPathOption:(NSString *)text;
 
 @end

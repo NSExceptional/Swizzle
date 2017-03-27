@@ -40,7 +40,41 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.delegate.searchBar resignFirstResponder];
+    if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) {
+        [self.delegate.searchBar resignFirstResponder];
+    }
+}
+
+#pragma mark Long press on class cell
+
+- (void)longPressedRect:(CGRect)rect at:(NSIndexPath *)indexPath {
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    menuController.menuItems = [self menuItemsForRow:indexPath.row];
+    if (menuController.menuItems) {
+        [self.delegate.searchBar resignFirstResponder];
+        [menuController setTargetRect:rect inView:self.delegate.tableView];
+        [menuController setMenuVisible:YES animated:YES];
+    }
+}
+
+- (NSArray *)menuItemsForRow:(NSUInteger)row {
+    if (!self.keyPath.methodKey && self.keyPath.classKey) {
+        Class baseClass = NSClassFromString(self.bundlesOrClasses[row]);
+
+        // Find superclasses
+        NSMutableArray<NSString*> *superclasses = [NSMutableArray array];
+        while ([baseClass superclass]) {
+            [superclasses addObject:NSStringFromClass([baseClass superclass])];
+            baseClass = [baseClass superclass];
+        }
+
+        // Map to UIMenuItems, will delegate call into didSelectKeyPathOption:
+        return [superclasses map:^id(NSString *cls) {
+            return [[UIMenuItem alloc] initWithTitle:cls action:@selector(didSelectSuperclass:)];
+        }];
+    }
+
+    return nil;
 }
 
 #pragma mark Key path stuff
@@ -151,6 +185,8 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    tableView.contentOffset = CGPointMake(0, - self.delegate.searchBar.frame.size.height - 20);
+    
     if (self.bundlesOrClasses) {
         [_timer invalidate]; // Still maybe need to refresh when method is selected
         [self didSelectKeyPathOption:self.bundlesOrClasses[indexPath.row]];

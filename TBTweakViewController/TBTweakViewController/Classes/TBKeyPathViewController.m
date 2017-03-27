@@ -37,10 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"Create Tweak";
+
     // Search bar stuff
     _searchController          = [TBKeyPathSearchController delegate:self];
     self.searchBar.delegate    = self.searchController;
-    self.searchBar.placeholder = @"UIKit.UIView.-setFrame:";
+    self.searchBar.placeholder = @"UIKit*.UIView.-setFrame:";
     self.tableView.tableHeaderView = self.searchBar;
 
     // Cancel button
@@ -50,6 +52,15 @@
     // Table view stuff
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerCell:[TBCodeFontCell class]];
+
+    // Long press gesture for classes
+    [self.tableView addGestureRecognizer:[UILongPressGestureRecognizer action:^(UIGestureRecognizer *gesture) {
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            NSIndexPath *ip = [self.tableView indexPathForRowAtPoint:[gesture locationInView:self.tableView]];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:ip];
+            [self.searchController longPressedRect:cell.frame at:ip];
+        }
+    }]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +72,20 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.searchBar resignFirstResponder];
+}
+
+#pragma mark Long press action
+
+- (void)didSelectSuperclass:(UIMenuItem *)item {
+    [self.searchController didSelectKeyPathOption:item.title];
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    return action == @selector(didSelectSuperclass:);
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 @end
