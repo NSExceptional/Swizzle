@@ -22,10 +22,18 @@
 @property (nonatomic, readonly, weak) id<TBKeyPathSearchControllerDelegate> delegate;
 @property (nonatomic, readonly) NSTimer *timer;
 @property (nonatomic) NSArray<NSString*> *bundlesOrClasses;
-@property (nonatomic) NSArray<MKMethod*> *methods;
 @property (nonatomic) TBKeyPath *keyPath;
+
+// We use this when the target class is not absolute
+@property (nonatomic) NSArray<MKMethod*> *methods;
+
+// We use these when the target class is absolute and has superclasses.
+// Contrary to the name, superclasses contains the origin class name as well.
+@property (nonatomic) NSArray<NSString*> *superclasses;
+@property (nonatomic) NSDictionary<NSString*, NSArray*> *classesToMethods;
 @end
 
+#warning TODO there's no code to handle refreshing the table after manually appending ".bar" to "Bundle"
 @implementation TBKeyPathSearchController
 
 + (instancetype)delegate:(id<TBKeyPathSearchControllerDelegate>)delegate {
@@ -59,14 +67,7 @@
 
 - (NSArray *)menuItemsForRow:(NSUInteger)row {
     if (!self.keyPath.methodKey && self.keyPath.classKey) {
-        Class baseClass = NSClassFromString(self.bundlesOrClasses[row]);
-
-        // Find superclasses
-        NSMutableArray<NSString*> *superclasses = [NSMutableArray array];
-        while ([baseClass superclass]) {
-            [superclasses addObject:NSStringFromClass([baseClass superclass])];
-            baseClass = [baseClass superclass];
-        }
+        NSArray *superclasses = [self superclassesOf:self.bundlesOrClasses[row]];
 
         // Map to UIMenuItems, will delegate call into didSelectKeyPathOption:
         return [superclasses map:^id(NSString *cls) {
@@ -76,6 +77,19 @@
     }
 
     return nil;
+}
+
+- (NSArray<NSString*> *)superclassesOf:(NSString *)className {
+    Class baseClass = NSClassFromString(className);
+
+    // Find superclasses
+    NSMutableArray<NSString*> *superclasses = [NSMutableArray array];
+    while ([baseClass superclass]) {
+        [superclasses addObject:NSStringFromClass([baseClass superclass])];
+        baseClass = [baseClass superclass];
+    }
+
+    return superclasses;
 }
 
 #pragma mark Key path stuff
@@ -88,21 +102,40 @@
 
     // Update list
     self.keyPath = [TBKeyPathTokenizer tokenizeString:newText];
+    [self didSelectAbsoluteClass:name];
     [self updateTable];
 }
 
 - (void)didSelectKeyPathOption:(NSString *)text {
+    [_timer invalidate]; // Still might be waiting to refresh when method is selected
+
     // Change "Bundle.fooba" to "Bundle.foobar."
     NSString *orig = self.delegate.searchBar.text;
     NSString *keyPath = [orig stringByReplacingLastKeyPathComponent:text];
     self.delegate.searchBar.text = keyPath;
 
-    // Update list
     self.keyPath = [TBKeyPathTokenizer tokenizeString:keyPath];
+
+    // Get superclasses if class was selected
+    if (self.keyPath.classKey.isAbsolute && self.keyPath.methodKey.isAny) {
+        [self didSelectAbsoluteClass:text];
+    } else {
+        self.superclasses = nil;
+    }
+
     [self updateTable];
 }
 
 - (void)didSelectMethod:(MKMethod *)method {
+    // If the user selects a method implemented only by a superclass,
+    // we're going to be adding a method. We need to take the given
+    // method and change it's target class to the base class.
+    Class target = NSClassFromString(self.keyPath.classKey.string);
+    if (self.keyPath.classKey.isAbsolute && method.targetClass != target) {
+        #warning TODO clean this up
+        method = [MKMethod method:method.objc_method class:target isInstanceMethod:method.isInstanceMethod];
+    }
+
     TBTweak *tweak = [TBTweak tweakWithHook:[TBMethodHook hook:method]];
     TBConfigureTweakViewController *config = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
         [[TBTweakManager sharedManager] addTweak:tweak];
@@ -112,23 +145,43 @@
     [self.delegate.navigationController pushViewController:config animated:YES];
 }
 
+- (void)didSelectAbsoluteClass:(NSString *)name {
+    NSMutableArray *superclasses = [NSMutableArray array];
+    [superclasses addObject:name];
+    [superclasses addObjectsFromArray:[self superclassesOf:name]];
+    self.superclasses     = superclasses;
+    self.bundlesOrClasses = nil;
+    self.methods          = nil;
+}
+
 #pragma mark - Filtering + UISearchBarDelegate
 
 - (void)updateTable {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSArray *models = [TBRuntimeController dataForKeyPath:_keyPath];
+        if (self.superclasses) {
+            // Compute methods list, reload table
+            self.classesToMethods = [TBRuntimeController methodsForToken:_keyPath.methodKey
+                                                                instance:_keyPath.instanceMethods
+                                                               inClasses:_superclasses];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate.tableView reloadData];
+            });
+        }
+        else {
+            NSArray *models = [TBRuntimeController dataForKeyPath:_keyPath];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_keyPath.methodKey) {
-                _bundlesOrClasses = nil;
-                _methods = models;
-            } else {
-                _bundlesOrClasses = models;
-                _methods = nil;
-            }
-            
-            [self.delegate.tableView reloadData];
-        });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (_keyPath.methodKey) {
+                    _bundlesOrClasses = nil;
+                    _methods = models;
+                } else {
+                    _bundlesOrClasses = models;
+                    _methods = nil;
+                }
+
+                [self.delegate.tableView reloadData];
+            });
+        }
     });
 }
 
@@ -154,6 +207,10 @@
 
     // Schedule update timer
     if (searchText.length) {
+        if (!self.keyPath.methodKey) {
+            self.superclasses = nil;
+        }
+
         _timer = [NSTimer fireSecondsFromNow:0.15 block:^{
             [self updateTable];
         }];
@@ -174,7 +231,15 @@
 
 #pragma mark UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _superclasses.count ?: 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (_superclasses) {
+        return _classesToMethods[_superclasses[section]].count;
+    }
+
     NSArray *models = (id)_bundlesOrClasses ?: (id)_methods;
     return models.count;
 }
@@ -182,28 +247,48 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [TBCodeFontCell dequeue:tableView indexPath:indexPath];
     if (self.bundlesOrClasses) {
-        cell.accessoryType  = UITableViewCellAccessoryNone;
-        cell.textLabel.text = self.bundlesOrClasses[indexPath.row];
+        cell.accessoryType        = UITableViewCellAccessoryNone;
+        cell.textLabel.text       = self.bundlesOrClasses[indexPath.row];
         cell.detailTextLabel.text = nil;
-    } else {
-        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = self.methods[indexPath.row].fullName;
+    }
+    else if (self.superclasses) {
+        NSString *className       = self.superclasses[indexPath.section];
+        MKMethod *method          = self.classesToMethods[className][indexPath.row];
+        cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text       = method.fullName;
+        cell.detailTextLabel.text = method.selectorString;
+    }
+    else {
+        cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text       = self.methods[indexPath.row].fullName;
         cell.detailTextLabel.text = self.methods[indexPath.row].selectorString;
     }
 
     return cell;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.superclasses) {
+        return [self.superclasses[section] stringByAppendingString:@" methods"];
+    }
+
+    return nil;
+}
+
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    tableView.contentOffset = CGPointMake(0, - self.delegate.searchBar.frame.size.height - 20);
-    
     if (self.bundlesOrClasses) {
-        [_timer invalidate]; // Still maybe need to refresh when method is selected
+        tableView.contentOffset = CGPointMake(0, - self.delegate.searchBar.frame.size.height - 20);
         [self didSelectKeyPathOption:self.bundlesOrClasses[indexPath.row]];
     } else {
-        [self didSelectMethod:self.methods[indexPath.row]];
+        if (self.superclasses) {
+            NSString *superclass = self.superclasses[indexPath.section];
+            [self didSelectMethod:self.classesToMethods[superclass][indexPath.row]];
+        } else {
+            assert(indexPath.section == 0);
+            [self didSelectMethod:self.methods[indexPath.row]];
+        }
     }
 }
 

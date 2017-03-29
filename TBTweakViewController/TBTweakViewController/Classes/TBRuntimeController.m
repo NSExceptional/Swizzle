@@ -62,6 +62,20 @@ static TBRuntimeController *controller = nil;
     }
 }
 
++ (NSDictionary *)methodsForToken:(TBToken *)token
+                         instance:(NSNumber *)inst
+                        inClasses:(NSArray<NSString*> *)classes {
+    NSMutableDictionary *methods = [NSMutableDictionary dictionary];
+    for (NSString *className in classes) {
+        NSMutableArray *target = [NSMutableArray arrayWithObject:className];
+        methods[className] = [[TBRuntime runtime] methodsForToken:token
+                                                         instance:inst
+                                                        inClasses:target];
+    }
+
+    return methods;
+}
+
 + (NSString *)shortBundleNameForClass:(NSString *)name {
     NSString *imagePath = @(class_getImageName(NSClassFromString(name)));
     return [[TBRuntime runtime] shortNameForImageName:imagePath];
@@ -151,8 +165,8 @@ static TBRuntimeController *controller = nil;
     }];
 
     // Only cache if no wildcard
-    if (keyPath.bundleKey.options == TBWildcardOptionsNone &&
-        keyPath.classKey.options == TBWildcardOptionsNone) {
+    if (keyPath.bundleKey.isAbsolute &&
+        keyPath.classKey.isAbsolute) {
         [self.methodsCache setObject:methods forKey:keyPath];
     }
 

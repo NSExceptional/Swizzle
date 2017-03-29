@@ -15,6 +15,10 @@
 ///         to a class or bundle; otherwise, an array of MKMethods.
 + (NSArray *)dataForKeyPath:(TBKeyPath *)keyPath;
 
++ (NSDictionary *)methodsForToken:(TBToken *)token
+                         instance:(NSNumber *)onlyInstanceMethods
+                        inClasses:(NSArray<NSString*> *)classes;
+
 + (NSString *)shortBundleNameForClass:(NSString *)name;
 
 + (NSArray *)allBundleNames;

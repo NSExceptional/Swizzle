@@ -22,6 +22,14 @@
     return token;
 }
 
+- (BOOL)isAbsolute {
+    return _options == TBWildcardOptionsNone;
+}
+
+- (BOOL)isAny {
+    return _options == TBWildcardOptionsAny;
+}
+
 - (NSString *)description {
     if (tb_description) {
         return tb_description;

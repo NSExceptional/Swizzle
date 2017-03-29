@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"Create Tweak";
+    self.title = @"Choose Hook";
 
     // Search bar stuff
     _searchController          = [TBKeyPathSearchController delegate:self];

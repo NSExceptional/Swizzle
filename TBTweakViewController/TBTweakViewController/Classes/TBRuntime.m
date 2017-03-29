@@ -214,6 +214,11 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
 }
 
 - (NSMutableArray<NSString*> *)classesForToken:(TBToken *)token inBundles:(NSMutableArray<NSString*> *)bundles {
+    // Edge case where token is the class we want already
+    if (token.isAbsolute && NSClassFromString(token.string)) {
+        return [NSMutableArray arrayWithObject:token.string];
+    }
+
     if (bundles.count) {
         TBWildcardOptions options = token.options;
         NSString *query = token.string;
