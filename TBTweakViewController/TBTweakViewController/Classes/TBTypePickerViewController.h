@@ -15,6 +15,7 @@
 
 + (instancetype)withCompletion:(void(^)(TBValueType newType))completion
                          title:(NSString *)title
-                          type:(MKTypeEncoding)type;
+                          type:(MKTypeEncoding)type
+                       current:(TBValueType)current;
 
 @end

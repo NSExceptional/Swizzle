@@ -29,11 +29,15 @@
 
 + (instancetype)withCompletion:(void(^)(TBValueType newType))completion
                          title:(NSString *)title
-                          type:(MKTypeEncoding)type {
+                          type:(MKTypeEncoding)type
+                       current:(TBValueType)current {
     
     TBTypePickerViewController *valuevc = [self new];
     valuevc.completion = completion;
     valuevc.title      = title;
+    valuevc.type       = current;
+
+    [valuevc computeAllowedValueTypes:type currentType:current];
 
     valuevc.tableView.rowHeight = UITableViewAutomaticDimension;
     [valuevc.tableView registerCell:[TBTableViewCell class]];

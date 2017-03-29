@@ -20,7 +20,7 @@
 
 - (NSString *)classNameValue {
     assertType(TBValueTypeClass);
-    return (NSString *)self.value;
+    return NSStringFromClass((Class)self.value);
 }
 
 - (NSString *)selectorValue {

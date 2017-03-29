@@ -16,6 +16,10 @@
 #define dequeue dequeueReusableCellWithIdentifier
 #define format(...) [NSString stringWithFormat:__VA_ARGS__]
 
+@interface TBValueHookSectionController ()
+@property (nonatomic) TBValue *hookedValue;
+@end
+
 @implementation TBValueHookSectionController
 @dynamic delegate, typePickerTitle;
 
@@ -136,8 +140,9 @@
 - (void)didSelectTypePickerCell:(NSUInteger)section {
     TBTypePickerViewController *vvc = [TBTypePickerViewController withCompletion:^(TBValueType newType) {
         self.valueType = newType;
+        self.hookedValue = [TBValue defaultForValueType:newType];
         [self.delegate.tableView reloadSection:section];
-    } title:self.typePickerTitle type:self.typeEncoding[0]];
+    } title:self.typePickerTitle type:self.typeEncoding[0] current:self.hookedValue.type];
 
     [self.delegate.navigationController pushViewController:vvc animated:YES];
 }
