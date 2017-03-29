@@ -124,12 +124,14 @@ NSString * MKTypeEncodingString(const char *returnType, NSUInteger count, ...) {
     return class_addMethod(instance ? self.class : self.metaclass, selector, implementaiton, typeEncoding.UTF8String);
 }
 
-+ (IMP)replaceImplementationOfMethod:(MKSimpleMethod *)method with:(IMP)implementation useInstance:(BOOL)instance {
-    return class_replaceMethod(instance ? self.class : self.metaclass, method.selector, implementation, method.typeEncoding.UTF8String);
++ (IMP)replaceImplementationOfMethod:(MKMethod *)method with:(IMP)implementation {
+    Class target = method.isInstanceMethod ? self.class : self.metaclass;
+    return class_replaceMethod(target, method.selector, implementation, method.typeEncoding.UTF8String);
 }
 
-+ (void)swizzle:(MKSimpleMethod *)original with:(MKSimpleMethod *)other onInstance:(BOOL)instance {
-    [self swizzleBySelector:original.selector with:other.selector onInstance:instance];
++ (void)swizzle:(MKMethod *)original with:(MKMethod *)other {
+    NSParameterAssert(original.isInstanceMethod == other.isInstanceMethod);
+    [self swizzleBySelector:original.selector with:other.selector onInstance:original.isInstanceMethod];
 }
 
 + (BOOL)swizzleByName:(NSString *)original with:(NSString *)other onInstance:(BOOL)instance {

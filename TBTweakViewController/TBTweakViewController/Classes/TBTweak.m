@@ -108,7 +108,7 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
             } else {
                 TBMethodStorePut(self.hook.method.objc_method, self.hook);
                 Class cls = NSClassFromString(self.hook.target);
-                [cls replaceImplementationOfMethod:self.hook.method with:implementation useInstance:self.hook.method.isInstanceMethod];
+                [cls replaceImplementationOfMethod:self.hook.method with:implementation];
                 _enabled = YES;
             }
         } else {
@@ -123,8 +123,7 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
     TBMethodStoreRemove(self.hook.method.objc_method);
     
     Class cls = NSClassFromString(self.hook.target);
-    [cls replaceImplementationOfMethod:self.hook.method with:self.hook.originalImplementation
-                           useInstance:self.hook.method.isInstanceMethod];
+    [cls replaceImplementationOfMethod:self.hook.method with:self.hook.originalImplementation];
     _enabled = NO;
 }
 

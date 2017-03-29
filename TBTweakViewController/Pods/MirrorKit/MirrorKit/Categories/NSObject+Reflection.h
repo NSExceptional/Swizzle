@@ -60,7 +60,7 @@ extern NSString * MKTypeEncodingString(const char *returnType, NSUInteger count,
 /// @discussion This method will add an override of a superclass's implementation,
 /// but will not replace an existing implementation in the class.
 /// To change an existing implementation, use \c replaceImplementationOfMethod:with:.
-
+///
 /// Type encodings start with the return type and end with the parameter types in order.
 /// The type encoding for \c NSArray's \c count property getter looks like this:
 /// @code [NSString stringWithFormat:@"%s%s%s%s", @encode(void), @encode(id), @encode(SEL), @encode(NSUInteger)] @endcode
@@ -78,13 +78,13 @@ extern NSString * MKTypeEncodingString(const char *returnType, NSUInteger count,
 /// - If the method does not yet exist in the recieving class, it is added as if \c addMethod:typeEncoding:implementation were called.
 /// - If the method does exist, its \c IMP is replaced.
 /// @return The previous \c IMP of \e method.
-+ (IMP)replaceImplementationOfMethod:(MKSimpleMethod *)method with:(IMP)implementation useInstance:(BOOL)instanceMethod;
++ (IMP)replaceImplementationOfMethod:(MKMethod *)method with:(IMP)implementation;
 /// Swaps the implementations of the given methods.
 /// @discussion If one or neither of the given methods exist in the recieving class,
 /// they are added to the class with their implementations swapped as if each method did exist.
 /// This method will not fail if each \c MKSimpleMethod contains a valid selector.
 /// @param instanceMethod YES to swizzle the instance method, NO to swizzle the class method.
-+ (void)swizzle:(MKSimpleMethod *)original with:(MKSimpleMethod *)other onInstance:(BOOL)instanceMethod;
++ (void)swizzle:(MKMethod *)original with:(MKMethod *)other;
 /// Swaps the implementations of the given methods.
 /// @param instanceMethod YES to swizzle the instance method, NO to swizzle the class method.
 /// @return \c YES if successful, and \c NO if selectors could not be retrieved from the given strings.
