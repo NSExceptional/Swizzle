@@ -62,6 +62,11 @@ static TBRuntimeController *controller = nil;
     }
 }
 
++ (NSString *)shortBundleNameForClass:(NSString *)name {
+    NSString *imagePath = @(class_getImageName(NSClassFromString(name)));
+    return [[TBRuntime runtime] shortNameForImageName:imagePath];
+}
+
 + (NSArray *)allBundleNames {
     return [TBRuntime runtime].imageDisplayNames;
 }

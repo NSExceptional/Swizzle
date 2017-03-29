@@ -30,4 +30,10 @@
     return self.array[idx];
 }
 
+- (void)addIndex:(NSUInteger)value {
+    [super addIndex:value];
+    [self.array addObject:@(value)];
+    [self.array sortUsingSelector:@selector(compare:)];
+}
+
 @end

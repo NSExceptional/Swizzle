@@ -14,7 +14,7 @@
 @property (nonatomic, readonly) UISearchBar *searchBar;
 @property (nonatomic, readonly) UINavigationController *navigationController;
 
-- (void)didSelectSuperclass:(UIMenuItem *)item;
+@property (nonatomic, readonly) NSString *longPressItemSELPrefix;
 @end
 
 @interface TBKeyPathSearchController : NSObject <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -23,5 +23,6 @@
 
 - (void)longPressedRect:(CGRect)rect at:(NSIndexPath *)indexPath;
 - (void)didSelectKeyPathOption:(NSString *)text;
+- (void)didSelectSuperclass:(NSString *)name;
 
 @end

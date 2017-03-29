@@ -23,6 +23,8 @@
 /// An array of strings representing the currently loaded libraries.
 @property (nonatomic, readonly) NSArray<NSString*> *imageDisplayNames;
 
+- (NSString *)shortNameForImageName:(NSString *)imageName;
+
 /// @return Bundle names for the UI
 - (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token;
 /// @return Bundle paths for more queries

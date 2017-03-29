@@ -70,7 +70,8 @@
 
         // Map to UIMenuItems, will delegate call into didSelectKeyPathOption:
         return [superclasses map:^id(NSString *cls) {
-            return [[UIMenuItem alloc] initWithTitle:cls action:@selector(didSelectSuperclass:)];
+            NSString *sel = [self.delegate.longPressItemSELPrefix stringByAppendingString:cls];
+            return [[UIMenuItem alloc] initWithTitle:cls action:NSSelectorFromString(sel)];
         }];
     }
 
@@ -78,6 +79,17 @@
 }
 
 #pragma mark Key path stuff
+
+- (void)didSelectSuperclass:(NSString *)name {
+    NSString *bundle = [TBRuntimeController shortBundleNameForClass:name];
+    bundle = [bundle stringByReplacingOccurrencesOfString:@"." withString:@"\\."];
+    NSString *newText = [NSString stringWithFormat:@"%@.%@.", bundle, name];
+    self.delegate.searchBar.text = newText;
+
+    // Update list
+    self.keyPath = [TBKeyPathTokenizer tokenizeString:newText];
+    [self updateTable];
+}
 
 - (void)didSelectKeyPathOption:(NSString *)text {
     // Change "Bundle.fooba" to "Bundle.foobar."

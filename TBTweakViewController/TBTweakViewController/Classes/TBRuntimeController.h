@@ -15,6 +15,8 @@
 ///         to a class or bundle; otherwise, an array of MKMethods.
 + (NSArray *)dataForKeyPath:(TBKeyPath *)keyPath;
 
++ (NSString *)shortBundleNameForClass:(NSString *)name;
+
 + (NSArray *)allBundleNames;
 
 @end

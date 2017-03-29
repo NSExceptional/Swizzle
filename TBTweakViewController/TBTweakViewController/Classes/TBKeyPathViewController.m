@@ -76,16 +76,36 @@
 
 #pragma mark Long press action
 
-- (void)didSelectSuperclass:(UIMenuItem *)item {
-    [self.searchController didSelectKeyPathOption:item.title];
+- (NSString *)longPressItemSELPrefix { return @"tb_"; }
+
+- (void)didSelectSuperclass:(NSString *)title {
+    [self.searchController didSelectSuperclass:title];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    return action == @selector(didSelectSuperclass:);
+    return [@((char*)(void*)action) hasPrefix:self.longPressItemSELPrefix];
 }
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
+    if ([super methodSignatureForSelector:sel]) {
+        return [super methodSignatureForSelector:sel];
+    }
+
+    return [super methodSignatureForSelector:@selector(didSelectSuperclass:)];
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation {
+    NSString *title = NSStringFromSelector([invocation selector]);
+    NSRange match = [title rangeOfString:self.longPressItemSELPrefix];
+    if (match.location == 0) {
+        [self didSelectSuperclass:[title substringFromIndex:3]];
+    } else {
+        [super forwardInvocation:invocation];
+    }
 }
 
 @end
