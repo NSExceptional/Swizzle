@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MirrorKit:
-    :commit: 83645e315799ca9d0c710831b3db18fb4eef93b7
+    :commit: 836d872f2a9f06a17780f9de3d63d0dfeeb6ab4e
     :git: https://github.com/NSExceptional/MirrorKit.git
 
 SPEC CHECKSUMS:

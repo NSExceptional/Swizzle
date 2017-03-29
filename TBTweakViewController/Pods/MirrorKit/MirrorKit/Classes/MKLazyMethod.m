@@ -20,6 +20,7 @@
         _targetClass      = cls;
         _isInstanceMethod = isInstanceMethod;
         @try {
+            _implementedByTargetClass = [self isImplementedInClass:_targetClass];
             _signatureString = @(method_getTypeEncoding(method));
             _signature = [NSMethodSignature signatureWithObjCTypes:_signatureString.UTF8String];
         } @catch (id exception) {

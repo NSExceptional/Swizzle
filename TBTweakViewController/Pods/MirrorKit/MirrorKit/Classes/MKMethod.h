@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *_signatureString;
     MKTypeEncoding _returnType;
     NSString *_fullName;
+    BOOL _implementedByTargetClass;
 }
 
 #pragma mark - Initialization -
@@ -60,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable instancetype)method:(Method)method isInstanceMethod:(BOOL)isInstanceMethod DEPRECATED_MSG_ATTRIBUTE("Use +method:class:isInstanceMethod instead.");
 
 #pragma mark - Properties -
-/// The
+/// The target class, but not necessarily the class implementing the method.
 @property (nonatomic, readonly) Class             targetClass;
 @property (nonatomic, readonly) Method            objc_method;
 /// The implementation of the method.
@@ -83,7 +84,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Like @code -[Class foo:] @endcode
 @property (nonatomic, readonly) NSString *fullName;
 
+/// @return YES if \c targetClass defines the original implementation of the underlying \c objc_method.
+@property (nonatomic, readonly) BOOL implementedByTargetClass;
+
 #pragma mark - Methods -
+
+/// @return YES if \c cls defines the original implementation of the underlying \c objc_method.
+- (BOOL)isImplementedInClass:(Class)cls;
 
 /// Like @code -[Class foo:] @endcode
 - (NSString *)debugNameGivenClassName:(NSString *)name DEPRECATED_MSG_ATTRIBUTE("Use fullName instead.");

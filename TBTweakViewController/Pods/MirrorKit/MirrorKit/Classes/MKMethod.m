@@ -46,7 +46,12 @@
 + (instancetype)methodForSelector:(SEL)selector implementedInClass:(Class)cls instance:(BOOL)instance {
     if (![cls superclass]) { return [self methodForSelector:selector class:cls instance:instance]; }
     
-    BOOL unique = [[cls class] methodForSelector:selector] != [[cls superclass] methodForSelector:selector];
+    BOOL unique;
+    if (instance) {
+        unique = [[cls class] instanceMethodForSelector:selector] != [[cls superclass] instanceMethodForSelector:selector];
+    } else {
+        unique = [[cls class] methodForSelector:selector] != [[cls superclass] methodForSelector:selector];
+    }
     
     if (unique) {
         return [self methodForSelector:selector class:cls instance:instance];
@@ -71,6 +76,7 @@
     return [self methodForSelector:selector implementedInClass:cls instance:NO];
 }
 
+/// All initializers call into this method
 - (id)initWithMethod:(Method)method class:(Class)cls isInstanceMethod:(BOOL)isInstanceMethod {
     NSParameterAssert(method);
     
@@ -80,6 +86,7 @@
         _targetClass      = cls;
         _isInstanceMethod = isInstanceMethod;
         @try {
+            _implementedByTargetClass = [self isImplementedInClass:_targetClass];
             _signatureString = @(method_getTypeEncoding(method));
             _signature = [NSMethodSignature signatureWithObjCTypes:_signatureString.UTF8String];
             [self examine];
@@ -304,6 +311,14 @@ return [NSString stringWithFormat:formatString, recursiveType]; \
 }
 
 #pragma mark Misc
+
+- (BOOL)isImplementedInClass:(Class)cls {
+    if (self.isInstanceMethod) {
+        return self.objc_method == class_getInstanceMethod([cls class], self.selector);
+    } else {
+        return self.objc_method == class_getClassMethod([cls class], self.selector);
+    }
+}
 
 - (void)swapImplementations:(MKMethod *)method {
     method_exchangeImplementations(self.objc_method, method.objc_method);
