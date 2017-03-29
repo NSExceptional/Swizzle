@@ -89,6 +89,7 @@
 
     if (self.type == self.allowedTypes[indexPath.row].integerValue) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        _selectedRow = indexPath.row;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }

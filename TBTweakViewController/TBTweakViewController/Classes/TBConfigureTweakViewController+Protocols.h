@@ -8,11 +8,11 @@
 
 #import "TBConfigureTweakViewController.h"
 #import "TBTweakTypeSectionController.h"
-#import "TBValueHookSectionController.h"
+#import "TBValueSectionController.h"
 
 
 @interface TBConfigureTweakViewController (Protocols)
-<TBTweakTypeSectionDelegate, TBValueHookSectionDelegate>
+<TBTweakTypeSectionDelegate, TBValueSectionDelegate>
 
 - (void)configureTableViewForCellReuseAndAutomaticRowHeight;
 

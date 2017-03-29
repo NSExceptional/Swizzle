@@ -28,6 +28,7 @@
 + (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate;
 
 @property (nonatomic, readonly) NSUInteger sectionRowCount;
+@property (nonatomic) UIResponder *currentResponder;
 
 - (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (TBTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;

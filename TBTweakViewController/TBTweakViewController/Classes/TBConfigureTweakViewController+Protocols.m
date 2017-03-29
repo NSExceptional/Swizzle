@@ -207,7 +207,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0: {
-            return @"Tweak type";
+            return nil;
         }
         case 1: {
             // Only return a title if there's more than one kind of section

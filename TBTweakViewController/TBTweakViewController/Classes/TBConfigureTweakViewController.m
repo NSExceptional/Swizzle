@@ -10,11 +10,17 @@
 #import "TBConfigureTweakViewController+Protocols.h"
 #import "TBTypePickerViewController.h"
 #import "TBValueCells.h"
+#import "TBInfoView.h"
+
 
 #import "SectionControllers.h"
 #import "Categories.h"
+#import <Masonry.h>
 
 
+@interface TBConfigureTweakViewController ()
+@property (nonatomic, readonly) TBInfoView *infoView;
+@end
 @implementation TBConfigureTweakViewController
 
 + (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction {
@@ -34,6 +40,15 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
     @throw NSInternalInconsistencyException; return [super initWithStyle:style];
+}
+
+- (void)loadView {
+    [super loadView];
+
+    // Header view
+    _infoView = [TBInfoView text:self.tweak.hook.about];
+    _infoView.hairline.hidden = YES;
+    self.tableView.fuckingHeaderView = _infoView;
 }
 
 - (void)viewDidLoad {
@@ -135,6 +150,12 @@
 }
 
 #pragma mark UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    for (TBSectionController *section in self.dynamicSectionControllers) {
+        [section.currentResponder resignFirstResponder];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.dynamicSectionControllers[indexPath.section] didSelectRowAtIndexPath:indexPath];
