@@ -6,12 +6,12 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBValueHookSectionController.h"
+#import "TBValueSectionController.h"
 
 
-@interface TBArgValueHookSectionController : TBValueHookSectionController
+@interface TBArgValueHookSectionController : TBValueSectionController
 
-+ (instancetype)delegate:(id<TBValueHookSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
                signature:(NSMethodSignature *)signature
            argumentIndex:(NSUInteger)idx;
 

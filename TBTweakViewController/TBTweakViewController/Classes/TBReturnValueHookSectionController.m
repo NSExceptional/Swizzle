@@ -12,22 +12,14 @@
 
 #pragma mark Overrides
 
-+ (instancetype)delegate:(id<TBValueHookSectionDelegate>)delegate signature:(NSMethodSignature *)signature {
-    TBReturnValueHookSectionController *controller = [super delegate:delegate signature:signature];
-    controller->_typeEncoding = signature.methodReturnType;
-    controller.valueType = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
-    controller->_hookedValue = [TBValue defaultValueForTypeEncoding:controller->_typeEncoding];
-    return controller;
-}
-
 - (NSString *)typePickerTitle {
     return @"Change return type";
 }
 
 - (NSUInteger)sectionRowCount {
-    return self.hookedValue == [TBValue null] ? 1 : 2;
+    return self.container == [TBValue null] ? 1 : 2;
     // For a future redesign?
-    // return self.hookedValue.overriden ? 2 : 1;
+    // return self.container.overriden ? 2 : 1;
 }
 
 - (BOOL)shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {

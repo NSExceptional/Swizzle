@@ -6,9 +6,9 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBValueHookSectionController.h"
+#import "TBValueSectionController.h"
 
 
-@interface TBReturnValueHookSectionController : TBValueHookSectionController
+@interface TBReturnValueHookSectionController : TBValueSectionController
 
 @end

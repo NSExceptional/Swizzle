@@ -21,14 +21,15 @@
 
 @implementation TBArgValueHookSectionController
 
-+ (instancetype)delegate:(id<TBValueHookSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
                signature:(NSMethodSignature *)signature
            argumentIndex:(NSUInteger)idx {
-    TBArgValueHookSectionController *controller = [super delegate:delegate signature:signature];
-    controller->_typeEncoding = [signature getArgumentTypeAtIndex:idx];
-    controller->_argIdx = idx;
-    controller.valueType = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
-    controller->_hookedValue = [TBValue orig];
+    const char *type = [signature getArgumentTypeAtIndex:idx];
+    TBArgValueHookSectionController *controller = [super delegate:delegate type:type];
+    controller->_typeEncoding = type;
+    controller->_argIdx       = idx;
+    controller.valueType      = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
+    controller->_container    = [TBValue orig];
     return controller;
 }
 
@@ -40,8 +41,8 @@
 
 - (NSUInteger)sectionRowCount {
     // Hide last row if null
-    if (self.hookedValue.overriden) {
-        return self.hookedValue == [TBValue null] ? 2 : 3;
+    if (self.container.overriden) {
+        return self.container == [TBValue null] ? 2 : 3;
     }
 
     // Hide last two rows until overridden
@@ -67,12 +68,12 @@
 
 - (void)didToggleArgSwitch:(BOOL)on {
     /// Toggle value between default and original value for the argument's type signature
-    if (self.hookedValue.notOverridden) {
-        _hookedValue = [TBValue defaultForAgumentAtIndex:self.argIdx ofMethodWith:self.signature];
+    if (self.container.notOverridden) {
+        _container = [TBValue defaultValueForTypeEncoding:self.typeEncoding];
     } else {
-        _hookedValue = [TBValue orig];
+        _container = [TBValue orig];
     }
-    [self.delegate setArgumentHookValue:self.hookedValue atIndex:self.argIdx];
+    [self.delegate setArgumentHookValue:self.container atIndex:self.argIdx];
 }
 
 @end

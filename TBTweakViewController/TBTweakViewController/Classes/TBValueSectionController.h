@@ -1,5 +1,5 @@
 //
-//  TBValueHookSectionController.h
+//  TBValueSectionController.h
 //  TBTweakViewController
 //
 //  Created by Tanner on 3/17/17.
@@ -17,29 +17,29 @@ typedef NS_ENUM(NSUInteger, TBHookRow) {
     TBHookRowValueHolder
 };
 
-#pragma mark - TBValueHookSectionDelegate
-@protocol TBValueHookSectionDelegate <TBTextViewCellResizing, TBSectionControllerDelegate>
+#pragma mark - TBValueSectionDelegate
+@protocol TBValueSectionDelegate <TBTextViewCellResizing, TBSectionControllerDelegate>
 @end
 
 /// Manages a TBValue for a given value override,
 /// as well as returns and configures cells for that section
-#pragma mark - TBValueHookSectionController
-@interface TBValueHookSectionController : TBSectionController <TBValueCellDelegate> {
+#pragma mark - TBValueSectionController
+@interface TBValueSectionController : TBSectionController <TBValueCellDelegate> {
     @protected
-    TBValue *_hookedValue;
+    TBValue *_container;
     const char *_typeEncoding;
 }
 
-+ (instancetype)delegate:(id<TBValueHookSectionDelegate>)delegate signature:(NSMethodSignature *)signature;
++ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate type:(const char *)typeEncoding;
 
 #pragma mark Internal
 - (BOOL)shouldHighlightRow:(TBHookRow)row;
 - (TBSwitchCell *)toggleForParameterAtIndexPath:(NSIndexPath *)indexPath;
 
-@property (nonatomic, readonly) id<TBValueHookSectionDelegate> delegate;
+#pragma mark Properties
+@property (nonatomic, readonly) id<TBValueSectionDelegate> delegate;
 
-@property (nonatomic, readonly) TBValue *hookedValue;
-@property (nonatomic, readonly) NSMethodSignature *signature;
+@property (nonatomic, readonly) TBValue *container;
 @property (nonatomic, readonly) const char *typeEncoding;
 
 // Subclasses override
@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, TBHookRow) {
 
 #pragma mark TBValueCellDelegate
 @property (nonatomic) NSDate *date;
+@property (nonatomic) UIColor *color;
 @property (nonatomic) NSString *string;
 @property (nonatomic) NSNumber *number;
 @property (nonatomic) NSNumber *integer;
@@ -54,7 +55,6 @@ typedef NS_ENUM(NSUInteger, TBHookRow) {
 @property (nonatomic) NSNumber *doubleFloat;
 @property (nonatomic) NSString *chirpString;
 
-@property (nonatomic) UIResponder *currentResponder;
 /// May change as user chooses new type
 @property (nonatomic) TBValueType valueType;
 
