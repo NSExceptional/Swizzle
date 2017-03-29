@@ -7,22 +7,14 @@
 //
 
 #import "TBTextViewCell.h"
+#import "TBTextEditorView.h"
 #import "Masonry.h"
 
 
 @implementation TBTextViewCell
 
 - (void)initSubviews {
-    _textView = [[UITextView alloc] initWithFrame:CGRectZero textContainer:nil];
-    self.textView.text     = @"";
-    self.textView.delegate = self;
-    self.textView.font     = self.textLabel.font;
-    self.textView.scrollEnabled      = NO;
-    self.textView.textContainerInset = UIEdgeInsetsMake(4, 16, 0, 0);
-
-    self.textView.autocorrectionType     = UITextAutocorrectionTypeNo;
-    self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
-
+    _textView = [TBTextEditorView delegate:self font:self.textLabel.font];
     [self.contentView addSubview:self.textView];
 }
 
@@ -35,7 +27,7 @@
 }
 
 - (void)updateConstraints:(MASConstraintMaker *)make {
-    make.edges.equalTo(self.contentView);
+    make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(13, 16, 13, 16));
 }
 
 #pragma mark Public interface

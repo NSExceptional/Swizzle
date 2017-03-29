@@ -80,6 +80,7 @@
 		C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E530FF1E8330F2001D33E1 /* TBKeyPath.m */; };
 		C3E531031E8331BB001D33E1 /* TBToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E531021E8331BB001D33E1 /* TBToken.m */; };
 		C3E5310B1E836802001D33E1 /* TBKeyPathTokenizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E5310A1E836802001D33E1 /* TBKeyPathTokenizerTests.m */; };
+		C3F0F49B1E8A611A008066EC /* TBTextEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F0F49A1E8A611A008066EC /* TBTextEditorView.m */; };
 		C3FA6B1D1E845B1C00A01279 /* NSScanner+debug.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FA6B1C1E845B1C00A01279 /* NSScanner+debug.m */; };
 /* End PBXBuildFile section */
 
@@ -254,6 +255,8 @@
 		C3E531011E8331BB001D33E1 /* TBToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBToken.h; sourceTree = "<group>"; };
 		C3E531021E8331BB001D33E1 /* TBToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBToken.m; sourceTree = "<group>"; };
 		C3E5310A1E836802001D33E1 /* TBKeyPathTokenizerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyPathTokenizerTests.m; sourceTree = "<group>"; };
+		C3F0F4991E8A611A008066EC /* TBTextEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextEditorView.h; sourceTree = "<group>"; };
+		C3F0F49A1E8A611A008066EC /* TBTextEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextEditorView.m; sourceTree = "<group>"; };
 		C3FA6B1B1E845B1C00A01279 /* NSScanner+debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+debug.h"; sourceTree = "<group>"; };
 		C3FA6B1C1E845B1C00A01279 /* NSScanner+debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+debug.m"; sourceTree = "<group>"; };
 		EEB0269EED7ACDB5AAEBF18B /* Pods-TBTweakViewControllerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TBTweakViewControllerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TBTweakViewControllerTests/Pods-TBTweakViewControllerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -420,6 +423,7 @@
 		B4B9C7E31D70D0970025E1FB /* Configuring tweaks */ = {
 			isa = PBXGroup;
 			children = (
+				C3F0F4981E8A60B3008066EC /* Views */,
 				C3B676B21E721B99004E5122 /* Section controllers */,
 				C3B676AE1E72092B004E5122 /* Cells */,
 				B4504CB41D6BCF6C00C4B568 /* TBConfigureTweakViewController.h */,
@@ -596,6 +600,15 @@
 				C31198A21E8790BF0098F583 /* NSString+KeyPaths.m */,
 			);
 			name = "Key paths";
+			sourceTree = "<group>";
+		};
+		C3F0F4981E8A60B3008066EC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3F0F4991E8A611A008066EC /* TBTextEditorView.h */,
+				C3F0F49A1E8A611A008066EC /* TBTextEditorView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -856,6 +869,7 @@
 				C35933FD1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m in Sources */,
 				B4504CA61D679C7200C4B568 /* NSError+Message.m in Sources */,
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
+				C3F0F49B1E8A611A008066EC /* TBTextEditorView.m in Sources */,
 				C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */,
 				B4B9C7EF1D70D3160025E1FB /* TBAddValueCell.m in Sources */,
 				C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */,
