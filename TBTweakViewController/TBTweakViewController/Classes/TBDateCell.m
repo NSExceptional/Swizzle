@@ -19,7 +19,6 @@
 - (void)initSubviews {
     _picker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     [self.picker addTarget:self action:@selector(dateDidChange) forControlEvents:UIControlEventValueChanged];
-    
     [self.contentView addSubview:self.picker];
 }
 

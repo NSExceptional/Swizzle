@@ -20,6 +20,7 @@
 @protocol TBValueCellDelegate <TBTextViewCellResizing>
 
 @property (nonatomic) NSDate *date;
+@property (nonatomic) UIColor *color;
 @property (nonatomic) NSString *string;
 @property (nonatomic) NSNumber *number;
 @property (nonatomic) NSNumber *integer;

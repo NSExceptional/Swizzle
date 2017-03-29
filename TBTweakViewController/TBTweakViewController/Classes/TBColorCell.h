@@ -6,11 +6,11 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBBaseValueCell.h"
+#import "TBTextFieldCell.h"
 #import <UIKit/UIColor.h>
 
 
-@interface TBColorCell : TBBaseValueCell
+@interface TBColorCell : TBTextFieldCell
 
 @property (nonatomic) UIColor *color;
 

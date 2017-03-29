@@ -7,11 +7,19 @@
 //
 
 #import "TBObjcCells.h"
+#import "UIFont+Swizzle.h"
 
 
 @implementation TBObjcCell
 @dynamic disallowedCharacters;
 static NSString *_bothAllowed = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$1234567890";
+
+- (void)initSubviews {
+    [super initSubviews];
+
+    self.textField.returnKeyType = UIReturnKeyDone;
+    self.textField.font = [UIFont codeFont];
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:text];

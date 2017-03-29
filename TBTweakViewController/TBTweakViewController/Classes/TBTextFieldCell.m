@@ -20,7 +20,8 @@
     self.textField.delegate = self;
     self.textField.autocorrectionType     = UITextAutocorrectionTypeNo;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+    self.textField.keyboardType           = UIKeyboardTypeAlphabet;
+    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 
     [self.contentView addSubview:self.textField];
 }

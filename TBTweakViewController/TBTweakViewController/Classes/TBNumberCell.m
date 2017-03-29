@@ -11,6 +11,12 @@
 
 @implementation TBNumberCell
 
+- (void)initSubviews {
+    [super initSubviews];
+
+    self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+}
+
 #pragma mark Public interface
 
 - (void)setNumberType:(MKTypeEncoding)numberType {
