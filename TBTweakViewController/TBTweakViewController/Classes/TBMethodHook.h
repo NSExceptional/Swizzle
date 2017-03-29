@@ -27,6 +27,9 @@ IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
 
 + (instancetype)hook:(MKMethod *)method;
 
+/// Describes the nature of the hook for UI purposes
+@property (nonatomic, readonly) NSString *about;
+
 @property (nonatomic, readonly) BOOL canOverrideReturnValue;
 @property (nonatomic, readonly) BOOL canOverrideAllArgumentValues;
 

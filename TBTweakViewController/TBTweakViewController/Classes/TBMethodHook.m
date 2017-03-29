@@ -52,16 +52,29 @@
         _method = method;
         _target = NSStringFromClass(method.targetClass);
         _action = method.selectorString;
-        _isClassMethod = !method.isInstanceMethod;
-        _originalImplementation = method.implementation;
-
-        _canOverrideReturnValue       = [TBMethodHook canHookReturnTypeOf:method];
-        _canOverrideAllArgumentValues = [TBMethodHook canHookAllArgumentTypesOf:method];
-
-        _hash = (NSUInteger)method.objc_method;
+        [self examine];
     }
 
     return self;
+}
+
+- (void)examine {
+    _isClassMethod = !_method.isInstanceMethod;
+    _originalImplementation = _method.implementation;
+
+    _canOverrideReturnValue       = [TBMethodHook canHookReturnTypeOf:_method];
+    _canOverrideAllArgumentValues = [TBMethodHook canHookAllArgumentTypesOf:_method];
+
+    _hash = (NSUInteger)_method.objc_method;
+
+    if (self.method.implementedByTargetClass) {
+        NSString *format = @"The implementation of %@ will be replaced by this hook.";
+        _about = [NSString stringWithFormat:format, _method.fullName];
+    } else {
+        NSString *format = @"%@ does not define an implementation for %@, but "
+        "inherits it from a superclass. A new implementation, %@, will be created by this hook.";
+        _about = [NSString stringWithFormat:format, _method.targetClass, _method.selectorString, _method.fullName];
+    }
 }
 
 #pragma mark NSCoding
@@ -73,18 +86,16 @@
         _action            = [decoder decodeObjectForKey:@"action"];
         _hookedReturnValue = [decoder decodeObjectForKey:@"return"];
         _hookedArguments   = [decoder decodeObjectForKey:@"args"];
-        _canOverrideReturnValue       = [decoder decodeBoolForKey:@"hookReturn"];
-        _canOverrideAllArgumentValues = [decoder decodeBoolForKey:@"hookArgs"];
-        _chirpString   = [decoder decodeObjectForKey:@"format"];
-        _isClassMethod = [decoder decodeBoolForKey:@"classMethod"];
-        
+        _chirpString       = [decoder decodeObjectForKey:@"format"];
+        _isClassMethod     = [decoder decodeBoolForKey:@"classMethod"];;
+
         _method = [MKMethod methodForSelector:NSSelectorFromString(_action)
                                         class:NSClassFromString(_target) instance:!_isClassMethod];
         if (!_method) {
             return nil;
         }
-        
-        _originalImplementation = _method.implementation;
+
+        [self examine];
     }
     
     return self;
@@ -96,8 +107,6 @@
     [coder encodeObject:self.hookedReturnValue forKey:@"return"];
     [coder encodeObject:self.hookedArguments forKey:@"args"];
     [coder encodeObject:self.chirpString forKey:@"format"];
-    [coder encodeBool:self.canOverrideReturnValue forKey:@"hookReturn"];
-    [coder encodeBool:self.canOverrideAllArgumentValues forKey:@"hookArgs"];
     [coder encodeBool:self.isClassMethod forKey:@"classMethod"];
 }
 
