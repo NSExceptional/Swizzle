@@ -11,10 +11,9 @@
 @class TBSwitchCell;
 
 
-typedef NS_ENUM(NSUInteger, TBHookRow) {
-    TBHookRowToggle = 0,
-    TBHookRowTypePicker,
-    TBHookRowValueHolder
+typedef NS_ENUM(NSUInteger, TBValueRow) {
+    TBValueRowTypePicker,
+    TBValueRowValueHolder
 };
 
 #pragma mark - TBValueSectionDelegate
@@ -33,17 +32,17 @@ typedef NS_ENUM(NSUInteger, TBHookRow) {
 + (instancetype)delegate:(id<TBValueSectionDelegate>)delegate type:(const char *)typeEncoding;
 
 #pragma mark Internal
-- (BOOL)shouldHighlightRow:(TBHookRow)row;
-- (TBSwitchCell *)toggleForParameterAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)shouldHighlightRow:(TBValueRow)row;
+
+#pragma mark Subclass overrides
+- (void)didSelectValueHolderCell;
+@property (nonatomic, readonly) NSString *typePickerTitle;
 
 #pragma mark Properties
 @property (nonatomic, readonly) id<TBValueSectionDelegate> delegate;
 
 @property (nonatomic, readonly) TBValue *container;
 @property (nonatomic, readonly) const char *typeEncoding;
-
-// Subclasses override
-@property (nonatomic, readonly) NSString *typePickerTitle;
 
 #pragma mark TBValueCellDelegate
 @property (nonatomic) NSDate *date;

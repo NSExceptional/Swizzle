@@ -14,7 +14,6 @@
 @protocol TBSectionControllerDelegate <NSObject>
 
 - (void)reloadSectionControllers;
-- (void)setArgumentHookValue:(TBValue *)value atIndex:(NSUInteger)idx;
 
 @property (nonatomic, readonly) UITableView *tableView;
 @property (nonatomic, readonly) UINavigationController *navigationController;
@@ -27,8 +26,10 @@
 #pragma mark Public
 + (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate;
 
-@property (nonatomic, readonly) NSUInteger sectionRowCount;
 @property (nonatomic) UIResponder *currentResponder;
+
+#pragma mark Subclass overrides
+@property (nonatomic, readonly) NSUInteger sectionRowCount;
 
 - (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (TBTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;

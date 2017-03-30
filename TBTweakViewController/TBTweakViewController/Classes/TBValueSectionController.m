@@ -37,14 +37,12 @@
 
 #pragma mark Public
 
-- (BOOL)shouldHighlightRow:(TBHookRow)row {
+- (BOOL)shouldHighlightRow:(TBValueRow)row {
     switch (row) {
-        case TBHookRowToggle:
-            return NO;
-        case TBHookRowTypePicker:
+        case TBValueRowTypePicker:
             return TBCanChangeType(self.typeEncoding[0]);
-        case TBHookRowValueHolder:
             switch (self.container.type) {
+        case TBValueRowValueHolder:
                 case TBValueTypeArray:
                 case TBValueTypeDictionary:
                 case TBValueTypeSet:
@@ -66,13 +64,10 @@
 
 - (TBTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
-        case TBHookRowToggle:
-            return [self toggleForParameterAtIndexPath:indexPath];
-            break;
-        case TBHookRowTypePicker:
+        case TBValueRowTypePicker:
             return [self valueTypePickerCellForIndexPath:indexPath];
             break;
-        case TBHookRowValueHolder:
+        case TBValueRowValueHolder:
             return [self valueCellForIndexPath:indexPath];
             break;
     }
@@ -83,29 +78,16 @@
 
 - (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
-        case TBHookRowToggle:
-            @throw NSInternalInconsistencyException;
-        case TBHookRowTypePicker:
+        case TBValueRowTypePicker:
             [self didSelectTypePickerCell:indexPath.section];
             break;
-        case TBHookRowValueHolder:
+        case TBValueRowValueHolder:
             [self didSelectValueHolderCell];
             break;
 
         default:
             @throw NSInternalInconsistencyException;
     }
-}
-
-#pragma mark Internal
-
-- (TBSwitchCell *)toggleForParameterAtIndexPath:(NSIndexPath *)indexPath {
-    TBSwitchCell *cell = [self.delegate.tableView dequeue:TBSwitchCell.reuseID forIndexPath:indexPath];
-
-    cell.textLabel.text = @"Override";
-    cell.switchToggleAction = nil;
-
-    return cell;
 }
 
 #pragma mark Private

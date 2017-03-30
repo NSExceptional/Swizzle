@@ -15,11 +15,23 @@
 #define dequeue dequeueReusableCellWithIdentifier
 #define format(...) [NSString stringWithFormat:__VA_ARGS__]
 
+static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
+    switch (row) {
+        case TBArgHookRowToggle:
+            return -1;
+        case TBArgHookRowTypePicker:
+            return TBValueRowTypePicker;
+        case TBArgHookRowValueHolder:
+            return TBValueRowValueHolder;
+    }
+}
+
 @interface TBArgValueHookSectionController ()
 @property (nonatomic, readonly) NSUInteger argIdx;
 @end
 
 @implementation TBArgValueHookSectionController
+@dynamic delegate;
 
 + (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
                signature:(NSMethodSignature *)signature
@@ -31,6 +43,10 @@
     controller.valueType      = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
     controller->_container    = [TBValue orig];
     return controller;
+}
+
+- (NSIndexPath *)convertToValueRow:(NSIndexPath *)ip {
+    return [NSIndexPath indexPathForRow:TBValueRowFromArgHookRow(ip.row) inSection:ip.section];
 }
 
 #pragma mark Overrides
@@ -49,12 +65,28 @@
     return 1;
 }
 
-- (BOOL)shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self shouldHighlightRow:indexPath.row];
+- (BOOL)shouldHighlightRowAtIndexPath:(NSIndexPath *)ip {
+    if (ip.row == TBArgHookRowToggle) {
+        return NO;
+    }
+    
+    return [self shouldHighlightRow:TBValueRowFromArgHookRow(ip.row)];
+}
+
+- (TBTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)ip {
+    if (ip.row == TBArgHookRowToggle) {
+        return [self toggleForParameterAtIndexPath:ip];
+    }
+
+    return [super cellForRowAtIndexPath:[self convertToValueRow:ip]];
+}
+
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)ip {
+    [super didSelectRowAtIndexPath:[self convertToValueRow:ip]];
 }
 
 - (TBSwitchCell *)toggleForParameterAtIndexPath:(NSIndexPath *)ip {
-    TBSwitchCell *cell = [super toggleForParameterAtIndexPath:ip];
+    TBSwitchCell *cell = [self.delegate.tableView dequeue:TBSwitchCell.reuseID forIndexPath:ip];
 
     unsigned long userVisibleArgIdx = TBSettings.expertMode ? self.argIdx : self.argIdx - 2;
 

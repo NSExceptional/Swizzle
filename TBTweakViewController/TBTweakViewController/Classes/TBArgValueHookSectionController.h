@@ -9,10 +9,22 @@
 #import "TBValueSectionController.h"
 
 
+typedef NS_ENUM(NSUInteger, TBArgHookRow) {
+    TBArgHookRowToggle,
+    TBArgHookRowTypePicker,
+    TBArgHookRowValueHolder
+};
+
+@protocol TBArgHookSectionDelegate <TBValueSectionDelegate>
+- (void)setArgumentHookValue:(TBValue *)value atIndex:(NSUInteger)idx;
+@end
+
 @interface TBArgValueHookSectionController : TBValueSectionController
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBArgHookSectionDelegate>)delegate
                signature:(NSMethodSignature *)signature
            argumentIndex:(NSUInteger)idx;
+
+@property (nonatomic, readonly) id<TBArgHookSectionDelegate> delegate;
 
 @end
