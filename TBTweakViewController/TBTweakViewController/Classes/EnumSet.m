@@ -36,4 +36,12 @@
     [self.array sortUsingSelector:@selector(compare:)];
 }
 
+- (void)removeIndex:(NSUInteger)value {
+    [super removeIndex:value];
+    NSNumber *remove = @(value);
+    if ([self.array containsObject:remove]) {
+        [self.array removeObject:remove];
+    }
+}
+
 @end

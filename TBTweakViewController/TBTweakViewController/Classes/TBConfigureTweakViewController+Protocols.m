@@ -89,7 +89,8 @@
     // Add return value hook controller
     if (self.tweakType & TBTweakTypeHookReturnValue) {
         NSMethodSignature *signature = self.tweak.hook.method.signature;
-        [controllers addObject:[TBReturnValueHookSectionController delegate:self signature:signature]];
+        const char *type = signature.methodReturnType;
+        [controllers addObject:[TBReturnValueHookSectionController delegate:self type:type]];
     }
     // Add argument value hook controllers
     if (self.tweakType & TBTweakTypeHookArguments) {
