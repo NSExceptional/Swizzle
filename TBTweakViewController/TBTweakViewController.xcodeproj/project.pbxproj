@@ -250,6 +250,8 @@
 		C3BB849E1E8DAB1200EE457A /* TBDictionaryValueSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryValueSectionController.m; sourceTree = "<group>"; };
 		C3BB84A01E8DAB2300EE457A /* TBDictionaryEntrySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryEntrySectionController.h; sourceTree = "<group>"; };
 		C3BB84A11E8DAB2300EE457A /* TBDictionaryEntrySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryEntrySectionController.m; sourceTree = "<group>"; };
+		C3BB84A31E8DACDD00EE457A /* TBValueCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBValueCoordinator.h; sourceTree = "<group>"; };
+		C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBValueCoordinator.m; sourceTree = "<group>"; };
 		C3BB84A61E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryEntrySubsectionController.h; sourceTree = "<group>"; };
 		C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryEntrySubsectionController.m; sourceTree = "<group>"; };
 		C3BB84AA1E8DC09D00EE457A /* TBAddElementSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAddElementSectionController.h; sourceTree = "<group>"; };
@@ -457,6 +459,8 @@
 				B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m */,
 				B4B9C7EA1D70D1670025E1FB /* TBTypePickerViewController.h */,
 				B4B9C7EB1D70D1670025E1FB /* TBTypePickerViewController.m */,
+				C3BB84A31E8DACDD00EE457A /* TBValueCoordinator.h */,
+				C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */,
 			);
 			name = "Configuring tweaks";
 			sourceTree = "<group>";
@@ -951,6 +955,7 @@
 				C3E530FD1E8330C9001D33E1 /* TBKeyPathTokenizer.m in Sources */,
 				C3601AD21E7C733300985E0D /* TBObjcCells.m in Sources */,
 				C3B676AD1E720055004E5122 /* UIBarButtonItem+Convenience.m in Sources */,
+				C3BB84A51E8DACDD00EE457A /* TBValueCoordinator.m in Sources */,
 				B4504CB31D6BB8E300C4B568 /* TBTweakCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

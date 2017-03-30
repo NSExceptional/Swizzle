@@ -44,7 +44,7 @@
 #pragma Date changed
 
 - (void)dateDidChange {
-    self.delegate.date = self.picker.date;
+    self.delegate.coordinator.object = self.picker.date;
 }
 
 @end

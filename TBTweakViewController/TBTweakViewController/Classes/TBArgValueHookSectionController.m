@@ -38,10 +38,8 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
            argumentIndex:(NSUInteger)idx {
     const char *type = [signature getArgumentTypeAtIndex:idx];
     TBArgValueHookSectionController *controller = [super delegate:delegate type:type];
-    controller->_typeEncoding = type;
-    controller->_argIdx       = idx;
-    controller.valueType      = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
-    controller->_container    = [TBValue orig];
+    controller->_argIdx              = idx;
+    controller.coordinator.container = [TBValue orig];
     return controller;
 }
 
@@ -57,8 +55,8 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
 
 - (NSUInteger)sectionRowCount {
     // Hide last row if null
-    if (self.container.overriden) {
-        return self.container == [TBValue null] ? 2 : 3;
+    if (self.coordinator.container.overriden) {
+        return self.coordinator.container == [TBValue null] ? 2 : 3;
     }
 
     // Hide last two rows until overridden
@@ -100,12 +98,13 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
 
 - (void)didToggleArgSwitch:(BOOL)on {
     /// Toggle value between default and original value for the argument's type signature
-    if (self.container.notOverridden) {
-        _container = [TBValue defaultValueForTypeEncoding:self.typeEncoding];
+    if (self.coordinator.container.notOverridden) {
+        self.coordinator.container = [TBValue defaultValueForTypeEncoding:self.typeEncoding];
     } else {
-        _container = [TBValue orig];
+        self.coordinator.container = [TBValue orig];
     }
-    [self.delegate setArgumentHookValue:self.container atIndex:self.argIdx];
+    
+    [self.delegate setArgumentHookValue:self.coordinator.container atIndex:self.argIdx];
 }
 
 @end

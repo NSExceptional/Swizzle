@@ -16,7 +16,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     [super textViewDidEndEditing:textView];
-    self.delegate.string = textView.text;
+    self.delegate.coordinator.object = textView.text;
 }
 
 @end

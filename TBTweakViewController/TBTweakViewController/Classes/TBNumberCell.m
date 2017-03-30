@@ -54,7 +54,7 @@
         number = [NSNumber numberWithFloat:MAX(self.text.doubleValue, self.text.integerValue)];
     }
     
-    self.delegate.number = number;
+    self.delegate.coordinator.number = number;
 }
 
 @end

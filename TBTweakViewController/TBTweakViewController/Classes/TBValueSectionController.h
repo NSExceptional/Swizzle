@@ -25,7 +25,6 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
 #pragma mark - TBValueSectionController
 @interface TBValueSectionController : TBSectionController <TBValueCellDelegate> {
     @protected
-    TBValue *_container;
     const char *_typeEncoding;
 }
 
@@ -40,21 +39,9 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
 
 #pragma mark Properties
 @property (nonatomic, readonly) id<TBValueSectionDelegate> delegate;
-
-@property (nonatomic, readonly) TBValue *container;
 @property (nonatomic, readonly) const char *typeEncoding;
 
 #pragma mark TBValueCellDelegate
-@property (nonatomic) NSDate *date;
-@property (nonatomic) UIColor *color;
-@property (nonatomic) NSString *string;
-@property (nonatomic) NSNumber *number;
-@property (nonatomic) NSNumber *integer;
-@property (nonatomic) NSNumber *singleFloat;
-@property (nonatomic) NSNumber *doubleFloat;
-@property (nonatomic) NSString *chirpString;
-
-/// May change as user chooses new type
-@property (nonatomic) TBValueType valueType;
+@property (nonatomic, readonly) TBValueCoordinator *coordinator;
 
 @end

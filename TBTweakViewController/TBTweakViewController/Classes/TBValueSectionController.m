@@ -16,18 +16,15 @@
 #define dequeue dequeueReusableCellWithIdentifier
 #define format(...) [NSString stringWithFormat:__VA_ARGS__]
 
-@interface TBValueSectionController ()
-@property (nonatomic) TBValue *container;
-@end
-
 @implementation TBValueSectionController
 @dynamic delegate, typePickerTitle;
 
 + (instancetype)delegate:(id<TBValueSectionDelegate>)delegate type:(const char *)typeEncoding {
+    TBValueType type = TBValueTypeFromTypeEncoding(typeEncoding);
+
     TBValueSectionController *controller = [super delegate:delegate];
-    controller.valueType                 = TBValueTypeFromTypeEncoding(controller->_typeEncoding);
+    controller->_coordinator             = [TBValueCoordinator coordinateType:type];
     controller->_typeEncoding            = typeEncoding;
-    controller->_container               = [TBValue defaultValueForTypeEncoding:controller->_typeEncoding];
     return controller;
 }
 
@@ -41,8 +38,9 @@
     switch (row) {
         case TBValueRowTypePicker:
             return TBCanChangeType(self.typeEncoding[0]);
-            switch (self.container.type) {
         case TBValueRowValueHolder:
+            switch (self.coordinator.container.type) {
+                #warning TODO types all need external editor, make function
                 case TBValueTypeArray:
                 case TBValueTypeDictionary:
                 case TBValueTypeSet:
@@ -94,7 +92,7 @@
 
 - (TBDetailDisclosureCell *)valueTypePickerCellForIndexPath:(NSIndexPath *)ip {
     TBDetailDisclosureCell *cell = [self.delegate.tableView dequeue:TBDetailDisclosureCell.reuseID forIndexPath:ip];
-    cell.detailTextLabel.text = TBStringFromValueType(self.container.type);
+    cell.detailTextLabel.text = TBStringFromValueType(self.coordinator.container.type);
     cell.textLabel.text = @"Value Kind";
 
     if (TBCanChangeType(self.typeEncoding[0])) {
@@ -107,7 +105,7 @@
 }
 
 - (TBTableViewCell *)valueCellForIndexPath:(NSIndexPath *)ip {
-    TBValue *value        = self.container;
+    TBValue *value        = self.coordinator.container;
     NSString *reuse       = [TBTableViewCell reuseIdentifierForValueType:value.type];
     TBTableViewCell *cell = (id)[self.delegate.tableView dequeue:reuse forIndexPath:ip];
 
@@ -121,11 +119,12 @@
 }
 
 - (void)didSelectTypePickerCell:(NSUInteger)section {
+    #warning TODO this can be cleaned up to use a delegate of some sort
     TBTypePickerViewController *vvc = [TBTypePickerViewController withCompletion:^(TBValueType newType) {
-        self.valueType = newType;
-        self.container = [TBValue defaultForValueType:newType];
+        self.coordinator.valueType = newType;
+        self.coordinator.container = [TBValue defaultForValueType:newType];
         [self.delegate.tableView reloadSection:section];
-    } title:self.typePickerTitle type:self.typeEncoding[0] current:self.container.type];
+    } title:self.typePickerTitle type:self.typeEncoding[0] current:self.coordinator.container.type];
 
     [self.delegate.navigationController pushViewController:vvc animated:YES];
 }
@@ -140,118 +139,6 @@
 - (void)textViewDidChange:(UITextView *)textView cell:(UITableViewCell *)cell {
     // Delegate to our own delegate
     [self.delegate textViewDidChange:textView cell:cell];
-}
-
-- (NSDate *)date {
-    if (self.container.type == TBValueTypeDate) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setDate:(NSDate *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeDate];
-}
-
-- (UIColor *)color {
-    if (self.container.type == TBValueTypeColor) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setColor:(UIColor *)color {
-    _container = [TBValue value:color type:TBValueTypeColor];
-}
-
-- (NSString *)string {
-    if (self.container.type == TBValueTypeString) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setString:(NSString *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeString];
-}
-
-- (NSNumber *)number {
-    TBValueType type = self.container.type;
-    if (type == TBValueTypeInteger ||
-        type == TBValueTypeFloat ||
-        type == TBValueTypeDouble) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setNumber:(NSNumber *)number {
-    switch (self.valueType) {
-        case TBValueTypeInteger:
-            self.integer = number;
-            break;
-        case TBValueTypeFloat:
-            self.singleFloat = number;
-            break;
-        case TBValueTypeDouble:
-            self.doubleFloat = number;
-            break;
-            
-        default:
-            @throw NSInternalInconsistencyException;
-    }
-}
-
-- (NSNumber *)integer {
-    if (self.container.type == TBValueTypeInteger) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setInteger:(NSNumber *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeInteger];
-}
-
-- (NSNumber *)singleFloat {
-    if (self.container.type == TBValueTypeFloat) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setSingleFloat:(NSNumber *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeFloat];
-}
-
-- (NSNumber *)doubleFloat {
-    if (self.container.type == TBValueTypeDouble) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setDoublefloat:(NSNumber *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeDouble];
-}
-
-- (NSString *)chirpString {
-    if (self.container.type == TBValueTypeChirpValue) {
-        return (id)self.container.value;
-    }
-
-    return nil;
-}
-
-- (void)setChirpString:(NSString *)newValue {
-    _container = [TBValue value:newValue type:TBValueTypeChirpValue];
 }
 
 @end

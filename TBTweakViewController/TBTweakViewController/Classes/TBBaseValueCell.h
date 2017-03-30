@@ -8,6 +8,7 @@
 
 #import "TBTableViewCell.h"
 #import "TBValue.h"
+#import "TBValueCoordinator.h"
 
 
 /// Used by the view controller to resize a cell?
@@ -19,19 +20,9 @@
 /// responders and values easier.
 @protocol TBValueCellDelegate <TBTextViewCellResizing>
 
-@property (nonatomic) NSDate *date;
-@property (nonatomic) UIColor *color;
-@property (nonatomic) NSString *string;
-@property (nonatomic) NSNumber *number;
-@property (nonatomic) NSNumber *integer;
-@property (nonatomic) NSNumber *singleFloat;
-@property (nonatomic) NSNumber *doubleFloat;
-@property (nonatomic) NSString *chirpString;
-
 /// i.e. the text field where the value is being entered
 @property (nonatomic) UIResponder *currentResponder;
-
-@property (nonatomic, readonly) TBValueType valueType;
+@property (nonatomic, readonly) TBValueCoordinator *coordinator;
 
 @end
 
