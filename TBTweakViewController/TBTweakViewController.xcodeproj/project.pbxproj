@@ -70,6 +70,12 @@
 		C3B8A8E91E8066B500C62157 /* EnumSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B8A8E81E8066B500C62157 /* EnumSet.m */; };
 		C3BB84901E8C524600EE457A /* UITableView+FUCK.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB848F1E8C524600EE457A /* UITableView+FUCK.m */; };
 		C3BB84991E8C682F00EE457A /* TBArrayElementSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84981E8C682F00EE457A /* TBArrayElementSectionController.m */; };
+		C3BB849C1E8DAAFF00EE457A /* TBDictionaryKeySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB849B1E8DAAFF00EE457A /* TBDictionaryKeySectionController.m */; };
+		C3BB849F1E8DAB1200EE457A /* TBDictionaryValueSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB849E1E8DAB1200EE457A /* TBDictionaryValueSectionController.m */; };
+		C3BB84A21E8DAB2300EE457A /* TBDictionaryEntrySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84A11E8DAB2300EE457A /* TBDictionaryEntrySectionController.m */; };
+		C3BB84A51E8DACDD00EE457A /* TBValueCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */; };
+		C3BB84A81E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */; };
+		C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */; };
 		C3C3845E1E70795C00B1BC55 /* TBMethodHook+IMP.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C3845D1E70795C00B1BC55 /* TBMethodHook+IMP.m */; };
 		C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384601E7079D000B1BC55 /* TBMethodHook+Limitations.m */; };
 		C3C384691E70817900B1BC55 /* TBTrampolineLanding.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384641E70817900B1BC55 /* TBTrampolineLanding.m */; };
@@ -238,6 +244,16 @@
 		C3BB848F1E8C524600EE457A /* UITableView+FUCK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FUCK.m"; sourceTree = "<group>"; };
 		C3BB84971E8C682F00EE457A /* TBArrayElementSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayElementSectionController.h; sourceTree = "<group>"; };
 		C3BB84981E8C682F00EE457A /* TBArrayElementSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayElementSectionController.m; sourceTree = "<group>"; };
+		C3BB849A1E8DAAFF00EE457A /* TBDictionaryKeySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryKeySectionController.h; sourceTree = "<group>"; };
+		C3BB849B1E8DAAFF00EE457A /* TBDictionaryKeySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryKeySectionController.m; sourceTree = "<group>"; };
+		C3BB849D1E8DAB1200EE457A /* TBDictionaryValueSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryValueSectionController.h; sourceTree = "<group>"; };
+		C3BB849E1E8DAB1200EE457A /* TBDictionaryValueSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryValueSectionController.m; sourceTree = "<group>"; };
+		C3BB84A01E8DAB2300EE457A /* TBDictionaryEntrySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryEntrySectionController.h; sourceTree = "<group>"; };
+		C3BB84A11E8DAB2300EE457A /* TBDictionaryEntrySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryEntrySectionController.m; sourceTree = "<group>"; };
+		C3BB84A61E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryEntrySubsectionController.h; sourceTree = "<group>"; };
+		C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryEntrySubsectionController.m; sourceTree = "<group>"; };
+		C3BB84AA1E8DC09D00EE457A /* TBAddElementSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAddElementSectionController.h; sourceTree = "<group>"; };
+		C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAddElementSectionController.m; sourceTree = "<group>"; };
 		C3C3845C1E70795C00B1BC55 /* TBMethodHook+IMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMethodHook+IMP.h"; sourceTree = "<group>"; };
 		C3C3845D1E70795C00B1BC55 /* TBMethodHook+IMP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMethodHook+IMP.m"; sourceTree = "<group>"; };
 		C3C3845F1E7079D000B1BC55 /* TBMethodHook+Limitations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMethodHook+Limitations.h"; sourceTree = "<group>"; };
@@ -532,8 +548,26 @@
 			children = (
 				C3BB84971E8C682F00EE457A /* TBArrayElementSectionController.h */,
 				C3BB84981E8C682F00EE457A /* TBArrayElementSectionController.m */,
+				C3BB84A01E8DAB2300EE457A /* TBDictionaryEntrySectionController.h */,
+				C3BB84A11E8DAB2300EE457A /* TBDictionaryEntrySectionController.m */,
+				C3BB84A91E8DBFDA00EE457A /* Dictionary internals */,
+				C3BB84AA1E8DC09D00EE457A /* TBAddElementSectionController.h */,
+				C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */,
 			);
 			name = Collections;
+			sourceTree = "<group>";
+		};
+		C3BB84A91E8DBFDA00EE457A /* Dictionary internals */ = {
+			isa = PBXGroup;
+			children = (
+				C3BB84A61E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.h */,
+				C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */,
+				C3BB849A1E8DAAFF00EE457A /* TBDictionaryKeySectionController.h */,
+				C3BB849B1E8DAAFF00EE457A /* TBDictionaryKeySectionController.m */,
+				C3BB849D1E8DAB1200EE457A /* TBDictionaryValueSectionController.h */,
+				C3BB849E1E8DAB1200EE457A /* TBDictionaryValueSectionController.m */,
+			);
+			name = "Dictionary internals";
 			sourceTree = "<group>";
 		};
 		C3C384621E70813800B1BC55 /* Misc categories */ = {
@@ -851,6 +885,7 @@
 				B41AE66F1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m in Sources */,
 				B43BF17F1D6E48C900E94501 /* TBMethodPickerViewController.m in Sources */,
 				C326C2AA1E79F46100039F4E /* TBTableViewCell.m in Sources */,
+				C3BB84A81E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m in Sources */,
 				B43BF1821D6E492600E94501 /* TBClassPickerViewController.m in Sources */,
 				C3FA6B1D1E845B1C00A01279 /* NSScanner+debug.m in Sources */,
 				B44936F21DA7501F008DB45E /* TBDetailDisclosureCell.m in Sources */,
@@ -869,6 +904,7 @@
 				C3C3845E1E70795C00B1BC55 /* TBMethodHook+IMP.m in Sources */,
 				B48E37311DA75A16002B9899 /* TBValue+ValueHelpers.m in Sources */,
 				B41AE66C1DAAE97100CFCCD7 /* TBChirpImpSectionController.m in Sources */,
+				C3BB849C1E8DAAFF00EE457A /* TBDictionaryKeySectionController.m in Sources */,
 				B4504CA31D6535B300C4B568 /* NSScanner+ChirpParser.m in Sources */,
 				C3C384761E70B3D400B1BC55 /* TBValueTypes.m in Sources */,
 				C31198A31E8790BF0098F583 /* NSString+KeyPaths.m in Sources */,
@@ -890,6 +926,7 @@
 				B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */,
 				B4504C9A1D652AD200C4B568 /* TBTweak.m in Sources */,
 				B4504CB61D6BCF6C00C4B568 /* TBConfigureTweakViewController.m in Sources */,
+				C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */,
 				B4504C771D65230700C4B568 /* main.m in Sources */,
 				C3BB84901E8C524600EE457A /* UITableView+FUCK.m in Sources */,
 				B4B9C7F81D70D3410025E1FB /* TBDateCell.m in Sources */,
@@ -905,8 +942,10 @@
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
 				C3F0F49B1E8A611A008066EC /* TBTextEditorView.m in Sources */,
 				C3601AC51E7C6D1700985E0D /* TBTextFieldCell.m in Sources */,
+				C3BB84A21E8DAB2300EE457A /* TBDictionaryEntrySectionController.m in Sources */,
 				B4B9C7EF1D70D3160025E1FB /* TBAddValueCell.m in Sources */,
 				C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */,
+				C3BB849F1E8DAB1200EE457A /* TBDictionaryValueSectionController.m in Sources */,
 				C3B676A61E71FE46004E5122 /* UIViewController+Convenience.m in Sources */,
 				C35821401E847819008FEF2E /* TBKeyPathViewController.m in Sources */,
 				C3E530FD1E8330C9001D33E1 /* TBKeyPathTokenizer.m in Sources */,
