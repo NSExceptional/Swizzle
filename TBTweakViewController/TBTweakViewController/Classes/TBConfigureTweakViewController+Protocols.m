@@ -37,17 +37,7 @@
 }
 
 - (void)configureTableViewForCellReuseAndAutomaticRowHeight {
-    [self.tableView registerCells:@[[TBSwitchCell class],
-                                    [TBDetailDisclosureCell class],
-                                    [TBChirpCell class],
-                                    [TBStringCell class],
-                                    [TBNumberCell class],
-                                    [TBClassCell class],
-                                    [TBSelectorCell class],
-                                    [TBDateCell class],
-                                    [TBColorCell class],
-                                    [TBKeyValuePairCell class],
-                                    [TBAddValueCell class]]];
+    [self.tableView registerCells:TBBaseValueCell.allValueCells];
     
     // Row height
     self.tableView.rowHeight = UITableViewAutomaticDimension;

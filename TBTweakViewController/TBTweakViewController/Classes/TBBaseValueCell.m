@@ -8,6 +8,7 @@
 
 #import "TBValueCells.h"
 #import "TBValue+ValueHelpers.h"
+#import "TBSwitchCell.h"
 
 #define format(...) [NSString stringWithFormat:__VA_ARGS__]
 
@@ -91,6 +92,22 @@
             break;
         }
     }
+}
+
++ (NSArray<Class> *)allValueCells {
+    return @[
+        [TBSwitchCell class],
+        [TBDetailDisclosureCell class],
+        [TBChirpCell class],
+        [TBStringCell class],
+        [TBNumberCell class],
+        [TBClassCell class],
+        [TBSelectorCell class],
+        [TBDateCell class],
+        [TBColorCell class],
+        [TBKeyValuePairCell class],
+        [TBAddValueCell class]
+    ];
 }
 
 @end

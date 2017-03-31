@@ -25,6 +25,8 @@
 
 @interface TBBaseValueCell : TBTableViewCell
 
+@property (nonatomic, readonly, class) NSArray<Class> *allValueCells;
+
 @property (nonatomic, weak) id<TBValueCellDelegate> delegate;
 
 - (void)describeValue:(TBValue *)value;

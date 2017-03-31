@@ -600,6 +600,8 @@
 				C3B676A51E71FE46004E5122 /* UIViewController+Convenience.m */,
 				C3BB848E1E8C524600EE457A /* UITableView+FUCK.h */,
 				C3BB848F1E8C524600EE457A /* UITableView+FUCK.m */,
+				C3BB84B41E8EDE9900EE457A /* UITableView+TextViewResizing.h */,
+				C3BB84B51E8EDE9900EE457A /* UITableView+TextViewResizing.m */,
 			);
 			name = "Misc categories";
 			sourceTree = "<group>";
@@ -926,6 +928,7 @@
 				C3C384691E70817900B1BC55 /* TBTrampolineLanding.m in Sources */,
 				B4504C961D65246200C4B568 /* TBTweakListViewController.m in Sources */,
 				B43BF1761D6D753200E94501 /* TBTweakManager.m in Sources */,
+				C3BB84B61E8EDE9900EE457A /* UITableView+TextViewResizing.m in Sources */,
 				B43BF1731D6D74C400E94501 /* TBBundlePickerViewController.m in Sources */,
 				B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */,
 				B4504C9A1D652AD200C4B568 /* TBTweak.m in Sources */,
