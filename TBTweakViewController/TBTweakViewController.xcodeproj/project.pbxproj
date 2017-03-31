@@ -76,6 +76,11 @@
 		C3BB84A51E8DACDD00EE457A /* TBValueCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */; };
 		C3BB84A81E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */; };
 		C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */; };
+		C3BB84B01E8ED8A200EE457A /* TBDictionaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84AF1E8ED8A200EE457A /* TBDictionaryViewController.m */; };
+		C3BB84B31E8EDA1F00EE457A /* TBObjectCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84B21E8EDA1F00EE457A /* TBObjectCreationViewController.m */; };
+		C3BB84B61E8EDE9900EE457A /* UITableView+TextViewResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84B51E8EDE9900EE457A /* UITableView+TextViewResizing.m */; };
+		C3BB84B91E8EEA4B00EE457A /* TBCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84B81E8EEA4B00EE457A /* TBCollectionViewController.m */; };
+		C3BB84BC1E8EEBCB00EE457A /* TBElementSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BB84BB1E8EEBCB00EE457A /* TBElementSectionController.m */; };
 		C3C3845E1E70795C00B1BC55 /* TBMethodHook+IMP.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C3845D1E70795C00B1BC55 /* TBMethodHook+IMP.m */; };
 		C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384601E7079D000B1BC55 /* TBMethodHook+Limitations.m */; };
 		C3C384691E70817900B1BC55 /* TBTrampolineLanding.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384641E70817900B1BC55 /* TBTrampolineLanding.m */; };
@@ -256,6 +261,16 @@
 		C3BB84A71E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryEntrySubsectionController.m; sourceTree = "<group>"; };
 		C3BB84AA1E8DC09D00EE457A /* TBAddElementSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAddElementSectionController.h; sourceTree = "<group>"; };
 		C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAddElementSectionController.m; sourceTree = "<group>"; };
+		C3BB84AE1E8ED8A200EE457A /* TBDictionaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDictionaryViewController.h; sourceTree = "<group>"; };
+		C3BB84AF1E8ED8A200EE457A /* TBDictionaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDictionaryViewController.m; sourceTree = "<group>"; };
+		C3BB84B11E8EDA1F00EE457A /* TBObjectCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBObjectCreationViewController.h; sourceTree = "<group>"; };
+		C3BB84B21E8EDA1F00EE457A /* TBObjectCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBObjectCreationViewController.m; sourceTree = "<group>"; };
+		C3BB84B41E8EDE9900EE457A /* UITableView+TextViewResizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+TextViewResizing.h"; sourceTree = "<group>"; };
+		C3BB84B51E8EDE9900EE457A /* UITableView+TextViewResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TextViewResizing.m"; sourceTree = "<group>"; };
+		C3BB84B71E8EEA4B00EE457A /* TBCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCollectionViewController.h; sourceTree = "<group>"; };
+		C3BB84B81E8EEA4B00EE457A /* TBCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCollectionViewController.m; sourceTree = "<group>"; };
+		C3BB84BA1E8EEBCB00EE457A /* TBElementSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBElementSectionController.h; sourceTree = "<group>"; };
+		C3BB84BB1E8EEBCB00EE457A /* TBElementSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBElementSectionController.m; sourceTree = "<group>"; };
 		C3C3845C1E70795C00B1BC55 /* TBMethodHook+IMP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMethodHook+IMP.h"; sourceTree = "<group>"; };
 		C3C3845D1E70795C00B1BC55 /* TBMethodHook+IMP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBMethodHook+IMP.m"; sourceTree = "<group>"; };
 		C3C3845F1E7079D000B1BC55 /* TBMethodHook+Limitations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBMethodHook+Limitations.h"; sourceTree = "<group>"; };
@@ -452,13 +467,12 @@
 			isa = PBXGroup;
 			children = (
 				C3B676B21E721B99004E5122 /* Section controllers */,
+				C3BB84AD1E8ED86300EE457A /* Screens */,
 				C3B676AE1E72092B004E5122 /* Cells */,
 				B4504CB41D6BCF6C00C4B568 /* TBConfigureTweakViewController.h */,
 				B4504CB51D6BCF6C00C4B568 /* TBConfigureTweakViewController.m */,
 				B478B6DD1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.h */,
 				B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m */,
-				B4B9C7EA1D70D1670025E1FB /* TBTypePickerViewController.h */,
-				B4B9C7EB1D70D1670025E1FB /* TBTypePickerViewController.m */,
 				C3BB84A31E8DACDD00EE457A /* TBValueCoordinator.h */,
 				C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */,
 			);
@@ -524,6 +538,8 @@
 				C3A3B19A1E7B29590022A9B8 /* SectionControllers.h */,
 				B41AE6641DAAE77100CFCCD7 /* TBSectionController.h */,
 				B41AE6651DAAE77100CFCCD7 /* TBSectionController.m */,
+				C3601AC01E7C5FB100985E0D /* TBValueSectionController.h */,
+				C3601AC11E7C5FB100985E0D /* TBValueSectionController.m */,
 				C3BB84951E8C661500EE457A /* Tweaking */,
 				C3BB84961E8C661B00EE457A /* Collections */,
 			);
@@ -537,8 +553,6 @@
 				B41AE66E1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m */,
 				B41AE66A1DAAE97100CFCCD7 /* TBChirpImpSectionController.h */,
 				B41AE66B1DAAE97100CFCCD7 /* TBChirpImpSectionController.m */,
-				C3601AC01E7C5FB100985E0D /* TBValueSectionController.h */,
-				C3601AC11E7C5FB100985E0D /* TBValueSectionController.m */,
 				B41AE6671DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.h */,
 				B41AE6681DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m */,
 				B41AE6611DA869C400CFCCD7 /* TBArgValueHookSectionController.h */,
@@ -554,6 +568,8 @@
 				C3BB84981E8C682F00EE457A /* TBArrayElementSectionController.m */,
 				C3BB84A01E8DAB2300EE457A /* TBDictionaryEntrySectionController.h */,
 				C3BB84A11E8DAB2300EE457A /* TBDictionaryEntrySectionController.m */,
+				C3BB84BA1E8EEBCB00EE457A /* TBElementSectionController.h */,
+				C3BB84BB1E8EEBCB00EE457A /* TBElementSectionController.m */,
 				C3BB84A91E8DBFDA00EE457A /* Dictionary internals */,
 				C3BB84AA1E8DC09D00EE457A /* TBAddElementSectionController.h */,
 				C3BB84AB1E8DC09D00EE457A /* TBAddElementSectionController.m */,
@@ -572,6 +588,21 @@
 				C3BB849E1E8DAB1200EE457A /* TBDictionaryValueSectionController.m */,
 			);
 			name = "Dictionary internals";
+			sourceTree = "<group>";
+		};
+		C3BB84AD1E8ED86300EE457A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B4B9C7EA1D70D1670025E1FB /* TBTypePickerViewController.h */,
+				B4B9C7EB1D70D1670025E1FB /* TBTypePickerViewController.m */,
+				C3BB84B11E8EDA1F00EE457A /* TBObjectCreationViewController.h */,
+				C3BB84B21E8EDA1F00EE457A /* TBObjectCreationViewController.m */,
+				C3BB84AE1E8ED8A200EE457A /* TBDictionaryViewController.h */,
+				C3BB84AF1E8ED8A200EE457A /* TBDictionaryViewController.m */,
+				C3BB84B71E8EEA4B00EE457A /* TBCollectionViewController.h */,
+				C3BB84B81E8EEA4B00EE457A /* TBCollectionViewController.m */,
+			);
+			name = Screens;
 			sourceTree = "<group>";
 		};
 		C3C384621E70813800B1BC55 /* Misc categories */ = {
@@ -931,6 +962,7 @@
 				C3BB84B61E8EDE9900EE457A /* UITableView+TextViewResizing.m in Sources */,
 				B43BF1731D6D74C400E94501 /* TBBundlePickerViewController.m in Sources */,
 				B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */,
+				C3BB84B01E8ED8A200EE457A /* TBDictionaryViewController.m in Sources */,
 				B4504C9A1D652AD200C4B568 /* TBTweak.m in Sources */,
 				B4504CB61D6BCF6C00C4B568 /* TBConfigureTweakViewController.m in Sources */,
 				C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */,
@@ -940,11 +972,14 @@
 				B4B9C7FB1D70D4340025E1FB /* TBBaseValueCell.m in Sources */,
 				B4B9C7E61D70D0EA0025E1FB /* TBChirpCell.m in Sources */,
 				C3C3846A1E70817900B1BC55 /* TBTrampoline.s in Sources */,
+				C3BB84B91E8EEA4B00EE457A /* TBCollectionViewController.m in Sources */,
+				C3BB84B31E8EDA1F00EE457A /* TBObjectCreationViewController.m in Sources */,
 				B41AE6691DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m in Sources */,
 				C3E530F41E808680001D33E1 /* UIFont+Swizzle.m in Sources */,
 				C3B676A91E71FF6F004E5122 /* UIImage+TBBundleResources.m in Sources */,
 				C3601AC81E7C6E4D00985E0D /* TBTextViewCell.m in Sources */,
 				C35933FD1E88AB4400D475C2 /* UIGestureRecognizer+Blocks.m in Sources */,
+				C3BB84BC1E8EEBCB00EE457A /* TBElementSectionController.m in Sources */,
 				B4504CA61D679C7200C4B568 /* NSError+Message.m in Sources */,
 				C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */,
 				C3F0F49B1E8A611A008066EC /* TBTextEditorView.m in Sources */,
