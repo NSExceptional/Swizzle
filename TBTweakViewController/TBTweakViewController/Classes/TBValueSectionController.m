@@ -139,9 +139,23 @@
     [self.delegate.navigationController pushViewController:vvc animated:YES];
 }
 
-- (void)didSelectValueHolderCell {
-    // TODO switch on value type and present an editor
-    // throw exception if type doesn't need a presentor
+- (void)didSelectValueHolderCell:(NSUInteger)section {
+    UIViewController *vc;
+    TBValueType type = self.coordinator.container.type;
+
+    if (type == TBValueTypeDictionary || type == TBValueTypeMutableDictionary) {
+        vc = [TBDictionaryViewController withCompletion:^(NSMutableDictionary *result) {
+            self.coordinator.object = result;
+            [self.delegate.tableView reloadSection:section];
+        } initialValue:self.coordinator.object];
+    } else {
+        vc = [TBCollectionViewController withCompletion:^(id<Collection> result) {
+            self.coordinator.object = result;
+            [self.delegate.tableView reloadSection:section];
+        } initialValue:self.coordinator.container];
+    }
+
+    [self.delegate.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark TBValueCellDelegate
