@@ -6,12 +6,12 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBTableViewCell.h"
+#import "TBBaseValueCell.h"
 
 
 /// Used to indicate a transition to a choice or
 /// editing menu of some kind. I use it for the
 /// "Value Kind" cells, and the cells to edit collections.
-@interface TBDetailDisclosureCell : TBTableViewCell
+@interface TBDetailDisclosureCell : TBBaseValueCell
 
 @end

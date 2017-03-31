@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
 - (BOOL)shouldHighlightRow:(TBValueRow)row;
 
 #pragma mark Subclass overrides
-- (void)didSelectValueHolderCell;
+- (void)didSelectValueHolderCell:(NSUInteger)section;
 @property (nonatomic, readonly) NSString *typePickerTitle;
 
 #pragma mark Properties

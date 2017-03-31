@@ -16,7 +16,7 @@
 @implementation TBAddElementSectionController
 
 + (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate onTap:(void (^)())tapAction {
-    TBAddElementSectionController *controller = [self delegate:delegate];
+    TBAddElementSectionController *controller = [super delegate:delegate];
     controller->_onTap = tapAction;
     return controller;
 }

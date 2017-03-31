@@ -10,6 +10,8 @@
 #import "TBValue+ValueHelpers.h"
 #import "TBSwitchCell.h"
 #import "TBTypePickerViewController.h"
+#import "TBDictionaryViewController.h"
+#import "TBCollectionViewController.h"
 #import "Categories.h"
 
 
@@ -58,6 +60,10 @@
     return NO;
 }
 
+- (NSUInteger)sectionRowCount {
+    return self.coordinator.container == [TBValue null] ? 1 : 2;
+}
+
 #pragma mark Overrides
 
 - (TBTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,12 +86,16 @@
             [self didSelectTypePickerCell:indexPath.section];
             break;
         case TBValueRowValueHolder:
-            [self didSelectValueHolderCell];
+            [self didSelectValueHolderCell:indexPath.section];
             break;
 
         default:
             @throw NSInternalInconsistencyException;
     }
+}
+
+- (BOOL)shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self shouldHighlightRow:indexPath.row];
 }
 
 #pragma mark Private

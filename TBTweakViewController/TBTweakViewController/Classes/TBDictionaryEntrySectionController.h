@@ -13,6 +13,8 @@
 #pragma mark - TBDictionaryEntrySectionController -
 @interface TBDictionaryEntrySectionController : TBSectionController
 
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate key:(id)key value:(id)value;
+
 @property (nonatomic, readonly) id key;
 @property (nonatomic, readonly) id value;
 

@@ -22,6 +22,10 @@
 
 @implementation TBConfigureTweakViewController (Protocols)
 
+- (void)removeSection:(TBSectionController *)section {
+    
+}
+
 #pragma mark Helper
 
 - (NSUInteger)totalNumberOfSections {

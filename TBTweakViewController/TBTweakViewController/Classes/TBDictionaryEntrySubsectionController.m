@@ -12,9 +12,8 @@
 
 @implementation TBDictionaryEntrySubsectionController
 
-+ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
-                 section:(TBDictionaryEntrySectionController *)section {
-    TBDictionaryEntrySubsectionController *controller = [super delegate:delegate type:"@"];
++ (instancetype)section:(TBDictionaryEntrySectionController *)section {
+    TBDictionaryEntrySubsectionController *controller = [super delegate:section.delegate type:"@"];
     controller->_section = section;
     return controller;
 }

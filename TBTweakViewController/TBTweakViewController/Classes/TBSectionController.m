@@ -43,5 +43,6 @@
     TBAbstractImpl();
 }
 
+- (void)reloadSectionControllers { }
 
 @end

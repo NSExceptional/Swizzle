@@ -7,13 +7,14 @@
 //
 
 @import UIKit;
-@class TBValue, TBTableViewCell;
+@class TBValue, TBTableViewCell, TBSectionController;
 
 
 #pragma mark - TBSectionControllerDelegate
 @protocol TBSectionControllerDelegate <NSObject>
 
 - (void)reloadSectionControllers;
+- (void)removeSection:(TBSectionController *)section;
 
 @property (nonatomic, readonly) UITableView *tableView;
 @property (nonatomic, readonly) UINavigationController *navigationController;

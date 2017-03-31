@@ -14,13 +14,36 @@ typedef id (^IndexPathBlock)(NSIndexPath *ip);
 @interface TBDictionaryEntrySectionController ()
 @property (nonatomic, readonly) TBDictionaryKeySectionController *keyController;
 @property (nonatomic, readonly) TBDictionaryValueSectionController *valueController;
+@property (nonatomic, readonly) NSNull *null;
 @end
 
 @implementation TBDictionaryEntrySectionController
 @dynamic delegate;
 
-+ (instancetype)delegate:(id<TBDictionarySectionDelegate>)delegate {
-    return [super delegate:delegate];
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate {
+    TBDictionaryEntrySectionController *controller = [super delegate:delegate];
+    controller->_keyController   = [TBDictionaryKeySectionController section:controller];
+    controller->_valueController = [TBDictionaryValueSectionController section:controller];
+    controller->_null            = [NSNull null];
+    return controller;
+}
+
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate key:(id)key value:(id)value {
+    TBDictionaryEntrySectionController *controller = [super delegate:delegate];
+    controller.keyController.coordinator.object   = key;
+    controller.valueController.coordinator.object = value;
+
+    return controller;
+}
+
+#pragma mark Public
+
+- (id)key {
+    return self.keyController.coordinator.object ?: _null;
+}
+
+- (id)value {
+    return self.valueController.coordinator.object ?: _null;
 }
 
 #pragma mark Private
