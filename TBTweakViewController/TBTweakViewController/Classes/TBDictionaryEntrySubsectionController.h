@@ -12,7 +12,7 @@
 
 @interface TBDictionaryEntrySubsectionController : TBValueSectionController
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
                  section:(TBDictionaryEntrySectionController *)controller;
 
 // Internal

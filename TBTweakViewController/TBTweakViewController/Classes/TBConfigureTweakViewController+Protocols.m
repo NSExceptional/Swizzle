@@ -22,8 +22,6 @@
 
 @implementation TBConfigureTweakViewController (Protocols)
 
-#pragma mark Overrides
-
 #pragma mark Helper
 
 - (NSUInteger)totalNumberOfSections {
@@ -171,25 +169,7 @@
 
 #pragma mark TBTextViewCellResizing
 
-- (void)textViewDidChange:(UITextView *)textView cell:(UITableViewCell *)cell {
-#warning FIXME
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
 
-    CGSize size = textView.bounds.size;
-    CGSize newSize = [textView sizeThatFits:CGSizeMake(size.width, CGFLOAT_MAX)];
-
-    // Update cell size only when cell's size is changed
-    if (size.height != newSize.height) {
-        [UIView setAnimationsEnabled:NO];
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
-        [UIView setAnimationsEnabled:YES];
-
-        NSIndexPath *ip = [self.tableView indexPathForCell:cell];
-        [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }
-}
 
 #pragma mark UITableViewDataSource
 

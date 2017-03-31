@@ -87,9 +87,8 @@ typedef id (^IndexPathBlock)(NSIndexPath *ip);
 
 #pragma mark TBValueCellDelegate
 
-- (void)textViewDidChange:(UITextView *)textView cell:(UITableViewCell *)cell {
-    // Delegate to our own delegate
-    [self.delegate textViewDidChange:textView cell:cell];
+- (UITableView *)tableView {
+    return self.delegate.tableView;
 }
 
 @end

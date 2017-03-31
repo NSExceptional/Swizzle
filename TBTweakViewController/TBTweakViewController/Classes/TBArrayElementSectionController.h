@@ -11,6 +11,6 @@
 
 @interface TBArrayElementSectionController : TBValueSectionController
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate;
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate;
 
 @end

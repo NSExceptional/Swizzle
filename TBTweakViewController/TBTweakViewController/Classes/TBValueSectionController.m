@@ -19,7 +19,7 @@
 @implementation TBValueSectionController
 @dynamic delegate, typePickerTitle;
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate type:(const char *)typeEncoding {
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate type:(const char *)typeEncoding {
     TBValueType type = TBValueTypeFromTypeEncoding(typeEncoding);
 
     TBValueSectionController *controller = [super delegate:delegate];
@@ -136,9 +136,8 @@
 
 #pragma mark TBValueCellDelegate
 
-- (void)textViewDidChange:(UITextView *)textView cell:(UITableViewCell *)cell {
-    // Delegate to our own delegate
-    [self.delegate textViewDidChange:textView cell:cell];
+- (UITableView *)tableView {
+    return self.delegate.tableView;
 }
 
 @end

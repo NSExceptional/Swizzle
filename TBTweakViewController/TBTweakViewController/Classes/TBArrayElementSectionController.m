@@ -13,7 +13,7 @@
 
 #pragma mark Overrides
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate {
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate {
     return [super delegate:delegate type:"@"];
 }
 

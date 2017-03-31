@@ -33,7 +33,7 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
 @implementation TBArgValueHookSectionController
 @dynamic delegate;
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
                signature:(NSMethodSignature *)signature
            argumentIndex:(NSUInteger)idx {
     const char *type = [signature getArgumentTypeAtIndex:idx];

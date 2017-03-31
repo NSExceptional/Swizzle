@@ -21,6 +21,7 @@
 @interface TBConfigureTweakViewController ()
 @property (nonatomic, readonly) TBInfoView *infoView;
 @end
+
 @implementation TBConfigureTweakViewController
 
 + (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction {

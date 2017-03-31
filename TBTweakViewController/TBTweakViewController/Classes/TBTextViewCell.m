@@ -8,6 +8,7 @@
 
 #import "TBTextViewCell.h"
 #import "TBTextEditorView.h"
+#import "UITableView+TextViewResizing.h"
 #import "Masonry.h"
 
 
@@ -56,7 +57,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [self.delegate textViewDidChange:textView cell:self];
+    [self.delegate.tableView textViewDidChange:textView cell:self];
 }
 
 @end

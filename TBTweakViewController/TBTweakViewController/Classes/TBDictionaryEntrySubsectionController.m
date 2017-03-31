@@ -12,14 +12,14 @@
 
 @implementation TBDictionaryEntrySubsectionController
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
                  section:(TBDictionaryEntrySectionController *)section {
     TBDictionaryEntrySubsectionController *controller = [super delegate:delegate type:"@"];
     controller->_section = section;
     return controller;
 }
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate {
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate {
     @throw NSInternalInconsistencyException;
     return nil;
 }

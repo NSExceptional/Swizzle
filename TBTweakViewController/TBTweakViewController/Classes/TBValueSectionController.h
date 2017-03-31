@@ -16,10 +16,6 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
     TBValueRowValueHolder
 };
 
-#pragma mark - TBValueSectionDelegate
-@protocol TBValueSectionDelegate <TBTextViewCellResizing, TBSectionControllerDelegate>
-@end
-
 /// Manages a TBValue for a given value override,
 /// as well as returns and configures cells for that section
 #pragma mark - TBValueSectionController
@@ -28,7 +24,7 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
     const char *_typeEncoding;
 }
 
-+ (instancetype)delegate:(id<TBValueSectionDelegate>)delegate type:(const char *)typeEncoding;
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate type:(const char *)typeEncoding;
 
 #pragma mark Internal
 - (BOOL)shouldHighlightRow:(TBValueRow)row;
@@ -38,7 +34,7 @@ typedef NS_ENUM(NSUInteger, TBValueRow) {
 @property (nonatomic, readonly) NSString *typePickerTitle;
 
 #pragma mark Properties
-@property (nonatomic, readonly) id<TBValueSectionDelegate> delegate;
+@property (nonatomic, readonly) id<TBSectionControllerDelegate> delegate;
 @property (nonatomic, readonly) const char *typeEncoding;
 
 #pragma mark TBValueCellDelegate

@@ -11,18 +11,14 @@
 #import "TBValueCoordinator.h"
 
 
-/// Used by the view controller to resize a cell?
-@protocol TBTextViewCellResizing <NSObject>
-- (void)textViewDidChange:(UITextView *)textView cell:(UITableViewCell *)cell;
-@end
-
 /// Delegate of value cells to make retreiving
 /// responders and values easier.
-@protocol TBValueCellDelegate <TBTextViewCellResizing>
+@protocol TBValueCellDelegate
 
 /// i.e. the text field where the value is being entered
 @property (nonatomic) UIResponder *currentResponder;
 @property (nonatomic, readonly) TBValueCoordinator *coordinator;
+@property (nonatomic, readonly) UITableView *tableView;
 
 @end
 
