@@ -88,7 +88,8 @@
         }
         case TBValueTypeFloat:
         case TBValueTypeDouble:
-        case TBValueTypeInteger: {
+        case TBValueTypeInteger:
+        case TBValueTypeNumber: {
             return [self value:@1 type:type];
         }
         case TBValueTypeString: {

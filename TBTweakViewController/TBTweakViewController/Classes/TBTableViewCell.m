@@ -53,9 +53,10 @@
             return TBClassCell.reuseID;
         case TBValueTypeSelector:
             return TBSelectorCell.reuseID;
-        case TBValueTypeInteger:
         case TBValueTypeFloat:
         case TBValueTypeDouble:
+        case TBValueTypeInteger:
+        case TBValueTypeNumber:
             return TBNumberCell.reuseID;
         case TBValueTypeString:
         case TBValueTypeMutableString:

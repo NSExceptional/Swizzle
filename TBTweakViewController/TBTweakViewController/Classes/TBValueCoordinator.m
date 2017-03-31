@@ -8,6 +8,7 @@
 
 #import "TBValueCoordinator.h"
 #import "TBValue.h"
+#import <objc/runtime.h>
 
 
 @implementation TBValueCoordinator
@@ -57,6 +58,8 @@
         case TBValueTypeDouble:
             self.doubleFloat = number;
             break;
+        case TBValueTypeNumber:
+            self.container = [TBValue value:number type:TBValueTypeNumber];
 
         default:
             @throw NSInternalInconsistencyException;
@@ -112,17 +115,20 @@
 }
 
 - (id)object {
-    if (self.valueType == TBValueTypeObject) {
-        return self.container.value;
-    }
-
-    return nil;
+    return self.container.value;
 }
 
 - (void)setObject:(id)object {
     TBValueType type;
 
-    if ([object isKindOfClass:[NSMutableString class]])
+    if (object == [NSNull null]) {
+        _container = [TBValue null];
+        return;
+    }
+
+    if (object_isClass(object)) {
+        type = TBValueTypeClass;
+    } else if ([object isKindOfClass:[NSMutableString class]])
         type = TBValueTypeMutableString;
     else if ([object isKindOfClass:[NSString class]])
         type = TBValueTypeString;
@@ -142,6 +148,8 @@
         type = TBValueTypeColor;
     else if ([object isKindOfClass:[NSDate class]])
         type = TBValueTypeDate;
+    else if ([object isKindOfClass:[NSNumber class]])
+        type = TBValueTypeNumber;
 
     else {
         type = TBValueTypeObject;

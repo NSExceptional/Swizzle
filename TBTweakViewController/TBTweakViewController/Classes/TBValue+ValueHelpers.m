@@ -56,12 +56,19 @@
 }
 
 - (NSNumber *)numberValue {
-    if (self.type != TBValueTypeFloat && self.type != TBValueTypeDouble && self.type != TBValueTypeInteger) {
+    TBValueType type = self.type;
+    switch (type) {
+        case TBValueTypeFloat:
+        case TBValueTypeDouble:
+        case TBValueTypeInteger:
+        case TBValueTypeNumber:
+            return (NSNumber *)self.value;
+
+        default:
         [NSException raise:NSInternalInconsistencyException
                     format:@"Type is %@, tried to access %s", TBStringFromValueType(self.type), sel_getName(_cmd)];
+            return nil;
     }
-    
-    return (NSNumber *)self.value;
 }
 
 - (NSString *)stringValue {

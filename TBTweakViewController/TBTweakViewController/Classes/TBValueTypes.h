@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, TBValueType)
     TBValueTypeFloat,
     TBValueTypeDouble,
     TBValueTypeInteger,
+    TBValueTypeNumber,
     TBValueTypeString,
     TBValueTypeMutableString,
     TBValueTypeDate,

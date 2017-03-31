@@ -38,9 +38,10 @@
             celll.text = value.selectorValue;
             break;
         }
-        case TBValueTypeInteger:
         case TBValueTypeFloat:
-        case TBValueTypeDouble: {
+        case TBValueTypeDouble:
+        case TBValueTypeInteger:
+        case TBValueTypeNumber: {
             TBNumberCell *celll = (id)self;
             celll.text = value.numberValue.description;
             break;

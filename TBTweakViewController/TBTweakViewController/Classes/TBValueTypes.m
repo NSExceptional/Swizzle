@@ -68,8 +68,11 @@ NSString * TBStringFromValueType(TBValueType type) {
         case TBValueTypeInteger: {
             return @"Integer";
         }
+        case TBValueTypeNumber: {
+            return @"NSNumber";
+        }
         case TBValueTypeString: {
-            return @"String (NSString, char *)";
+            return @"NSString (or char *)";
         }
         case TBValueTypeMutableString: {
             return @"NSMutableString";
@@ -352,9 +355,7 @@ EnumSet * TBAllowedTypesForEncoding(MKTypeEncoding encoding) {
             // [allowed addIndex:TBValueTypeChirpValue];
             [allowed addIndex:TBValueTypeClass];
             [allowed addIndex:TBValueTypeDate];
-            [allowed addIndex:TBValueTypeInteger];
-            [allowed addIndex:TBValueTypeFloat];
-            [allowed addIndex:TBValueTypeDouble];
+            [allowed addIndex:TBValueTypeNumber];
             [allowed addIndex:TBValueTypeString];
             [allowed addIndex:TBValueTypeArray];
             [allowed addIndex:TBValueTypeDictionary];
