@@ -8,6 +8,7 @@
 
 #import "TBClassPickerViewController.h"
 #import "TBMethodPickerViewController.h"
+#import "UITableView+Convenience.h"
 #import <objc/runtime.h>
 
 
@@ -56,7 +57,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self.tableView deselectSelectedRow];
     [self.searchBar becomeFirstResponder];
 }
 

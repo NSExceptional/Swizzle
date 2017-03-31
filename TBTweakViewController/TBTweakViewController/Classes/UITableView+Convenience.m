@@ -23,11 +23,23 @@
 
 
 - (void)reloadSection:(NSUInteger)section {
-    [self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)reloadSection:(NSUInteger)section withRowAnimation:(UITableViewRowAnimation)animation {
     [self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:animation];
+}
+
+- (void)insertSection:(NSUInteger)section {
+    [self insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)deleteSection:(NSUInteger)section {
+    [self deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)deselectSelectedRow {
+    [self deselectRowAtIndexPath:self.indexPathForSelectedRow animated:YES];
 }
 
 @end

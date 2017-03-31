@@ -8,6 +8,7 @@
 
 #import "TBMethodPickerViewController.h"
 #import "TBConfigureTweakViewController.h"
+#import "UITableView+Convenience.h"
 #import "TBTweak.h"
 #import "TBTweakManager.h"
 
@@ -66,7 +67,7 @@ NSString * const kMethodCellReuse = @"kMethodCellReuse";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    [self.tableView deselectSelectedRow];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

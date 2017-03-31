@@ -19,4 +19,9 @@
 - (void)reloadSection:(NSUInteger)section;
 - (void)reloadSection:(NSUInteger)section withRowAnimation:(UITableViewRowAnimation)animation;
 
+- (void)insertSection:(NSUInteger)section;
+- (void)deleteSection:(NSUInteger)section;
+
+- (void)deselectSelectedRow;
+
 @end
