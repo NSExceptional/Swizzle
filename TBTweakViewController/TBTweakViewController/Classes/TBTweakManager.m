@@ -8,7 +8,7 @@
 
 #import "TBTweakManager.h"
 #import "TBBundlePickerViewController.h"
-#import "TBConfigureTweakViewController.h"
+#import "TBConfigureHookViewController.h"
 #import "TBTweakCell.h"
 #import "NSMapTable+Subscripting.h"
 #import "TBAlertController.h"
@@ -311,7 +311,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Present editor inside nav controller on tweak list
     UITableViewController *tweakList = self.listViewControllers[tableView];
-    __block UIViewController *edit = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
+    __block UIViewController *edit = [TBConfigureHookViewController forTweak:tweak saveAction:^{
         if (system) {
             _systemTweakDelta = YES;
         } else {

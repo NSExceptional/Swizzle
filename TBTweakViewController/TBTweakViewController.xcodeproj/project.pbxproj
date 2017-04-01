@@ -36,9 +36,9 @@
 		B4504CA61D679C7200C4B568 /* NSError+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504CA51D679C7200C4B568 /* NSError+Message.m */; };
 		B4504CA91D6A444100C4B568 /* NSTestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504CA81D6A444100C4B568 /* NSTestClass.m */; };
 		B4504CB31D6BB8E300C4B568 /* TBTweakCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504CB21D6BB8E300C4B568 /* TBTweakCell.m */; };
-		B4504CB61D6BCF6C00C4B568 /* TBConfigureTweakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504CB51D6BCF6C00C4B568 /* TBConfigureTweakViewController.m */; };
+		B4504CB61D6BCF6C00C4B568 /* TBConfigureHookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4504CB51D6BCF6C00C4B568 /* TBConfigureHookViewController.m */; };
 		B478B6CB1D77D79C009E7771 /* TBColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6CA1D77D79C009E7771 /* TBColorCell.m */; };
-		B478B6DF1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m */; };
+		B478B6DF1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6DE1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.m */; };
 		B478B6E21D78CAB9009E7771 /* TBSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B478B6E11D78CAB9009E7771 /* TBSwitchCell.m */; };
 		B48E37311DA75A16002B9899 /* TBValue+ValueHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B48E37301DA75A16002B9899 /* TBValue+ValueHelpers.m */; };
 		B4B9C7E61D70D0EA0025E1FB /* TBChirpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B9C7E51D70D0EA0025E1FB /* TBChirpCell.m */; };
@@ -179,12 +179,12 @@
 		B4504CA81D6A444100C4B568 /* NSTestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTestClass.m; sourceTree = "<group>"; };
 		B4504CB11D6BB8E300C4B568 /* TBTweakCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTweakCell.h; sourceTree = "<group>"; };
 		B4504CB21D6BB8E300C4B568 /* TBTweakCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTweakCell.m; sourceTree = "<group>"; };
-		B4504CB41D6BCF6C00C4B568 /* TBConfigureTweakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConfigureTweakViewController.h; sourceTree = "<group>"; };
-		B4504CB51D6BCF6C00C4B568 /* TBConfigureTweakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConfigureTweakViewController.m; sourceTree = "<group>"; };
+		B4504CB41D6BCF6C00C4B568 /* TBConfigureHookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConfigureHookViewController.h; sourceTree = "<group>"; };
+		B4504CB51D6BCF6C00C4B568 /* TBConfigureHookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConfigureHookViewController.m; sourceTree = "<group>"; };
 		B478B6C91D77D79C009E7771 /* TBColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBColorCell.h; sourceTree = "<group>"; };
 		B478B6CA1D77D79C009E7771 /* TBColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBColorCell.m; sourceTree = "<group>"; };
-		B478B6DD1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBConfigureTweakViewController+Protocols.h"; sourceTree = "<group>"; };
-		B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBConfigureTweakViewController+Protocols.m"; sourceTree = "<group>"; };
+		B478B6DD1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBConfigureHookViewController+Protocols.h"; sourceTree = "<group>"; };
+		B478B6DE1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBConfigureHookViewController+Protocols.m"; sourceTree = "<group>"; };
 		B478B6E01D78CAB9009E7771 /* TBSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSwitchCell.h; sourceTree = "<group>"; };
 		B478B6E11D78CAB9009E7771 /* TBSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSwitchCell.m; sourceTree = "<group>"; };
 		B48E372F1DA75A16002B9899 /* TBValue+ValueHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBValue+ValueHelpers.h"; sourceTree = "<group>"; };
@@ -469,10 +469,10 @@
 				C3B676B21E721B99004E5122 /* Section controllers */,
 				C3BB84AD1E8ED86300EE457A /* Screens */,
 				C3B676AE1E72092B004E5122 /* Cells */,
-				B4504CB41D6BCF6C00C4B568 /* TBConfigureTweakViewController.h */,
-				B4504CB51D6BCF6C00C4B568 /* TBConfigureTweakViewController.m */,
-				B478B6DD1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.h */,
-				B478B6DE1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m */,
+				B4504CB41D6BCF6C00C4B568 /* TBConfigureHookViewController.h */,
+				B4504CB51D6BCF6C00C4B568 /* TBConfigureHookViewController.m */,
+				B478B6DD1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.h */,
+				B478B6DE1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.m */,
 				C3BB84A31E8DACDD00EE457A /* TBValueCoordinator.h */,
 				C3BB84A41E8DACDD00EE457A /* TBValueCoordinator.m */,
 			);
@@ -951,7 +951,7 @@
 				C34E04D51E84866A00688ED6 /* NSTimer+Blocks.m in Sources */,
 				B44936EF1DA73C71008DB45E /* TBSettings.m in Sources */,
 				C3BB84991E8C682F00EE457A /* TBArrayElementSectionController.m in Sources */,
-				B478B6DF1D78CA6B009E7771 /* TBConfigureTweakViewController+Protocols.m in Sources */,
+				B478B6DF1D78CA6B009E7771 /* TBConfigureHookViewController+Protocols.m in Sources */,
 				C3E530FA1E833093001D33E1 /* TBRuntime.m in Sources */,
 				C3E531031E8331BB001D33E1 /* TBToken.m in Sources */,
 				C3B8A8E91E8066B500C62157 /* EnumSet.m in Sources */,
@@ -964,7 +964,7 @@
 				B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */,
 				C3BB84B01E8ED8A200EE457A /* TBDictionaryViewController.m in Sources */,
 				B4504C9A1D652AD200C4B568 /* TBTweak.m in Sources */,
-				B4504CB61D6BCF6C00C4B568 /* TBConfigureTweakViewController.m in Sources */,
+				B4504CB61D6BCF6C00C4B568 /* TBConfigureHookViewController.m in Sources */,
 				C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */,
 				B4504C771D65230700C4B568 /* main.m in Sources */,
 				C3BB84901E8C524600EE457A /* UITableView+FUCK.m in Sources */,

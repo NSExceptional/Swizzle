@@ -9,7 +9,7 @@
 #import "TBTweakListViewController.h"
 #import "TBKeyPathViewController.h"
 #import "TBBundlePickerViewController.h"
-#import "TBConfigureTweakViewController.h"
+#import "TBConfigureHookViewController.h"
 #import "Categories.h"
 
 #import "TBTweakManager.h"

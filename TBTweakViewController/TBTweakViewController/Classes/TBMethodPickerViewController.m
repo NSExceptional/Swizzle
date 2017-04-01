@@ -7,7 +7,7 @@
 //
 
 #import "TBMethodPickerViewController.h"
-#import "TBConfigureTweakViewController.h"
+#import "TBConfigureHookViewController.h"
 #import "UITableView+Convenience.h"
 #import "TBTweak.h"
 #import "TBTweakManager.h"
@@ -138,7 +138,7 @@ NSString * const kMethodCellReuse = @"kMethodCellReuse";
             MKMethod *method   = self.filteredMethods[indexPath.row];
             TBMethodHook *hook = [TBMethodHook target:self.targetClass action:method.selector isClassMethod:!method.isInstanceMethod];
             TBTweak *tweak     = [TBTweak tweakWithHook:hook];
-            TBConfigureTweakViewController *config = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
+            TBConfigureHookViewController *config = [TBConfigureHookViewController forTweak:tweak saveAction:^{
                 [[TBTweakManager sharedManager] addTweak:tweak];
                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             }];

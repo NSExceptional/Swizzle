@@ -1,12 +1,12 @@
 //
-//  TBConfigureTweakViewController+Protocols.m
+//  TBConfigureHookViewController+Protocols.m
 //  TBTweakViewController
 //
 //  Created by Tanner on 9/1/16.
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBConfigureTweakViewController+Protocols.h"
+#import "TBConfigureHookViewController+Protocols.h"
 #import "TBSettings.h"
 #import "TBValue+ValueHelpers.h"
 #import "TBSwitchCell.h"
@@ -16,11 +16,11 @@
 #import "Categories.h"
 
 
-@interface TBConfigureTweakViewController ()
+@interface TBConfigureHookViewController ()
 @property (nonatomic, readonly) NSUInteger totalNumberOfSections;
 @end
 
-@implementation TBConfigureTweakViewController (Protocols)
+@implementation TBConfigureHookViewController (Protocols)
 
 - (void)removeSection:(TBSectionController *)section {
     

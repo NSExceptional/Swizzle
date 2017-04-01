@@ -1,5 +1,5 @@
 //
-//  TBConfigureTweakViewController.h
+//  TBConfigureHookViewController.h
 //  TBTweakViewController
 //
 //  Created by Tanner on 8/22/16.
@@ -13,7 +13,7 @@
 
 
 /// Used to edit the configuration of a tweak, existing or new.
-@interface TBConfigureTweakViewController : UITableViewController
+@interface TBConfigureHookViewController : UITableViewController
 
 + (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction;
 

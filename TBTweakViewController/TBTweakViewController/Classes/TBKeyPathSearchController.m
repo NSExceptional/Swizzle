@@ -13,7 +13,7 @@
 #import "NSString+KeyPaths.h"
 #import "Categories.h"
 
-#import "TBConfigureTweakViewController.h"
+#import "TBConfigureHookViewController.h"
 #import "TBTweakManager.h"
 #import "TBMethodHook.h"
 
@@ -137,7 +137,7 @@
     }
 
     TBTweak *tweak = [TBTweak tweakWithHook:[TBMethodHook hook:method]];
-    TBConfigureTweakViewController *config = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
+    TBConfigureHookViewController *config = [TBConfigureHookViewController forTweak:tweak saveAction:^{
         [[TBTweakManager sharedManager] addTweak:tweak];
         [self.delegate.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];

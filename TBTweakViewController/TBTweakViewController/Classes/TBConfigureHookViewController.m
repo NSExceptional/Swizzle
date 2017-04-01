@@ -1,13 +1,13 @@
 //
-//  TBConfigureTweakViewController.m
+//  TBConfigureHookViewController.m
 //  TBTweakViewController
 //
 //  Created by Tanner on 8/22/16.
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBConfigureTweakViewController.h"
-#import "TBConfigureTweakViewController+Protocols.h"
+#import "TBConfigureHookViewController.h"
+#import "TBConfigureHookViewController+Protocols.h"
 #import "TBTypePickerViewController.h"
 #import "TBValueCells.h"
 #import "TBInfoView.h"
@@ -18,14 +18,14 @@
 #import <Masonry.h>
 
 
-@interface TBConfigureTweakViewController ()
+@interface TBConfigureHookViewController ()
 @property (nonatomic, readonly) TBInfoView *infoView;
 @end
 
-@implementation TBConfigureTweakViewController
+@implementation TBConfigureHookViewController
 
 + (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction {
-    TBConfigureTweakViewController *config =
+    TBConfigureHookViewController *config =
     [self title:@"Configure Tweak" configuration:^(UINavigationItem *item, id vc) {
         item.rightBarButtonItem = [UIBarButtonItem item:UIBBItemSave target:vc action:@selector(save)];
         item.rightBarButtonItem.enabled = NO;

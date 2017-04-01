@@ -7,7 +7,7 @@
 //
 
 #import "TBTypePickerViewController.h"
-#import "TBConfigureTweakViewController+Protocols.h"
+#import "TBConfigureHookViewController+Protocols.h"
 #import "TBValueCells.h"
 #import "UITableView+Convenience.h"
 #import "EnumSet.h"
