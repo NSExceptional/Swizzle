@@ -35,7 +35,7 @@
         i++;
 //    if (self.tweakTypeSectionController.overrideArguments)
     if (self.tweakType & TBTweakTypeHookArguments)
-        i += self.tweak.hook.method.numberOfArguments;
+        i += self.tweak.hook.method.numberOfArguments - 2;
     
     return i;
 }
@@ -65,6 +65,10 @@
     return self.tweak.hook.canOverrideReturnValue;
 }
 
+- (BOOL)canOverrideAllArgumentValues {
+    return self.tweak.hook.canOverrideAllArgumentValues;
+}
+
 /// Refreshes the contents of self.dynamicSectionControllers and updates the table view's contents.
 - (void)reloadSectionControllers {
     NSArray *orig = self.dynamicSectionControllers.copy;
@@ -73,6 +77,8 @@
     NSMutableArray *controllers = self.dynamicSectionControllers;
     [controllers removeAllObjects];
     [controllers addObject:self.tweakTypeSectionController];
+
+    #warning FIXME the below code will clear all existing values when toggled even in Expert mode
 
     // Add chirp hook controller
     if (self.tweakType & TBTweakTypeChirpCode) {
@@ -148,22 +154,20 @@
     }
 
     if (origHasArgs && !currHasArgs) {
-        [remove addIndexesInRange:NSMakeRange(removeIdx, self.tweak.hook.method.numberOfArguments)];
+        [remove addIndexesInRange:NSMakeRange(removeIdx, self.tweak.hook.method.numberOfArguments-2)];
     } else if (!origHasArgs && currHasArgs) {
-        [insert addIndexesInRange:NSMakeRange(insertIdx, self.tweak.hook.method.numberOfArguments)];
+        [insert addIndexesInRange:NSMakeRange(insertIdx, self.tweak.hook.method.numberOfArguments-2)];
     }
 
+    [self.tableView beginUpdates];
     if (remove.count) {
         [self.tableView deleteSections:remove withRowAnimation:UITableViewRowAnimationFade];
     }
     if (insert.count) {
         [self.tableView insertSections:insert withRowAnimation:UITableViewRowAnimationFade];
     }
+    [self.tableView endUpdates];
 }
-
-#pragma mark TBTextViewCellResizing
-
-
 
 #pragma mark UITableViewDataSource
 

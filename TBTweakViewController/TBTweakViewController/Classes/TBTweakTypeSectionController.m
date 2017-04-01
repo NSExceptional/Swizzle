@@ -27,11 +27,15 @@
 }
 
 - (NSUInteger)sectionRowCount {
-    return TBSettings.chirpEnabled ? 3 : 2;
+    NSUInteger i = 0;
+    i += (bool)self.delegate.canOverrideReturnValue;
+    i += (bool)self.delegate.canOverrideAllArgumentValues;
+    i += (bool)TBSettings.chirpEnabled;
+    return i;
 }
 
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row = indexPath.row;
+    NSUInteger row = indexPath.row + (TBSettings.chirpEnabled ? 0 : 1);
     
     // Check row cache
     switch (row) {
@@ -113,13 +117,13 @@
     // Update the tweak type and the states of the other switches
     // based on whether expert mode is on. Chirp can't be on with
     // any other switches for obvious reasons.
-    self.overrideWithChirpCell.switchh.on = NO;
+    [self.overrideWithChirpCell.switchh setOn:NO animated:YES];
     if (!TBSettings.expertMode) {
         // Disable args hook
         type &= ~TBTweakTypeHookArguments;
-        self.overrideArgumentValuesCell.switchh.on = NO;
+        [self.overrideArgumentValuesCell.switchh setOn:NO animated:YES];
     }
-    
+
     self.delegate.tweakType = type;
     [self.delegate reloadSectionControllers];
 }
@@ -131,11 +135,11 @@
     // Update the tweak type and the states of the other switches
     // based on whether expert mode is on. Chirp can't be on with
     // any other switches for obvious reasons.
-    self.overrideWithChirpCell.switchh.on = NO;
+    [self.overrideWithChirpCell.switchh setOn:NO animated:YES];
     if (!TBSettings.expertMode) {
         // Disable return hook
         type &= ~TBTweakTypeHookReturnValue;
-        self.overrideReturnValueCell.switchh.on = NO;
+        [self.overrideReturnValueCell.switchh setOn:NO animated:YES];
     }
     
     self.delegate.tweakType = type;
@@ -146,8 +150,8 @@
     // The other switches should be off no matter what.
     // This must be done after the above line or the above
     // line will result in an incorrect difference.
-    self.overrideReturnValueCell.switchh.on = NO;
-    self.overrideArgumentValuesCell.switchh.on = NO;
+    [self.overrideReturnValueCell.switchh setOn:NO animated:YES];
+    [self.overrideArgumentValuesCell.switchh setOn:NO animated:YES];
 
     self.delegate.tweakType = on ? TBTweakTypeChirpCode : TBTweakTypeUnspecified;
     [self.delegate reloadSectionControllers];

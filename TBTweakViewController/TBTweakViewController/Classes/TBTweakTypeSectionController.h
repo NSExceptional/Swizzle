@@ -14,6 +14,7 @@
 @protocol TBTweakTypeSectionDelegate <TBSectionControllerDelegate>
 
 @property (nonatomic, readonly) BOOL canOverrideReturnValue;
+@property (nonatomic, readonly) BOOL canOverrideAllArgumentValues;
 @property (nonatomic          ) TBTweakType tweakType;
 @property (nonatomic, readonly) NSUInteger totalNumberOfSections;
 @property (nonatomic, readonly) NSUInteger hookArgumentCount;

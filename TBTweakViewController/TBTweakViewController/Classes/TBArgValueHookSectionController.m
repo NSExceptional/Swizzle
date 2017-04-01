@@ -90,15 +90,16 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
 
     unsigned long userVisibleArgIdx = TBSettings.expertMode ? self.argIdx : self.argIdx - 2;
 
+    cell.switchh.on = self.coordinator.container.overriden;
     cell.textLabel.text = format(@"Override arg%lu", userVisibleArgIdx);
     cell.switchToggleAction = ^(BOOL on) {
-        [self didToggleArgSwitch:on];
+        [self didToggleArgSwitch:on section:ip.section];
     };
 
     return cell;
 }
 
-- (void)didToggleArgSwitch:(BOOL)on {
+- (void)didToggleArgSwitch:(BOOL)on section:(NSUInteger)section {
     /// Toggle value between default and original value for the argument's type signature
     if (self.coordinator.container.notOverridden) {
         self.coordinator.container = [TBValue defaultValueForTypeEncoding:self.typeEncoding];
