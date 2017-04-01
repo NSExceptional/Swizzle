@@ -74,6 +74,8 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     if (self) {
         _appTweaksCollation    = [UILocalizedIndexedCollation currentCollation];
         _systemTweaksCollation = [UILocalizedIndexedCollation currentCollation];
+        _appTVDataSource       = [NSMutableArray array];
+        _systemTVDataSource    = [NSMutableArray array];
         
         _dataSources         = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory];
         _collations          = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory];
@@ -89,8 +91,6 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
 }
 
 - (void)calculateSections {
-    _appTVDataSource = [NSMutableArray array];
-    _systemTVDataSource = [NSMutableArray array];
     [self calculateSectionsForTweaks:self.appTweaks inDataSourceArray:self.appTVDataSource collatin:self.appTweaksCollation];
     [self calculateSectionsForTweaks:self.systemTweaks inDataSourceArray:self.systemTVDataSource collatin:self.systemTweaksCollation];
 }
@@ -100,7 +100,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
                           collatin:(UILocalizedIndexedCollation *)collation {
     // Setup 2D array
     [dataSource removeAllObjects];
-    NSMutableArray *temp = [NSMutableArray array];
+    NSMutableArray<NSMutableArray*> *temp = [NSMutableArray array];
     for (int i = 0; i < collation.sectionTitles.count; i++)
         [temp addObject:[NSMutableArray array]];
     
@@ -201,8 +201,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     _appTweakDelta = NO;
     
     [self calculateSections];
-    [self.appTweaksTableViewController.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                                               withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.appTweaksTableViewController.tableView reloadData];
 }
 
 - (void)addSystemTweak:(TBTweak *)tweak {
@@ -211,11 +210,10 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     _systemTweakDelta = NO;
     
     [self calculateSections];
-    [self.systemTweaksTableViewController.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.systemTweaksTableViewController.tableView reloadData];
 }
 
-- (void)removeAppTweak:(TBTweak *)tweak {
+- (void)removeAppTweak:(TBTweak *)tweak indexPath:(NSIndexPath *)ip {
     [self.appTweaks removeObject:tweak];
     [self saveAppTweaks];
     _appTweakDelta = NO;
@@ -224,7 +222,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     [self.appTweaksTableViewController.tableView deleteRow:ip];
 }
 
-- (void)removeSystemTweak:(TBTweak *)tweak {
+- (void)removeSystemTweak:(TBTweak *)tweak indexPath:(NSIndexPath *)ip {
     [self.systemTweaks removeObject:tweak];
     [self saveSystemTweaks];
     _systemTweakDelta = NO;
@@ -286,6 +284,24 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     return [self.collations[tableView] sectionForSectionIndexTitleAtIndex:index];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)action
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSParameterAssert(action == UITableViewCellEditingStyleDelete);
+
+    NSArray *dataSource = self.dataSources[tableView];
+    TBTweak *toRemove = dataSource[indexPath.section][indexPath.row];
+
+    if (dataSource == self.appTVDataSource) {
+        [self removeAppTweak:toRemove indexPath:indexPath];
+    } else {
+        [self removeSystemTweak:toRemove indexPath:indexPath];
+    }
+}
+
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -295,7 +311,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     
     // Present editor inside nav controller on tweak list
     UITableViewController *tweakList = self.listViewControllers[tableView];
-    UIViewController *edit = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
+    __block UIViewController *edit = [TBConfigureTweakViewController forTweak:tweak saveAction:^{
         if (system) {
             _systemTweakDelta = YES;
         } else {

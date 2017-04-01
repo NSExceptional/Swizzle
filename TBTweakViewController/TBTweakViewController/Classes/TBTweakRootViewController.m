@@ -28,7 +28,6 @@
             manager.appTweaksTableViewController = [self.viewControllers[0] viewControllers][0];
             manager.systemTweaksTableViewController = [self.viewControllers[1] viewControllers][0];
         }
-        
     }
     
     return self;

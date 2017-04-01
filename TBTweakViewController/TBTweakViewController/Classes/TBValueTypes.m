@@ -278,6 +278,8 @@ TBStruct TBDefaultValueForStructType(TBStructType type) {
     if (type & TBStructTypeDualCGFloat ||
         type & TBStructTypeQuadCGFloat) {
         t.rect = CGRectZero;
+    } else {
+        memset(&t.quadNSInteger, 0, sizeof(t.quadNSInteger));
     }
 
     return t;
