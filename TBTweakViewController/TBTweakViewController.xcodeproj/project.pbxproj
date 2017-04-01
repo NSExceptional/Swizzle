@@ -13,7 +13,7 @@
 		B41AE6661DAAE77100CFCCD7 /* TBSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE6651DAAE77100CFCCD7 /* TBSectionController.m */; };
 		B41AE6691DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE6681DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m */; };
 		B41AE66C1DAAE97100CFCCD7 /* TBChirpImpSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE66B1DAAE97100CFCCD7 /* TBChirpImpSectionController.m */; };
-		B41AE66F1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE66E1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m */; };
+		B41AE66F1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41AE66E1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.m */; };
 		B43BF1701D6D63ED00E94501 /* TBTweakRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BF16F1D6D63ED00E94501 /* TBTweakRootViewController.m */; };
 		B43BF1731D6D74C400E94501 /* TBBundlePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BF1721D6D74C400E94501 /* TBBundlePickerViewController.m */; };
 		B43BF1761D6D753200E94501 /* TBTweakManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B43BF1751D6D753200E94501 /* TBTweakManager.m */; };
@@ -133,8 +133,8 @@
 		B41AE6681DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBReturnValueHookSectionController.m; sourceTree = "<group>"; };
 		B41AE66A1DAAE97100CFCCD7 /* TBChirpImpSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChirpImpSectionController.h; sourceTree = "<group>"; };
 		B41AE66B1DAAE97100CFCCD7 /* TBChirpImpSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChirpImpSectionController.m; sourceTree = "<group>"; };
-		B41AE66D1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTweakTypeSectionController.h; sourceTree = "<group>"; };
-		B41AE66E1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTweakTypeSectionController.m; sourceTree = "<group>"; };
+		B41AE66D1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBHookTypeSectionController.h; sourceTree = "<group>"; };
+		B41AE66E1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBHookTypeSectionController.m; sourceTree = "<group>"; };
 		B43BF16E1D6D63ED00E94501 /* TBTweakRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTweakRootViewController.h; sourceTree = "<group>"; };
 		B43BF16F1D6D63ED00E94501 /* TBTweakRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTweakRootViewController.m; sourceTree = "<group>"; };
 		B43BF1711D6D74C400E94501 /* TBBundlePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBBundlePickerViewController.h; sourceTree = "<group>"; };
@@ -549,8 +549,8 @@
 		C3BB84951E8C661500EE457A /* Tweaking */ = {
 			isa = PBXGroup;
 			children = (
-				B41AE66D1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.h */,
-				B41AE66E1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m */,
+				B41AE66D1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.h */,
+				B41AE66E1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.m */,
 				B41AE66A1DAAE97100CFCCD7 /* TBChirpImpSectionController.h */,
 				B41AE66B1DAAE97100CFCCD7 /* TBChirpImpSectionController.m */,
 				B41AE6671DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.h */,
@@ -919,7 +919,7 @@
 				B4504C9D1D652C7100C4B568 /* TBMethodHook.m in Sources */,
 				C326C2A71E74EDF300039F4E /* NSArray+Functional.m in Sources */,
 				C3C384701E70823000B1BC55 /* TBMethodStore.m in Sources */,
-				B41AE66F1DAAE9FE00CFCCD7 /* TBTweakTypeSectionController.m in Sources */,
+				B41AE66F1DAAE9FE00CFCCD7 /* TBHookTypeSectionController.m in Sources */,
 				B43BF17F1D6E48C900E94501 /* TBMethodPickerViewController.m in Sources */,
 				C326C2AA1E79F46100039F4E /* TBTableViewCell.m in Sources */,
 				C3BB84A81E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m in Sources */,

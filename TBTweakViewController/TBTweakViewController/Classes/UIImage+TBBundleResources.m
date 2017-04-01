@@ -33,18 +33,18 @@ UIImage * TBImageNamed(NSString *name) {
     return TBImageNamed(@"tab_system");
 }
 
-+ (UIImage *)iconForTweakType:(TBTweakType)type {
++ (UIImage *)iconForHookType:(TBHookType)type {
     NSString *name;
     switch (type) {
-        case TBTweakTypeUnspecified:
+        case TBHookTypeUnspecified:
             break;
-        case TBTweakTypeChirpCode:
+        case TBHookTypeChirpCode:
             name = @"chirp_code";
             break;
-        case TBTweakTypeHookReturnValue:
+        case TBHookTypeReturnValue:
             name = @"override_return_icon";
             break;
-        case TBTweakTypeHookArguments:
+        case TBHookTypeArguments:
             name = @"override_params_icon";
             break;
     }

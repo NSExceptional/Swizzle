@@ -1,28 +1,28 @@
 //
-//  TBTweakTypeSectionController.m
+//  TBHookTypeSectionController.m
 //  TBTweakViewController
 //
 //  Created by Tanner on 10/9/16.
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBTweakTypeSectionController.h"
+#import "TBHookTypeSectionController.h"
 #import "TBSettings.h"
 #import "Categories.h"
 
 
-@interface TBTweakTypeSectionController ()
-@property (nonatomic, weak, readonly) id<TBTweakTypeSectionDelegate> delegate;
+@interface TBHookTypeSectionController ()
+@property (nonatomic, weak, readonly) id<TBHookTypeSectionDelegate> delegate;
 
 @property (nonatomic) TBSwitchCell *overrideReturnValueCell;
 @property (nonatomic) TBSwitchCell *overrideArgumentValuesCell;
 @property (nonatomic) TBSwitchCell *overrideWithChirpCell;
 @end
 
-@implementation TBTweakTypeSectionController
+@implementation TBHookTypeSectionController
 @dynamic delegate;
 
-+ (instancetype)delegate:(id<TBTweakTypeSectionDelegate>)delegate {
++ (instancetype)delegate:(id<TBHookTypeSectionDelegate>)delegate {
     return [super delegate:delegate];
 }
 
@@ -58,7 +58,7 @@
     // Update cell on/off switch state according to tweak type
     //
     // +1 because rows start at 0 and types start at 1
-    if (row + 1 & self.delegate.tweakType) {
+    if (row + 1 & self.delegate.hookType) {
         cell.switchh.on = YES;
     } else {
         // TODO what was this for?
@@ -66,10 +66,10 @@
     }
 
     typedef void (^BoolBlock)(BOOL);
-    void (^configureCell)(NSString *, TBTweakType, BoolBlock) = ^(NSString *title, TBTweakType type, BoolBlock action) {
+    void (^configureCell)(NSString *, TBHookType, BoolBlock) = ^(NSString *title, TBHookType type, BoolBlock action) {
         cell.textLabel.text = title;
-        cell.imageView.image    = [UIImage iconForTweakType:type];
-        cell.switchh.on         = self.delegate.tweakType & type;
+        cell.imageView.image    = [UIImage iconForHookType:type];
+        cell.switchh.on         = self.delegate.hookType & type;
         cell.switchToggleAction = action;
     };
 
@@ -77,7 +77,7 @@
     switch (row) {
         case 0: {
             self.overrideWithChirpCell = cell;
-            configureCell(@"Implement with Chirp", TBTweakTypeChirpCode, ^(BOOL on) {
+            configureCell(@"Implement with Chirp", TBHookTypeChirpCode, ^(BOOL on) {
                 [self didToggleChirpCellState:on];
             });
             return cell;
@@ -85,7 +85,7 @@
         case 1: {
             if (self.delegate.canOverrideReturnValue) {
                 self.overrideReturnValueCell = cell;
-                configureCell(@"Override Return Value", TBTweakTypeHookReturnValue, ^(BOOL on) {
+                configureCell(@"Override Return Value", TBHookTypeReturnValue, ^(BOOL on) {
                     [self didToggleHookReturnValueCellState:on];
                 });
                 return cell;
@@ -94,7 +94,7 @@
         }
         case 2: {
             self.overrideArgumentValuesCell = cell;
-            configureCell(@"Override Parameter Values", TBTweakTypeHookArguments, ^(BOOL on) {
+            configureCell(@"Override Parameter Values", TBHookTypeArguments, ^(BOOL on) {
                 [self didToggleHookArgumentValuesCellState:on];
             });
             return cell;
@@ -111,8 +111,8 @@
 #pragma mark Switch actions
 
 - (void)didToggleHookReturnValueCellState:(BOOL)on {
-    TBTweakType type = self.delegate.tweakType;
-    type = on ? (type | TBTweakTypeHookReturnValue) : (type & ~TBTweakTypeHookReturnValue);
+    TBHookType type = self.delegate.hookType;
+    type = on ? (type | TBHookTypeReturnValue) : (type & ~TBHookTypeReturnValue);
 
     // Update the tweak type and the states of the other switches
     // based on whether expert mode is on. Chirp can't be on with
@@ -120,17 +120,17 @@
     [self.overrideWithChirpCell.switchh setOn:NO animated:YES];
     if (!TBSettings.expertMode) {
         // Disable args hook
-        type &= ~TBTweakTypeHookArguments;
+        type &= ~TBHookTypeArguments;
         [self.overrideArgumentValuesCell.switchh setOn:NO animated:YES];
     }
 
-    self.delegate.tweakType = type;
+    self.delegate.hookType = type;
     [self.delegate reloadSectionControllers];
 }
 
 - (void)didToggleHookArgumentValuesCellState:(BOOL)on {
-    TBTweakType type = self.delegate.tweakType;
-    type = on ? (type | TBTweakTypeHookArguments) : (type & ~TBTweakTypeHookArguments);
+    TBHookType type = self.delegate.hookType;
+    type = on ? (type | TBHookTypeArguments) : (type & ~TBHookTypeArguments);
 
     // Update the tweak type and the states of the other switches
     // based on whether expert mode is on. Chirp can't be on with
@@ -138,11 +138,11 @@
     [self.overrideWithChirpCell.switchh setOn:NO animated:YES];
     if (!TBSettings.expertMode) {
         // Disable return hook
-        type &= ~TBTweakTypeHookReturnValue;
+        type &= ~TBHookTypeReturnValue;
         [self.overrideReturnValueCell.switchh setOn:NO animated:YES];
     }
     
-    self.delegate.tweakType = type;
+    self.delegate.hookType = type;
     [self.delegate reloadSectionControllers];
 }
 
@@ -153,7 +153,7 @@
     [self.overrideReturnValueCell.switchh setOn:NO animated:YES];
     [self.overrideArgumentValuesCell.switchh setOn:NO animated:YES];
 
-    self.delegate.tweakType = on ? TBTweakTypeChirpCode : TBTweakTypeUnspecified;
+    self.delegate.hookType = on ? TBHookTypeChirpCode : TBHookTypeUnspecified;
     [self.delegate reloadSectionControllers];
 }
 

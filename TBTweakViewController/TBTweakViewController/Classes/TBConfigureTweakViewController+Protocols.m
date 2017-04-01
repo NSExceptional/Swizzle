@@ -30,11 +30,11 @@
 
 - (NSUInteger)totalNumberOfSections {
     NSUInteger i = 1;
-//    if (self.tweakTypeSectionController.overrideReturnValue)
-    if (self.tweakType & TBTweakTypeHookReturnValue)
+//    if (self.hookTypeSectionController.overrideReturnValue)
+    if (self.hookType & TBHookTypeReturnValue)
         i++;
-//    if (self.tweakTypeSectionController.overrideArguments)
-    if (self.tweakType & TBTweakTypeHookArguments)
+//    if (self.hookTypeSectionController.overrideArguments)
+    if (self.hookType & TBHookTypeArguments)
         i += self.tweak.hook.method.numberOfArguments - 2;
     
     return i;
@@ -76,22 +76,22 @@
     // Remove everything and start over, add tweak type back to array
     NSMutableArray *controllers = self.dynamicSectionControllers;
     [controllers removeAllObjects];
-    [controllers addObject:self.tweakTypeSectionController];
+    [controllers addObject:self.hookTypeSectionController];
 
     #warning FIXME the below code will clear all existing values when toggled even in Expert mode
 
     // Add chirp hook controller
-    if (self.tweakType & TBTweakTypeChirpCode) {
+    if (self.hookType & TBHookTypeChirpCode) {
         [controllers addObject:[TBReturnValueHookSectionController delegate:self]];
     }
     // Add return value hook controller
-    if (self.tweakType & TBTweakTypeHookReturnValue) {
+    if (self.hookType & TBHookTypeReturnValue) {
         NSMethodSignature *signature = self.tweak.hook.method.signature;
         const char *type = signature.methodReturnType;
         [controllers addObject:[TBReturnValueHookSectionController delegate:self type:type]];
     }
     // Add argument value hook controllers
-    if (self.tweakType & TBTweakTypeHookArguments) {
+    if (self.hookType & TBHookTypeArguments) {
         MKMethod *method = self.tweak.hook.method;
         for (NSUInteger i = 2; i < method.numberOfArguments; i++) {
             id controller = [TBArgValueHookSectionController delegate:self
@@ -190,12 +190,12 @@
         }
         case 1: {
             // Only return a title if there's more than one kind of section
-            TBTweakType type = self.tweakType;
-            if (type & TBTweakTypeChirpCode && type != TBTweakTypeChirpCode)
+            TBHookType type = self.hookType;
+            if (type & TBHookTypeChirpCode && type != TBHookTypeChirpCode)
                 return @"Tweak format string";
-            if (type & TBTweakTypeHookReturnValue && type != TBTweakTypeHookReturnValue)
+            if (type & TBHookTypeReturnValue && type != TBHookTypeReturnValue)
                 return @"Return value";
-            if (type & TBTweakTypeHookArguments && type != TBTweakTypeHookArguments)
+            if (type & TBHookTypeArguments && type != TBHookTypeArguments)
                 return @"Argument values";
         }
     }

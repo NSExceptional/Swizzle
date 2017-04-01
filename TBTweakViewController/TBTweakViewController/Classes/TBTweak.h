@@ -9,11 +9,11 @@
 #import "TBMethodHook.h"
 
 
-typedef NS_OPTIONS(NSUInteger, TBTweakType) {
-    TBTweakTypeUnspecified            = 0,
-    TBTweakTypeChirpCode              = 1 << 0,
-    TBTweakTypeHookReturnValue        = 1 << 1,
-    TBTweakTypeHookArguments          = 1 << 2,
+typedef NS_OPTIONS(NSUInteger, TBHookType) {
+    TBHookTypeUnspecified = 0,
+    TBHookTypeChirpCode   = 1 << 0,
+    TBHookTypeReturnValue = 1 << 1,
+    TBHookTypeArguments   = 1 << 2,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// the tweak must be toggled off and on again to take effect.
 @property (nonatomic, readonly) TBMethodHook *hook;
 /// The type of the tweak, based on the configuration of the `hook` property.
-/// The value is `TBTweakTypeUnspecified` if `hook` is not configured to override anything.
-@property (nonatomic, readonly) TBTweakType  tweakType;
+/// The value is `TBHookTypeUnspecified` if `hook` is not configured to override anything.
+@property (nonatomic, readonly) TBHookType  hookType;
 
 @property (nonatomic, readonly) NSString *sortByThis;
 

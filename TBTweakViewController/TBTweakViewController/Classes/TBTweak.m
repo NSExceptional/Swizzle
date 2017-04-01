@@ -127,18 +127,18 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
     _enabled = NO;
 }
 
-- (TBTweakType)tweakType {
+- (TBHookType)hookType {
     if (self.hook.chirpString) {
-        return TBTweakTypeChirpCode;
+        return TBHookTypeChirpCode;
     }
     if (self.hook.hookedReturnValue) {
-        return TBTweakTypeHookReturnValue;
+        return TBHookTypeReturnValue;
     }
     if (self.hook.hookedArguments) {
-        return TBTweakTypeHookArguments;
+        return TBHookTypeArguments;
     }
     
-    return TBTweakTypeUnspecified;
+    return TBHookTypeUnspecified;
 }
 
 #pragma mark Equality

@@ -20,26 +20,26 @@
     return self;
 }
 
-- (void)setTweakType:(TBTweakType)tweakType {
-    if (_tweakType == tweakType) return;
+- (void)setHookType:(TBHookType)hookType {
+    if (_hookType == hookType) return;
     
-    _tweakType = tweakType;
-    switch (tweakType) {
-        case TBTweakTypeUnspecified:
+    _hookType = hookType;
+    switch (hookType) {
+        case TBHookTypeUnspecified:
             self.detailTextLabel.text = @"ERROR: INCOMPLETE TWEAK";
             break;
-        case TBTweakTypeChirpCode: {
+        case TBHookTypeChirpCode: {
             self.detailTextLabel.text = @"Re-implements the method in Chirp";
             break;
         }
         default: {
-            if (self.tweakType & TBTweakTypeHookReturnValue) {
-                if (self.tweakType & TBTweakTypeHookArguments) {
+            if (self.hookType & TBHookTypeReturnValue) {
+                if (self.hookType & TBHookTypeArguments) {
                     self.detailTextLabel.text = @"Overrides return value and arguments";
                 }
                 self.detailTextLabel.text = @"Overrides return value";
             }
-            if (self.tweakType & TBTweakTypeHookArguments) {
+            if (self.hookType & TBHookTypeArguments) {
                 self.detailTextLabel.text = @"Overrides argument value(s)";
             }
         }

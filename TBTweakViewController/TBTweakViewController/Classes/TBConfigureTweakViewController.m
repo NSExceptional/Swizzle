@@ -56,8 +56,8 @@
     [super viewDidLoad];
 
     // Section controllers
-    _tweakTypeSectionController = [TBTweakTypeSectionController delegate:self];
-    _dynamicSectionControllers = [NSMutableArray arrayWithObject:_tweakTypeSectionController];
+    _hookTypeSectionController = [TBHookTypeSectionController delegate:self];
+    _dynamicSectionControllers = [NSMutableArray arrayWithObject:_hookTypeSectionController];
 
     // Register cells, row height
     [self configureTableViewForCellReuseAndAutomaticRowHeight];
@@ -75,19 +75,19 @@
     self.tweak.hook.hookedArguments   = nil;
     self.tweak.hook.hookedReturnValue = nil;
 
-    switch (self.tweakType) {
-        case TBTweakTypeUnspecified: {
+    switch (self.hookType) {
+        case TBHookTypeUnspecified: {
             break;
         }
-        case TBTweakTypeChirpCode: {
+        case TBHookTypeChirpCode: {
             self.tweak.hook.chirpString = self.chirpString;
             break;
         }
         default: {
-            if (self.tweakType & TBTweakTypeHookReturnValue) {
+            if (self.hookType & TBHookTypeReturnValue) {
                 self.tweak.hook.hookedReturnValue = self.hookedReturnValue;
             }
-            if (self.tweakType & TBTweakTypeHookArguments) {
+            if (self.hookType & TBHookTypeArguments) {
                 self.tweak.hook.hookedArguments = self.hookedArguments;
             }
         }
@@ -97,34 +97,34 @@
     self.saveAction();
 }
 
-- (void)setTweakType:(TBTweakType)tweakType {
-    if (_tweakType == tweakType) return;
-    _tweakType = tweakType;
+- (void)setHookType:(TBHookType)hookType {
+    if (_hookType == hookType) return;
+    _hookType = hookType;
     
     // Make sure save button should be enabled
-    self.navigationItem.rightBarButtonItem.enabled = tweakType != TBTweakTypeUnspecified;
+    self.navigationItem.rightBarButtonItem.enabled = hookType != TBHookTypeUnspecified;
     // Lazily initialize chirp string or hook values as necessary
-    [self initializeTweakType:tweakType];
+    [self initializeHookType:hookType];
 }
 
-- (void)initializeTweakType:(TBTweakType)tweakType {
-    switch (tweakType) {
-        case TBTweakTypeUnspecified: {
+- (void)initializeHookType:(TBHookType)hookType {
+    switch (hookType) {
+        case TBHookTypeUnspecified: {
             break;
         }
-        case TBTweakTypeChirpCode: {
+        case TBHookTypeChirpCode: {
             if (!self.chirpString) {
                 self.chirpString = @"";
             }
             break;
         }
         default: {
-            if (tweakType & TBTweakTypeHookReturnValue) {
+            if (hookType & TBHookTypeReturnValue) {
                 if (!self.hookedReturnValue) {
                     self.hookedReturnValue = [TBValue orig];
                 }
             }
-            if (tweakType & TBTweakTypeHookArguments) {
+            if (hookType & TBHookTypeArguments) {
                 // Set up unmodified arguments
                 if (!self.hookedArguments.count) {
                     NSUInteger count = self.tweak.hook.method.numberOfArguments;
@@ -136,7 +136,7 @@
 }
 
 - (TBReturnValueHookSectionController *)returnValueHookSectionController {
-    if (!(self.tweakType & TBTweakTypeHookReturnValue)) return nil;
+    if (!(self.hookType & TBHookTypeReturnValue)) return nil;
 
     Class cls = [TBReturnValueHookSectionController class];
     for (id controller in self.dynamicSectionControllers) {

@@ -14,6 +14,6 @@
 
 + (UIImage *)appsTabImage;
 + (UIImage *)systemTabImage;
-+ (UIImage *)iconForTweakType:(TBTweakType)type;
++ (UIImage *)iconForHookType:(TBHookType)type;
 
 @end

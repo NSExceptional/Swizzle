@@ -6,7 +6,7 @@
 //  Copyright © 2017 Tanner Bennett. All rights reserved.
 //
 
-#import "TBTweakTypeSectionController.h"
+#import "TBHookTypeSectionController.h"
 #import "TBChirpImpSectionController.h"
 #import "TBArgValueHookSectionController.h"
 #import "TBReturnValueHookSectionController.h"

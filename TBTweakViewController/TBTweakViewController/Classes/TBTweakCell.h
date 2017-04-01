@@ -13,6 +13,6 @@
 @interface TBTweakCell : TBSwitchCell
 
 /// Chances the detail text of the cell
-@property (nonatomic) TBTweakType tweakType;
+@property (nonatomic) TBHookType hookType;
 
 @end
