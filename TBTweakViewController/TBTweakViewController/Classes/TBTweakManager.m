@@ -12,6 +12,7 @@
 #import "TBTweakCell.h"
 #import "NSMapTable+Subscripting.h"
 #import "TBAlertController.h"
+#import "UITableView+Convenience.h"
 
 
 NSString * const kTweakCellReuse = @"kTweakCellReuse";
@@ -220,8 +221,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     _appTweakDelta = NO;
     
     [self calculateSections];
-    [self.appTweaksTableViewController.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                                               withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.appTweaksTableViewController.tableView deleteRow:ip];
 }
 
 - (void)removeSystemTweak:(TBTweak *)tweak {
@@ -230,8 +230,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     _systemTweakDelta = NO;
     
     [self calculateSections];
-    [self.systemTweaksTableViewController.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.systemTweaksTableViewController.tableView deleteRow:ip];
 }
 
 #pragma mark UITableViewDataSource

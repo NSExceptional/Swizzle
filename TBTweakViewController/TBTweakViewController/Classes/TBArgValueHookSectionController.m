@@ -11,6 +11,8 @@
 #import "TBValue+ValueHelpers.h"
 #import "TBValueCells.h"
 #import "TBSettings.h"
+#import "UITableView+Convenience.h"
+
 
 #define dequeue dequeueReusableCellWithIdentifier
 #define format(...) [NSString stringWithFormat:__VA_ARGS__]
@@ -105,6 +107,7 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
     }
     
     [self.delegate setArgumentHookValue:self.coordinator.container atIndex:self.argIdx];
+    [self.delegate.tableView reloadSection:section];
 }
 
 @end

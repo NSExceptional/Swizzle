@@ -24,4 +24,9 @@
 
 - (void)deselectSelectedRow;
 
+- (void)deleteRow:(NSIndexPath *)indexPath;
+- (void)deleteRow:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)insertRow:(NSIndexPath *)indexPath;
+- (void)insertRow:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation;
+
 @end

@@ -42,4 +42,21 @@
     [self deselectRowAtIndexPath:self.indexPathForSelectedRow animated:YES];
 }
 
+
+- (void)deleteRow:(NSIndexPath *)indexPath {
+    [self deleteRow:indexPath withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+- (void)deleteRow:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
+    [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
+}
+
+- (void)insertRow:(NSIndexPath *)indexPath {
+    [self insertRow:indexPath withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+- (void)insertRow:(NSIndexPath *)indexPath withRowAnimation:(UITableViewRowAnimation)animation {
+    [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:animation];
+}
+
 @end
