@@ -164,6 +164,20 @@
 
 #pragma mark Public interface
 
+- (TBHookType)type {
+    if (self.chirpString) {
+        return TBHookTypeChirpCode;
+    }
+    if (self.hookedReturnValue) {
+        return TBHookTypeReturnValue;
+    }
+    if (self.hookedArguments) {
+        return TBHookTypeArguments;
+    }
+
+    return TBHookTypeUnspecified;
+}
+
 - (IMP)implementation {
     if (!_implementation) {
         _impError = nil;

@@ -9,13 +9,6 @@
 #import "TBMethodHook.h"
 
 
-typedef NS_OPTIONS(NSUInteger, TBHookType) {
-    TBHookTypeUnspecified = 0,
-    TBHookTypeChirpCode   = 1 << 0,
-    TBHookTypeReturnValue = 1 << 1,
-    TBHookTypeArguments   = 1 << 2,
-};
-
 NS_ASSUME_NONNULL_BEGIN
 /// A class to make toggleable "tweaks" at runtime.
 /// Simply provide a `TBMethodHook` instance and call `tryEnable:`.
@@ -40,9 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @note If modified while the tweak is enabled,
 /// the tweak must be toggled off and on again to take effect.
 @property (nonatomic, readonly) TBMethodHook *hook;
-/// The type of the tweak, based on the configuration of the `hook` property.
-/// The value is `TBHookTypeUnspecified` if `hook` is not configured to override anything.
-@property (nonatomic, readonly) TBHookType  hookType;
 
 @property (nonatomic, readonly) NSString *sortByThis;
 

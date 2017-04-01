@@ -239,7 +239,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     
     cell.switchh.on     = tweak.enabled;
     cell.textLabel.text = tweak.hook.method.fullName;
-    cell.hookType       = tweak.hookType;
+    cell.hookType       = tweak.hook.type;
     
     // Actually toggles the tweak
     UISwitch *switchh   = cell.switchh;

@@ -10,6 +10,13 @@
 #import "TBValue.h"
 
 
+typedef NS_OPTIONS(NSUInteger, TBHookType) {
+    TBHookTypeUnspecified = 0,
+    TBHookTypeChirpCode   = 1 << 0,
+    TBHookTypeReturnValue = 1 << 1,
+    TBHookTypeArguments   = 1 << 2,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 NSInvocation * TBInvocationFromArguments(NSMethodSignature *signature, NSArray<TBValue*> *args);
@@ -26,6 +33,10 @@ IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
 + (instancetype)target:(Class)cls action:(SEL)selector isClassMethod:(BOOL)classMethod;
 
 + (instancetype)hook:(MKMethod *)method;
+
+/// The type of the tweak, based on the configuration of the `hook` property.
+/// The value is `TBHookTypeUnspecified` if `hook` is not configured to override anything.
+@property (nonatomic, readonly) TBHookType type;
 
 /// Describes the nature of the hook for UI purposes
 @property (nonatomic, readonly) NSString *about;
