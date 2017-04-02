@@ -1,15 +1,15 @@
 //
-//  TBTweakCell.m
+//  TBTweakHookCell.m
 //  TBTweakViewController
 //
 //  Created by Tanner on 8/22/16.
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBTweakCell.h"
+#import "TBTweakHookCell.h"
 
 
-@implementation TBTweakCell
+@implementation TBTweakHookCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
