@@ -20,4 +20,8 @@ static BOOL _expertMode = NO;
     return NO;
 }
 
++ (BOOL)loadTweaksAtLaunch {
+    return YES;
+}
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBTweak.h"
+#import "TBMethodHook.h"
 @class TBSectionController, TBHookTypeSectionController;
 @class TBReturnValueHookSectionController, TBSwitchCell;
 
@@ -15,12 +15,12 @@
 /// Used to edit the configuration of a tweak, existing or new.
 @interface TBConfigureHookViewController : UITableViewController
 
-+ (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction;
++ (instancetype)forHook:(TBMethodHook *)hook saveAction:(void(^)())saveAction;
 
 
 // Internal
 
-@property (nonatomic, readonly) TBTweak *tweak;
+@property (nonatomic, readonly) TBMethodHook *hook;
 @property (nonatomic          ) TBHookType hookType;
 @property (nonatomic, copy    ) void (^saveAction)();
 

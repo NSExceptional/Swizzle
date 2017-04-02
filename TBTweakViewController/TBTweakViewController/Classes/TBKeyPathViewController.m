@@ -8,6 +8,7 @@
 
 #import "TBKeyPathViewController.h"
 #import "TBKeyPathSearchController.h"
+#import "TBConfigureHookViewController.h"
 #import "TBCodeFontCell.h"
 #import "Categories.h"
 #import <Masonry.h>
@@ -20,10 +21,20 @@
 @property (nonatomic, readwrite) UITableView *tableView;
 @property (nonatomic, readwrite) UISearchBar *searchBar;
 
+@property (nonatomic, readonly) TBTweak *tweak;
+@property (nonatomic, readonly) void (^callback)();
+
 @end
 
 @implementation TBKeyPathViewController
 @dynamic navigationController;
+
++ (instancetype)forTweak:(TBTweak *)tweak callback:(void(^)())callback {
+    TBKeyPathViewController *controller = [self new];
+    controller->_tweak    = tweak;
+    controller->_callback = callback;
+    return controller;
+}
 
 #pragma mark - Setup, view events
 
@@ -72,6 +83,20 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.searchBar resignFirstResponder];
+}
+
+#pragma mark Delegate stuff
+
+- (void)didSelectMethod:(MKMethod *)method {
+    TBMethodHook *hook = [TBMethodHook hook:method];
+    TBConfigureHookViewController *config = [TBConfigureHookViewController forHook:hook saveAction:^{
+        [self.tweak addHook:hook];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            self.callback();
+        }];
+    }];
+
+    [self.navigationController pushViewController:config animated:YES];
 }
 
 #pragma mark Long press action

@@ -7,15 +7,13 @@
 //
 
 #import "TBTweakManager.h"
-#import "TBBundlePickerViewController.h"
 #import "TBConfigureHookViewController.h"
-#import "TBTweakCell.h"
+#import "TBTweakHookCell.h"
 #import "NSMapTable+Subscripting.h"
 #import "TBAlertController.h"
 #import "UITableView+Convenience.h"
 
 
-NSString * const kTweakCellReuse = @"kTweakCellReuse";
 #define NSLibraryDirectory() (NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0])
 
 @interface TBTweakManager () {
@@ -104,15 +102,15 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     for (int i = 0; i < collation.sectionTitles.count; i++)
         [temp addObject:[NSMutableArray array]];
     
-    // Index tweaks, grouped by target class
+    // Index tweaks, grouped by title
     for (TBTweak *tweak in tweaks) {
-        NSInteger section = [collation sectionForObject:tweak.hook collationStringSelector:@selector(target)];
+        NSInteger section = [collation sectionForObject:tweak collationStringSelector:@selector(title)];
         [temp[section] addObject:tweak];
     }
     
     // Sort individual sections
     for (NSArray<TBTweak*> *unsorted in temp) {
-        NSArray *sorted = [collation sortedArrayFromArray:unsorted collationStringSelector:@selector(sortByThis)];
+        NSArray *sorted = [collation sortedArrayFromArray:unsorted collationStringSelector:@selector(title)];
         [dataSource addObject:sorted];
     }
 }
@@ -169,7 +167,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     UITableView *tv = appTweaksTableViewController.tableView;
     tv.delegate = self;
     tv.dataSource = self;
-    [tv registerClass:[TBTweakCell class] forCellReuseIdentifier:kTweakCellReuse];
+    [tv registerCell:TBSwitchCell.class];
 }
 
 - (void)setSystemTweaksTableViewController:(UITableViewController *)systemTweaksTableViewController {
@@ -182,7 +180,7 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
     UITableView *tv = systemTweaksTableViewController.tableView;
     tv.delegate = self;
     tv.dataSource = self;
-    [tv registerClass:[TBTweakCell class] forCellReuseIdentifier:kTweakCellReuse];
+    [tv registerCell:TBSwitchCell.class];
 }
 
 - (void)addTweak:(TBTweak *)tweak {
@@ -234,20 +232,19 @@ NSString * const kTweakCellReuse = @"kTweakCellReuse";
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TBTweakCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:kTweakCellReuse forIndexPath:indexPath];
-    TBTweak *tweak    = self.dataSources[tableView][indexPath.section][indexPath.row];
+    TBSwitchCell *cell = [TBSwitchCell dequeue:tableView indexPath:indexPath];
+    TBTweak *tweak     = self.dataSources[tableView][indexPath.section][indexPath.row];
     
     cell.switchh.on     = tweak.enabled;
-    cell.textLabel.text = tweak.hook.method.fullName;
-    cell.hookType       = tweak.hook.type;
-    
+    cell.textLabel.text = tweak.title;
+
     // Actually toggles the tweak
-    UISwitch *switchh   = cell.switchh;
+    UISwitch *switchh = cell.switchh;
     cell.switchToggleAction = ^(BOOL enabled) {
         if (enabled) {
             [tweak tryEnable:^(NSError * _Nonnull error) {
-                switchh.on = NO;
-                
+                [switchh setOn:NO animated:YES];
+
                 NSString *title = @"Failed to enable tweak";
                 NSString *message = error.localizedDescription;
                 TBAlertController *alert = [TBAlertController simpleOKAlertWithTitle:title message:message];
@@ -305,22 +302,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Get twea, and if system tweak
+    // Get tweak and "if system tweak"
     TBTweak *tweak = self.dataSources[tableView][indexPath.section][indexPath.row];
     BOOL system = tableView == self.systemTweaksTableViewController.tableView;
     
     // Present editor inside nav controller on tweak list
-    UITableViewController *tweakList = self.listViewControllers[tableView];
-    __block UIViewController *edit = [TBConfigureHookViewController forTweak:tweak saveAction:^{
-        if (system) {
-            _systemTweakDelta = YES;
-        } else {
-            _appTweakDelta = YES;
-        }
-        [edit dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:edit];
-    [tweakList presentViewController:nav animated:YES completion:nil];
+//    UITableViewController *tweakList = self.listViewControllers[tableView];
+//    __block UIViewController *edit = [TBConfigureHookViewController forTweak:tweak saveAction:^{
+//        if (system) {
+//            _systemTweakDelta = YES;
+//        } else {
+//            _appTweakDelta = YES;
+//        }
+//        [edit dismissViewControllerAnimated:YES completion:nil];
+//    }];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:edit];
+//    [tweakList presentViewController:nav animated:YES completion:nil];
 }
 
 @end

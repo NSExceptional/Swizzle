@@ -24,13 +24,13 @@
 
 @implementation TBConfigureHookViewController
 
-+ (instancetype)forTweak:(TBTweak *)tweak saveAction:(void(^)())saveAction {
++ (instancetype)forHook:(TBMethodHook *)hook saveAction:(void(^)())saveAction {
     TBConfigureHookViewController *config =
     [self title:@"Configure Tweak" configuration:^(UINavigationItem *item, id vc) {
         item.rightBarButtonItem = [UIBarButtonItem item:UIBBItemSave target:vc action:@selector(save)];
         item.rightBarButtonItem.enabled = NO;
     }];
-    config->_tweak = tweak;
+    config->_hook = hook;
     config->_saveAction = saveAction;
     return config;
 }
@@ -47,7 +47,7 @@
     [super loadView];
 
     // Header view
-    _infoView = [TBInfoView text:self.tweak.hook.about];
+    _infoView = [TBInfoView text:self.hook.about];
     _infoView.hairline.hidden = YES;
     self.tableView.fuckingHeaderView = _infoView;
 }
@@ -71,24 +71,24 @@
 - (void)save {
     // Finalize hook //
 
-    self.tweak.hook.chirpString       = nil;
-    self.tweak.hook.hookedArguments   = nil;
-    self.tweak.hook.hookedReturnValue = nil;
+    self.hook.chirpString       = nil;
+    self.hook.hookedArguments   = nil;
+    self.hook.hookedReturnValue = nil;
 
     switch (self.hookType) {
         case TBHookTypeUnspecified: {
             break;
         }
         case TBHookTypeChirpCode: {
-            self.tweak.hook.chirpString = self.chirpString;
+            self.hook.chirpString = self.chirpString;
             break;
         }
         default: {
             if (self.hookType & TBHookTypeReturnValue) {
-                self.tweak.hook.hookedReturnValue = self.hookedReturnValue;
+                self.hook.hookedReturnValue = self.hookedReturnValue;
             }
             if (self.hookType & TBHookTypeArguments) {
-                self.tweak.hook.hookedArguments = self.hookedArguments;
+                self.hook.hookedArguments = self.hookedArguments;
             }
         }
     }
@@ -127,7 +127,7 @@
             if (hookType & TBHookTypeArguments) {
                 // Set up unmodified arguments
                 if (!self.hookedArguments.count) {
-                    NSUInteger count = self.tweak.hook.method.numberOfArguments;
+                    NSUInteger count = self.hook.method.numberOfArguments;
                     self.hookedArguments = [NSArray of:[TBValue orig] count:count].mutableCopy;
                 }
             }

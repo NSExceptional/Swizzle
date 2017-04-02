@@ -136,13 +136,7 @@
         method = [MKMethod method:method.objc_method class:target isInstanceMethod:method.isInstanceMethod];
     }
 
-    TBTweak *tweak = [TBTweak tweakWithHook:[TBMethodHook hook:method]];
-    TBConfigureHookViewController *config = [TBConfigureHookViewController forTweak:tweak saveAction:^{
-        [[TBTweakManager sharedManager] addTweak:tweak];
-        [self.delegate.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }];
-
-    [self.delegate.navigationController pushViewController:config animated:YES];
+    [self.delegate didSelectMethod:method];
 }
 
 - (void)didSelectAbsoluteClass:(NSString *)name {

@@ -16,5 +16,6 @@
 
 @property (nonatomic, readonly, class) BOOL expertMode;
 @property (nonatomic, readonly, class) BOOL chirpEnabled;
+@property (nonatomic, readonly, class) BOOL loadTweaksAtLaunch;
 
 @end

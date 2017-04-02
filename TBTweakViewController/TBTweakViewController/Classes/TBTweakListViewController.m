@@ -8,12 +8,11 @@
 
 #import "TBTweakListViewController.h"
 #import "TBKeyPathViewController.h"
-#import "TBBundlePickerViewController.h"
 #import "TBConfigureHookViewController.h"
 #import "Categories.h"
 
 #import "TBTweakManager.h"
-#import "TBTweakCell.h"
+#import "TBTweakHookCell.h"
 #import "TBTweak.h"
 
 

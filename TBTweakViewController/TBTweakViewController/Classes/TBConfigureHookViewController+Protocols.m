@@ -35,7 +35,7 @@
         i++;
 //    if (self.hookTypeSectionController.overrideArguments)
     if (self.hookType & TBHookTypeArguments)
-        i += self.tweak.hook.method.numberOfArguments - 2;
+        i += self.hook.method.numberOfArguments - 2;
     
     return i;
 }
@@ -55,18 +55,18 @@
 
 - (NSUInteger)hookArgumentCount {
     if (TBSettings.expertMode) {
-        return self.tweak.hook.method.numberOfArguments;
+        return self.hook.method.numberOfArguments;
     }
 
-    return self.tweak.hook.method.numberOfArguments - 2;
+    return self.hook.method.numberOfArguments - 2;
 }
 
 - (BOOL)canOverrideReturnValue {
-    return self.tweak.hook.canOverrideReturnValue;
+    return self.hook.canOverrideReturnValue;
 }
 
 - (BOOL)canOverrideAllArgumentValues {
-    return self.tweak.hook.canOverrideAllArgumentValues;
+    return self.hook.canOverrideAllArgumentValues;
 }
 
 /// Refreshes the contents of self.dynamicSectionControllers and updates the table view's contents.
@@ -86,13 +86,13 @@
     }
     // Add return value hook controller
     if (self.hookType & TBHookTypeReturnValue) {
-        NSMethodSignature *signature = self.tweak.hook.method.signature;
+        NSMethodSignature *signature = self.hook.method.signature;
         const char *type = signature.methodReturnType;
         [controllers addObject:[TBReturnValueHookSectionController delegate:self type:type]];
     }
     // Add argument value hook controllers
     if (self.hookType & TBHookTypeArguments) {
-        MKMethod *method = self.tweak.hook.method;
+        MKMethod *method = self.hook.method;
         for (NSUInteger i = 2; i < method.numberOfArguments; i++) {
             id controller = [TBArgValueHookSectionController delegate:self
                                                             signature:method.signature
@@ -154,9 +154,9 @@
     }
 
     if (origHasArgs && !currHasArgs) {
-        [remove addIndexesInRange:NSMakeRange(removeIdx, self.tweak.hook.method.numberOfArguments-2)];
+        [remove addIndexesInRange:NSMakeRange(removeIdx, self.hook.method.numberOfArguments-2)];
     } else if (!origHasArgs && currHasArgs) {
-        [insert addIndexesInRange:NSMakeRange(insertIdx, self.tweak.hook.method.numberOfArguments-2)];
+        [insert addIndexesInRange:NSMakeRange(insertIdx, self.hook.method.numberOfArguments-2)];
     }
 
     [self.tableView beginUpdates];

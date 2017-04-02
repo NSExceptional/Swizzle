@@ -23,8 +23,7 @@ NSInvocation * TBInvocationFromArguments(NSMethodSignature *signature, NSArray<T
 IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
 
 /// Helper class used by TBTweak to toggle the state of a method hook.
-/// Two TBMethodHooks are considered equal if the following property key-paths are equal:
-/// `isClassMethod`, `canOverrideReturnValue`, `canOverrideAllArgumentValues`, `method.selectorString`
+/// Two TBMethodHooks are considered equal if their `method.objc_method`s are equal.
 @interface TBMethodHook : NSObject <NSCoding>
 
 /// @param cls The target class to hook.

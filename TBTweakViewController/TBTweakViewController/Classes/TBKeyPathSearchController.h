@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MKMethod.h"
 
 
 @protocol TBKeyPathSearchControllerDelegate <NSObject>
@@ -15,6 +16,7 @@
 @property (nonatomic, readonly) UINavigationController *navigationController;
 
 @property (nonatomic, readonly) NSString *longPressItemSELPrefix;
+- (void)didSelectMethod:(MKMethod *)method;
 @end
 
 @interface TBKeyPathSearchController : NSObject <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
