@@ -34,9 +34,16 @@ _TBTrampoline:
     stp     x2, x3, [sp, #-16]!
     stp     x0, x1, [sp, #-16]!
     mov     x3, sp                      // General purpose registers in r3
-    sub     x4, x4, x4                  // NULL in r4
+    sub     x4, x4, x4                  // NULL in r4 in case not FP (set below if FP)
 
     // Maybe skip save Floating-point registers
+    cmp     x9, x12
+    b.ne    landing_func_call
+    // Double check (edge case: x9 and x12 are equal but not magic)
+    movz	x9, #0xbabe, lsl #48
+    movk	x9, #0xfeed, lsl #32
+    movk	x9, #0xdead, lsl #16
+    movk	x9, #0xbeef
     cmp     x9, x12
     b.ne    landing_func_call
 
@@ -62,9 +69,10 @@ landing_func_call:
     mov     x10, x0
 
     // Maybe skip restore Floating-point registers
-    movz    x9, #0
-    cmp     x4, x9
-    b.eq    restore_gp_registers
+    ldp     xzr, x4, [sp], #16          // Load x4 from stack
+    movz    x9, #0                      // Prepare to compare to x9
+    cmp     x4, x9                      // if (flag == 0) ...
+    b.eq    restore_gp_registers        //     restore GP registers
 
     // Restore Floating-point registers
     ldp     s0, s1, [sp], #16

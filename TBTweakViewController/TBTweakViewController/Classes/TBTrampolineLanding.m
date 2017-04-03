@@ -44,11 +44,12 @@ IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters
     Method method                 = TBMethodStoreGetKey(obj, sel);
     TBMethodHook *hook            = TBMethodStoreGet(method);
     NSArray<TBValue*> *hookedArgs = hook.hookedArguments;
+    assert(hook);
 
     // Method signature, arg count
     NSMethodSignature *signature = hook.method.signature;
     byte argc = signature.numberOfArguments;
-    assert(argc > 2); assert(hookedArgs.count == (argc - 2));
+    assert(argc > 2); assert(hookedArgs.count == argc);
 
 
     // Register allocation pointers, source/destination pointers
