@@ -7,77 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00600733869591C81CB26155B5B3D6D2 /* MirrorKit-Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D842432994E17DC64B140B60184A1DFF /* MirrorKit-Constants.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		01E09711F001C49F92A97060414E262B /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1B54BFD57CF4505191F606944B571B /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C296627257BE02F0E9C55B2F6B8F2A9 /* MirrorKit-Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E3950FE4819CB5CB0CAB0F8E40787D7 /* MirrorKit-Constants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		13635B78121B99E5C03C92506A161607 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9553C94385D77CD793B8D6819EE1EF63 /* MASViewAttribute.m */; };
+		0CC57817046666C7AEF7A5BE8397DFB9 /* MKProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E2AB38DD20B799487ACAB63797190 /* MKProtocol.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		139331B0BCE548213B7439AEA66D7E5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
-		14319C0AEE078FC128A9FFFF7277BD20 /* MKProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E2AB38DD20B799487ACAB63797190 /* MKProtocol.m */; };
+		14B65CE3038761FA8F6F5D1ECED6A562 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C92FBFCDAFFD4BDE703BC89F12DBDAD1 /* NSArray+MASAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		16D3EEBE9A7CB0CF7CADD5F54EDA3041 /* MKClassBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FA31296E727B8FF37B52FE2EC62D53A /* MKClassBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1862F10A67789333DAE727C0EB4D8B6B /* MKMirror+Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB21D057807057B045FE8ECA8C42C8C /* MKMirror+Reflection.m */; };
+		1AF513D8D71B663D5422760106B13723 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C4511A2A071968F3D5DF39D68CF8209 /* MASConstraint.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1EC363D6911160B063DB6CC87F595A5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */; };
 		1F3BD3BC28432BB5E2F73501E06E4579 /* MASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C111AED08E009C0A55AD50330EF7EA3A /* MASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		258894AEA2958DE5BC4CB06839B94EBF /* MKPropertyAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CC43245B2B335AC83CE30FDD6BC62226 /* MKPropertyAttributes.m */; };
 		27983FB87ED7B826FEE444C983E590A1 /* MKProtocolBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FA9F990A0DEF3E348C77670CA6B5F /* MKProtocolBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6F64EEFF90F487DCA221AB6E533F85 /* MKClassBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C56272D8EA394CBBF6D7A29E06E0B239 /* MKClassBuilder.m */; };
 		2B92FE95CDA0B4BEE4430C9D79A5AA17 /* TBAlertController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6764ABD143A1E27908334384BC85640E /* TBAlertController-dummy.m */; };
-		2DBB74B8B5DDB1F621433DD12BF35102 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B708D95B4F20884ADE59CC62712A693 /* MASViewConstraint.m */; };
-		31DF06AC2CF5413F31E15D189EE4F84D /* MKProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F81C2FA208F29649D0417182CA1CD /* MKProperty.m */; };
 		36A384A29893F313BA76AABDE5033DED /* NSString+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4BE6767849785CDDCAE0CA904F14EC /* NSString+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		394DD3E56478E55D0D6F54B4514C3FF5 /* MKMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B2A524A9DF1C991B4537C4D146C5DF /* MKMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3E8E6916C563B9CB12AA417275FC6EB3 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 782093AFA929EF12286531FBD94709E2 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		466869E41EB306F74C8A6E87CC1539BF /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5762282B4466062CE52D471A0B2DEF53 /* ViewController+MASAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		490CA524521F7D444EA58FA915D7E99C /* NSArray+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 46B12FA1C6E58A19D09A6FD195B597DC /* NSArray+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B903D576E09560C52AA92FDCC31A68 /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = E0C5A6B56940DE05DAD860C66DE566B7 /* Masonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CBE1B46550A3FB90FDD1CB9CBA7B7FE /* MASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 36E409F85F9EE972280D339A1A2C2414 /* MASConstraint+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FE990BEEA0FE45829809742E008853B /* MKMirror+Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB21D057807057B045FE8ECA8C42C8C /* MKMirror+Reflection.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5119CE4AC998860DB2CCE56A2A5C99E7 /* NSObject+Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 973DD32DF3783DEF29322EE8A9692441 /* NSObject+Reflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54342D433DABEF8FFC4A594908B81161 /* MirrorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DE7FE4E1128FF0DBD3F07F673702EBFF /* MirrorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		548BBD5B63FA097F419829C3EE8EA068 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2106888ABC37F974BBC197DFC50EA9 /* View+MASAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		557E2559B6CBFFE31067AF73B5555B49 /* TBAlertAction.h in Headers */ = {isa = PBXBuildFile; fileRef = E2D0AD9D056EAF022257233CC9480B5D /* TBAlertAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		566EA65277D377CE9AF9BC125521965B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
 		576B1E70DFCFE6BC54415A80460927A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
-		61CCEA01CBE8EFFA5515E7A0D8635AAE /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7725A0E564A3246F679DA2E64E64C06E /* MASCompositeConstraint.m */; };
+		5B46C39A3F939EDB676981756CC24007 /* Masonry-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D104ED4982B7E59894BC204FE5BBF6 /* Masonry-dummy.m */; };
+		61C611ABFFC5FFF35ACE70883CB8F523 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3008EDA679C4550A46A13E9FDDD01F /* MASLayoutConstraint.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6249770A7D163B0F3001D5A76C5FA01C /* MASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 701298105DC999383F7258D9676DB6C0 /* MASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		68F98758BA84B8EC3472A8C6FD646D16 /* Masonry-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D104ED4982B7E59894BC204FE5BBF6 /* Masonry-dummy.m */; };
-		698B2672F5494BE814CCCBB851BEE204 /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 315D9410B9E768B9E8C7520B2A320F17 /* NSDictionary+Utilities.m */; };
 		720C2B4E391B95105A8A78A43B36B49B /* MKSimpleMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1F1C0A179E93C8785F79ED047D5806 /* MKSimpleMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		72B5D3440C31D0E18214831AFF05C70D /* MKIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EF76F0F1C173B6194DAA404C99781B /* MKIVar.m */; };
 		7B9C05334DC1D2D5D56FF2D92F8B4A5C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
-		7BDDE51AF16FA53A09506EDB91E1C3C2 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C92FBFCDAFFD4BDE703BC89F12DBDAD1 /* NSArray+MASAdditions.m */; };
-		86044386C4EA6138A30AE875688B20AC /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 497FC220BAF3F8E764898FB6D3BA5A26 /* NSString+Utilities.m */; };
-		86D9F6601144947A5E616E61BC5EBE29 /* MKSimpleMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E08C65EE9B2999E2F4146F0E9DEBAF /* MKSimpleMethod.m */; };
+		833F4F9F5BE697BD3B6E8F6B36991A1A /* MKClassBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = C56272D8EA394CBBF6D7A29E06E0B239 /* MKClassBuilder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		85DFFD98140D9102EE97807F5934A219 /* MKSimpleMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E08C65EE9B2999E2F4146F0E9DEBAF /* MKSimpleMethod.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		86EE1CB5473A4A07081D8DE3A2C45924 /* View+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DF5A30B58757D22B02E419455622DA0F /* View+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		89450A58FD91E5B227171FC75160E4EA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C4511A2A071968F3D5DF39D68CF8209 /* MASConstraint.m */; };
+		89B82D0B71A6F451A06F977733252D62 /* MirrorKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CBE16DCD3A9DF0A5CCB88FC7F2DDCB /* MirrorKit-dummy.m */; };
 		8E657BCF2691DFAB812C46625F197E0F /* MKMirror.h in Headers */ = {isa = PBXBuildFile; fileRef = CC483A6CCBBA4FCFDFE807657D978CD1 /* MKMirror.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		955BE39896CA35F2A585DC3309E5FDA5 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3008EDA679C4550A46A13E9FDDD01F /* MASLayoutConstraint.m */; };
-		967B7D91827043EB4009222D35273BBD /* MKMirror.m in Sources */ = {isa = PBXBuildFile; fileRef = 380A63534CAC0F0D44D992F3A5AEEEB1 /* MKMirror.m */; };
+		93E730DC28E3DCE1D478DFF7E06E3675 /* MKIVar.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EF76F0F1C173B6194DAA404C99781B /* MKIVar.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		983CB852CBBFBC04C2A6BA407E34F59B /* View+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 136428508FA3481295DBDD05E7CDFF16 /* View+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		991AC61D16712DFF0E1F4CC23065DF7F /* MirrorKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CBE16DCD3A9DF0A5CCB88FC7F2DDCB /* MirrorKit-dummy.m */; };
 		9934AEA2C891C201D8ED5746FF42FE1B /* NSLayoutConstraint+MASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = A3C5D2C40EEEBBA87B3284062D562FBD /* NSLayoutConstraint+MASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D4890BE361E682385736CE427D948AB /* MirrorKit-Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D842432994E17DC64B140B60184A1DFF /* MirrorKit-Constants.m */; };
-		A1FA046FDFC42676D17FEC387B10D24A /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2106888ABC37F974BBC197DFC50EA9 /* View+MASAdditions.m */; };
-		A5E4B59DC23A29838505A93797D47080 /* MKLazyMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CF1CCF562838EFEE62BBC72F42BA /* MKLazyMethod.m */; };
+		99E00D593F76D7E6C96300345E211282 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 179CA4B0B84CC2F6FA9F4B1A15B4762D /* MASConstraintMaker.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A3528477E45344592482D4EE7A695D19 /* MKMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B9F0C8363C0D9FA513238B7551BA1 /* MKMethod.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A6436E3CFFCBFE591E2D2A68ED90CAC6 /* MASLayoutConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = F0AEE510D0116CC13A65EB48F17B61DE /* MASLayoutConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A83991D7C1373DF66020C2FDFC5D7564 /* MASViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = D7B0B39DB5E7ADBD1ECF1CAED77AE514 /* MASViewConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA0C10F4366FBC9A5D12D0EB3F96CF68 /* TBAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9E4FA7EB2277A4B0BA79CBE3BF3DDE /* TBAlertAction.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AABA82C120F55559767DB56F77105AB6 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 497FC220BAF3F8E764898FB6D3BA5A26 /* NSString+Utilities.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B0EF3716F43CA21FC97729FC9CACD9F6 /* Pods-TBTweakViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E422280D54346B86F2EAC229776D6BF /* Pods-TBTweakViewController-dummy.m */; };
-		B3BD56417494C460C7E084DA69FBBCAC /* MKProtocolBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCDBEA8A9B9AE9CFD5660D76204CC7A /* MKProtocolBuilder.m */; };
+		B20BBDF092F1432887EAEDB164741C80 /* MKPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FE7B0DF08BB5E83010FC6921142E0 /* MKPrivate.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B5B57CB116DF37E41EEF7065015255CB /* NSDictionary+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 315D9410B9E768B9E8C7520B2A320F17 /* NSDictionary+Utilities.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B665FB4D3BF200DBB0CFAAE9EA056ED2 /* MKProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F81C2FA208F29649D0417182CA1CD /* MKProperty.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B953667D411D1DCD919CBD314F568A92 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 782093AFA929EF12286531FBD94709E2 /* NSLayoutConstraint+MASDebugAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BCCC18E5B54C15F01A6AC1801050B554 /* MKPropertyAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CC43245B2B335AC83CE30FDD6BC62226 /* MKPropertyAttributes.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BDE22749FB89C9FC2F90E1D4B7991B3D /* MKPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6202FC1F0AF456D12C587DEA00C085 /* MKPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C116C9F46B0D22C61C67C908B3F23CDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */; };
 		C3F7275607453B83BED3457AA1B8C5E9 /* MKLazyMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 0830B86A53165E4D18C1D901064B65F9 /* MKLazyMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C848726A1FAFCEF8D832E857C1F36671 /* MKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 2564AA812027DBF97E5D5958A7A11851 /* MKProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C88F85D3200060BD98FC13EA58121706 /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 652DEBFBC9E1822FCA139EED77BD159D /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0D4C4FF5975353A4BB4EF10F4D51B33 /* MKMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A75B9F0C8363C0D9FA513238B7551BA1 /* MKMethod.m */; };
+		CEF7E139022FFA4F5C99D4DC5DE67990 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9553C94385D77CD793B8D6819EE1EF63 /* MASViewAttribute.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D77401BE99B0F2FB52A4BCCC40A0F325 /* TBAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = DD8FF85B802B21541B63836B85EADF7B /* TBAlertController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D7CE05A743B7ACD50796191FA442814C /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5762282B4466062CE52D471A0B2DEF53 /* ViewController+MASAdditions.m */; };
+		D8D72BEC4364E9F77BCC6B8AB4E30DF3 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B708D95B4F20884ADE59CC62712A693 /* MASViewConstraint.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D9038251C290CB10FED818E78D864194 /* MKProtocolBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCDBEA8A9B9AE9CFD5660D76204CC7A /* MKProtocolBuilder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DA13D66A031A588001EEE4D1E36D885C /* MKIVar.h in Headers */ = {isa = PBXBuildFile; fileRef = 488CC9052154E64ABBCD3A8253D03831 /* MKIVar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF7F88B58B564EDF169EC0C9CF8E5124 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 179CA4B0B84CC2F6FA9F4B1A15B4762D /* MASConstraintMaker.m */; };
 		E072DA57403C4BFF9B10467BE05604C5 /* NSArray+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 31EB9F4DA3890A1511155B600EE0C313 /* NSArray+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1DA0E5EED02EE5073FD7CF08A65D024 /* NSObject+Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6955ACB94DDEE3D5EB2E2281AD8DF /* NSObject+Reflection.m */; };
 		E1E771349813022263F549BDF33CB4BB /* MASViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A546DFE99BED0E5B8F8CE73F2C1D677 /* MASViewAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4D708151B613E86AA851741562C533A /* Pods-TBTweakViewControllerTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE7506CCD0219B6AA968F74542600C /* Pods-TBTweakViewControllerTests-dummy.m */; };
+		E53043F0752533B3B9F72115F94CF524 /* NSObject+Reflection.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6955ACB94DDEE3D5EB2E2281AD8DF /* NSObject+Reflection.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E7312406EE94D338D30FCBC878D665BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
 		EC48DE078CA5E55922CCE02354D475CD /* MASConstraintMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA5DC00D1899771463A3073BB2273B9C /* MASConstraintMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED1751FA2D7A649999E806E5D0D02699 /* MKLazyMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B465CF1CCF562838EFEE62BBC72F42BA /* MKLazyMethod.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EE760B30C991B814A4A92B94BACE65B0 /* MKProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DDDB2A299061BFC6AFD69D167584D69D /* MKProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF7F9AB041067403A1A14B0A05259C56 /* MKPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 172FE7B0DF08BB5E83010FC6921142E0 /* MKPrivate.m */; };
 		F11B89AAD9B42A1F0BE7D2FC427CE2FD /* MKMirror+Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = 260A18A5E4C8989A9D1FDCCCADADB72D /* MKMirror+Reflection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F267F026433CE0326656B75C5BDCDEE8 /* MKMirror.m in Sources */ = {isa = PBXBuildFile; fileRef = 380A63534CAC0F0D44D992F3A5AEEEB1 /* MKMirror.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F390D582745DF3516ADD4D910A2ACFFA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7725A0E564A3246F679DA2E64E64C06E /* MASCompositeConstraint.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F9BC12237DF13BB1A79DDE0FB1B1582B /* MKPropertyAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AFB2E96AC6AA72E36587E6DDD44A27A /* MKPropertyAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB79F9C032E0C86B5DA214F31B462B66 /* TBAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1C4A39C45C9E1FA3056D5CDFF67BD /* TBAlertController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FED44ABDDCF718CE9630BDF2F179BFCE /* NSDictionary+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 932876DFE3FB46F6499E4B7D6EA524BF /* NSDictionary+Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -541,7 +541,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B8A324FBD485A1DE86F05874ADDF0D5 /* Build configuration list for PBXNativeTarget "MirrorKit" */;
 			buildPhases = (
-				C081B1AB6EEE755CF19C397A430C3593 /* Sources */,
+				4371FBCA9F1DE28FBE05CAC87E6830D9 /* Sources */,
 				DD21DF727CACE266C3335160C99ACF5F /* Frameworks */,
 				48DDE30BBE07E0B93338321257D3A05A /* Headers */,
 			);
@@ -575,7 +575,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34CAE1CB89EDBF2E53735CC5D4E5E69F /* Build configuration list for PBXNativeTarget "Masonry" */;
 			buildPhases = (
-				C4BE2DC1E815E7367562323223772531 /* Sources */,
+				27E8E3A06AAFF112FF7BC4F0117165D8 /* Sources */,
 				6FD8312A1AEB348F49A81C438DB25115 /* Frameworks */,
 				BDF73468622762862D2FB76ED4AC0D8E /* Headers */,
 			);
@@ -638,6 +638,48 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		27E8E3A06AAFF112FF7BC4F0117165D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F390D582745DF3516ADD4D910A2ACFFA /* MASCompositeConstraint.m in Sources */,
+				1AF513D8D71B663D5422760106B13723 /* MASConstraint.m in Sources */,
+				99E00D593F76D7E6C96300345E211282 /* MASConstraintMaker.m in Sources */,
+				61C611ABFFC5FFF35ACE70883CB8F523 /* MASLayoutConstraint.m in Sources */,
+				5B46C39A3F939EDB676981756CC24007 /* Masonry-dummy.m in Sources */,
+				CEF7E139022FFA4F5C99D4DC5DE67990 /* MASViewAttribute.m in Sources */,
+				D8D72BEC4364E9F77BCC6B8AB4E30DF3 /* MASViewConstraint.m in Sources */,
+				14B65CE3038761FA8F6F5D1ECED6A562 /* NSArray+MASAdditions.m in Sources */,
+				B953667D411D1DCD919CBD314F568A92 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				548BBD5B63FA097F419829C3EE8EA068 /* View+MASAdditions.m in Sources */,
+				466869E41EB306F74C8A6E87CC1539BF /* ViewController+MASAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4371FBCA9F1DE28FBE05CAC87E6830D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00600733869591C81CB26155B5B3D6D2 /* MirrorKit-Constants.m in Sources */,
+				89B82D0B71A6F451A06F977733252D62 /* MirrorKit-dummy.m in Sources */,
+				833F4F9F5BE697BD3B6E8F6B36991A1A /* MKClassBuilder.m in Sources */,
+				93E730DC28E3DCE1D478DFF7E06E3675 /* MKIVar.m in Sources */,
+				ED1751FA2D7A649999E806E5D0D02699 /* MKLazyMethod.m in Sources */,
+				A3528477E45344592482D4EE7A695D19 /* MKMethod.m in Sources */,
+				4FE990BEEA0FE45829809742E008853B /* MKMirror+Reflection.m in Sources */,
+				F267F026433CE0326656B75C5BDCDEE8 /* MKMirror.m in Sources */,
+				B20BBDF092F1432887EAEDB164741C80 /* MKPrivate.m in Sources */,
+				B665FB4D3BF200DBB0CFAAE9EA056ED2 /* MKProperty.m in Sources */,
+				BCCC18E5B54C15F01A6AC1801050B554 /* MKPropertyAttributes.m in Sources */,
+				0CC57817046666C7AEF7A5BE8397DFB9 /* MKProtocol.m in Sources */,
+				D9038251C290CB10FED818E78D864194 /* MKProtocolBuilder.m in Sources */,
+				85DFFD98140D9102EE97807F5934A219 /* MKSimpleMethod.m in Sources */,
+				B5B57CB116DF37E41EEF7065015255CB /* NSDictionary+Utilities.m in Sources */,
+				E53043F0752533B3B9F72115F94CF524 /* NSObject+Reflection.m in Sources */,
+				AABA82C120F55559767DB56F77105AB6 /* NSString+Utilities.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D1595793DD5DA35F38D1DB7E2DABD83 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -653,48 +695,6 @@
 				AA0C10F4366FBC9A5D12D0EB3F96CF68 /* TBAlertAction.m in Sources */,
 				2B92FE95CDA0B4BEE4430C9D79A5AA17 /* TBAlertController-dummy.m in Sources */,
 				FB79F9C032E0C86B5DA214F31B462B66 /* TBAlertController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C081B1AB6EEE755CF19C397A430C3593 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D4890BE361E682385736CE427D948AB /* MirrorKit-Constants.m in Sources */,
-				991AC61D16712DFF0E1F4CC23065DF7F /* MirrorKit-dummy.m in Sources */,
-				2B6F64EEFF90F487DCA221AB6E533F85 /* MKClassBuilder.m in Sources */,
-				72B5D3440C31D0E18214831AFF05C70D /* MKIVar.m in Sources */,
-				A5E4B59DC23A29838505A93797D47080 /* MKLazyMethod.m in Sources */,
-				D0D4C4FF5975353A4BB4EF10F4D51B33 /* MKMethod.m in Sources */,
-				1862F10A67789333DAE727C0EB4D8B6B /* MKMirror+Reflection.m in Sources */,
-				967B7D91827043EB4009222D35273BBD /* MKMirror.m in Sources */,
-				EF7F9AB041067403A1A14B0A05259C56 /* MKPrivate.m in Sources */,
-				31DF06AC2CF5413F31E15D189EE4F84D /* MKProperty.m in Sources */,
-				258894AEA2958DE5BC4CB06839B94EBF /* MKPropertyAttributes.m in Sources */,
-				14319C0AEE078FC128A9FFFF7277BD20 /* MKProtocol.m in Sources */,
-				B3BD56417494C460C7E084DA69FBBCAC /* MKProtocolBuilder.m in Sources */,
-				86D9F6601144947A5E616E61BC5EBE29 /* MKSimpleMethod.m in Sources */,
-				698B2672F5494BE814CCCBB851BEE204 /* NSDictionary+Utilities.m in Sources */,
-				E1DA0E5EED02EE5073FD7CF08A65D024 /* NSObject+Reflection.m in Sources */,
-				86044386C4EA6138A30AE875688B20AC /* NSString+Utilities.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4BE2DC1E815E7367562323223772531 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				61CCEA01CBE8EFFA5515E7A0D8635AAE /* MASCompositeConstraint.m in Sources */,
-				89450A58FD91E5B227171FC75160E4EA /* MASConstraint.m in Sources */,
-				DF7F88B58B564EDF169EC0C9CF8E5124 /* MASConstraintMaker.m in Sources */,
-				955BE39896CA35F2A585DC3309E5FDA5 /* MASLayoutConstraint.m in Sources */,
-				68F98758BA84B8EC3472A8C6FD646D16 /* Masonry-dummy.m in Sources */,
-				13635B78121B99E5C03C92506A161607 /* MASViewAttribute.m in Sources */,
-				2DBB74B8B5DDB1F621433DD12BF35102 /* MASViewConstraint.m in Sources */,
-				7BDDE51AF16FA53A09506EDB91E1C3C2 /* NSArray+MASAdditions.m in Sources */,
-				3E8E6916C563B9CB12AA417275FC6EB3 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				A1FA046FDFC42676D17FEC387B10D24A /* View+MASAdditions.m in Sources */,
-				D7CE05A743B7ACD50796191FA442814C /* ViewController+MASAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
