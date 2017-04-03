@@ -6,11 +6,11 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-#import "TBSwitchCell.h"
+#import "TBTableViewCell.h"
 #import "TBTweak.h"
 
 
-@interface TBTweakHookCell : TBSwitchCell
+@interface TBTweakHookCell : TBTableViewCell
 
 /// Chances the detail text of the cell
 @property (nonatomic) TBHookType hookType;

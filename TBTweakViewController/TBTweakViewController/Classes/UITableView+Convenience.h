@@ -10,10 +10,10 @@
 
 @interface UITableView (Convenience)
 
-/// @param cellClass must be a TBBaseValueCell subclass
+/// @param cellClass must be a TBTableViewCell subclass
 - (void)registerCell:(Class)cellClass;
 
-/// @param classes an array of TBBaseValueCell subclasses
+/// @param classes an array of TBTableViewCell subclasses
 - (void)registerCells:(NSArray *)classes;
 
 - (void)reloadSection:(NSUInteger)section;

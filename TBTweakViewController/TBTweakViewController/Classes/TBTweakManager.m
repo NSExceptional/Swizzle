@@ -7,8 +7,8 @@
 //
 
 #import "TBTweakManager.h"
-#import "TBConfigureHookViewController.h"
-#import "TBTweakHookCell.h"
+#import "TBHookListViewController.h"
+#import "TBSwitchCell.h"
 #import "NSMapTable+Subscripting.h"
 #import "TBAlertController.h"
 #import "UITableView+Convenience.h"
@@ -16,10 +16,7 @@
 
 #define NSLibraryDirectory() (NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0])
 
-@interface TBTweakManager () {
-    BOOL _appTweakDelta;
-    BOOL _systemTweakDelta;
-}
+@interface TBTweakManager ()
 
 @property (nonatomic, readonly) NSMapTable<UITableView*, NSMutableArray<NSMutableArray<TBTweak*>*>*> *dataSources;
 @property (nonatomic, readonly) NSMapTable<UITableView*, UILocalizedIndexedCollation*> *collations;
@@ -305,19 +302,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     // Get tweak and "if system tweak"
     TBTweak *tweak = self.dataSources[tableView][indexPath.section][indexPath.row];
     BOOL system = tableView == self.systemTweaksTableViewController.tableView;
-    
-    // Present editor inside nav controller on tweak list
-//    UITableViewController *tweakList = self.listViewControllers[tableView];
-//    __block UIViewController *edit = [TBConfigureHookViewController forTweak:tweak saveAction:^{
-//        if (system) {
-//            _systemTweakDelta = YES;
-//        } else {
-//            _appTweakDelta = YES;
-//        }
-//        [edit dismissViewControllerAnimated:YES completion:nil];
-//    }];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:edit];
-//    [tweakList presentViewController:nav animated:YES completion:nil];
+    UITableViewController *tweakList = self.listViewControllers[tableView];
+
+    // Push hook list
+    TBHookListViewController *hookList = [TBHookListViewController listForTweak:tweak isLocal:!system];
+    [tweakList.navigationController pushViewController:hookList animated:YES];
 }
 
 @end

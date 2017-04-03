@@ -7,17 +7,15 @@
 //
 
 #import "TBTweakHookCell.h"
+#import "UIFont+Swizzle.h"
 
 
 @implementation TBTweakHookCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.textLabel.font = [UIFont fontWithName:@"Menlo-Regular" size:17];
-    }
-    
-    return self;
+- (void)initSubviews {
+    [super initSubviews];
+    self.textLabel.font = [UIFont codeFont];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)setHookType:(TBHookType)hookType {

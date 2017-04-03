@@ -15,6 +15,7 @@
 @interface TBConfigureHookViewController (Protocols)
 <TBHookTypeSectionDelegate, TBArgHookSectionDelegate>
 
+- (void)initializeSectionControllers;
 - (void)configureTableViewForCellReuseAndAutomaticRowHeight;
 
 @end

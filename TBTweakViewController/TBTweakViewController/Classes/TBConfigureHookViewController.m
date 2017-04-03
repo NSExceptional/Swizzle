@@ -12,7 +12,6 @@
 #import "TBValueCells.h"
 #import "TBInfoView.h"
 
-
 #import "SectionControllers.h"
 #import "Categories.h"
 #import <Masonry.h>
@@ -24,14 +23,27 @@
 
 @implementation TBConfigureHookViewController
 
+#pragma mark Setup / initialization
+
 + (instancetype)forHook:(TBMethodHook *)hook saveAction:(void(^)())saveAction {
     TBConfigureHookViewController *config =
     [self title:@"Configure Tweak" configuration:^(UINavigationItem *item, id vc) {
+        id nav = [vc navigationController];
+        item.leftBarButtonItem  = [UIBarButtonItem item:UIBBItemCancel target:nav action:@selector(dismissAnimated)];
         item.rightBarButtonItem = [UIBarButtonItem item:UIBBItemSave target:vc action:@selector(save)];
         item.rightBarButtonItem.enabled = NO;
     }];
-    config->_hook = hook;
+
     config->_saveAction = saveAction;
+
+    // Section controllers
+    config->_hookTypeSectionController = [TBHookTypeSectionController delegate:config];
+    config->_dynamicSectionControllers = [NSMutableArray arrayWithObject:config->_hookTypeSectionController];
+
+    // Initialize model and sections
+    config.hook = hook;
+    [config initializeSectionControllers];
+
     return config;
 }
 
@@ -46,6 +58,11 @@
 - (void)loadView {
     [super loadView];
 
+    // Hide cancel if not being presented by itself
+    if (self.navigationController.viewControllers.firstObject != self) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+
     // Header view
     _infoView = [TBInfoView text:self.hook.about];
     _infoView.hairline.hidden = YES;
@@ -55,10 +72,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Section controllers
-    _hookTypeSectionController = [TBHookTypeSectionController delegate:self];
-    _dynamicSectionControllers = [NSMutableArray arrayWithObject:_hookTypeSectionController];
-
     // Register cells, row height
     [self configureTableViewForCellReuseAndAutomaticRowHeight];
 }
@@ -66,6 +79,31 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+#pragma mark Private
+
+- (void)setHook:(TBMethodHook *)hook {
+    _hook = hook;
+    _hookType = hook.type;
+
+    switch (_hookType) {
+        case TBHookTypeUnspecified: {
+            break;
+        }
+        case TBHookTypeChirpCode: {
+            self.chirpString = hook.chirpString;
+            break;
+        }
+        case TBHookTypeReturnValue: {
+            self.hookedReturnValue = hook.hookedReturnValue;
+            break;
+        }
+        case TBHookTypeArguments: {
+            self.hookedArguments = hook.hookedArguments.mutableCopy;
+            break;
+        }
+    }
 }
 
 - (void)save {
@@ -95,6 +133,7 @@
     
     // Then save
     self.saveAction();
+    [self.navigationController dismissAnimated];
 }
 
 - (void)setHookType:(TBHookType)hookType {

@@ -91,9 +91,7 @@
     TBMethodHook *hook = [TBMethodHook hook:method];
     TBConfigureHookViewController *config = [TBConfigureHookViewController forHook:hook saveAction:^{
         [self.tweak addHook:hook];
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            self.callback();
-        }];
+        self.callback();
     }];
 
     [self.navigationController pushViewController:config animated:YES];

@@ -15,11 +15,19 @@
 + (instancetype)sharedManager;
 
 - (void)addTweak:(TBTweak *)tweak;
+- (void)addAppTweak:(TBTweak *)tweak;
+- (void)addSystemTweak:(TBTweak *)tweak;
 
 /// Used to make adding tweaks from two different sources easier.
 @property (nonatomic) BOOL nextTweakIsSystemTweak;
 
 @property (nonatomic) UITableViewController *appTweaksTableViewController;
 @property (nonatomic) UITableViewController *systemTweaksTableViewController;
+
+- (void)saveAppTweaks;
+- (void)saveSystemTweaks;
+
+@property (nonatomic) BOOL appTweakDelta;
+@property (nonatomic) BOOL systemTweakDelta;
 
 @end

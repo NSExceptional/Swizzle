@@ -10,6 +10,7 @@
 #import "TBKeyPathViewController.h"
 #import "TBConfigureHookViewController.h"
 #import "Categories.h"
+#import "TBAlertController.h"
 
 #import "TBTweakManager.h"
 #import "TBTweakHookCell.h"
@@ -23,33 +24,30 @@
 
 @implementation TBTweakListViewController
 
++ (instancetype)title:(NSString *)title image:(UIImage *)image {
+    TBTweakListViewController *controller = [self title:title configuration:^(UINavigationItem *item, id vc) {
+        item.rightBarButtonItem = [UIBarButtonItem item:UIBBItemAdd target:vc action:@selector(addTweak)];
+    }];
+    controller.tabBarItem.image = [UIImage appsTabImage];
+    return controller;
+}
+
 + (instancetype)appTweaks {
-    TBTweakListViewController *me = [self new];
-    me.tabBarItem.image = [UIImage appsTabImage];
-    me.tabBarItem.title = @"Local Tweaks";
-    return me;
+    return [self title:@"Local Tweaks" image:[UIImage appsTabImage]];
 }
 
 + (instancetype)systemTweaks {
-    TBTweakListViewController *me = [self new];
-    
-    me.tabBarItem.image = [UIImage systemTabImage];
-    me.tabBarItem.title = @"System Tweaks";
-    me->_isSystemTab = YES;
-    return me;
+    return [self title:@"System Tweaks" image:[UIImage systemTabImage]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Bar buttons
+    // Done button
     UITabBarController *tabBarController = self.navigationController.tabBarController;
-    id add = [UIBarButtonItem item:UIBBItemAdd target:self action:@selector(addTweak)];
     id done = [UIBarButtonItem item:UIBBItemDone target:tabBarController action:@selector(dismissAnimated)];
-
     self.navigationItem.leftBarButtonItem  = done;
-    self.navigationItem.rightBarButtonItem = add;
-    
+
     // Table view stuff
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
@@ -60,8 +58,22 @@
 }
 
 - (void)addTweak {
-    [TBTweakManager sharedManager].nextTweakIsSystemTweak = self.isSystemTab;
-    [self presentViewController:[TBKeyPathViewController new].inNavController animated:YES completion:nil];
+    TBAlertController *askForName = [TBAlertController alertViewWithTitle:@"Name Your Tweak" message:nil];
+    askForName.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [askForName setCancelButtonWithTitle:@"Cancel"];
+    [askForName addOtherButtonWithTitle:@"Done" buttonAction:^(NSArray *textFieldStrings) {
+        NSString *title = textFieldStrings.firstObject;
+        TBTweak *tweak = [TBTweak tweakWithTitle:title];
+
+        // This takes care of the UI for us
+        if (self.isSystemTab) {
+            [[TBTweakManager sharedManager] addSystemTweak:tweak];
+        } else {
+            [[TBTweakManager sharedManager] addAppTweak:tweak];
+        }
+    }];
+
+    [askForName showFromViewController:self];
 }
 
 @end

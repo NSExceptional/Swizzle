@@ -69,16 +69,13 @@
     return self.hook.canOverrideAllArgumentValues;
 }
 
-/// Refreshes the contents of self.dynamicSectionControllers and updates the table view's contents.
-- (void)reloadSectionControllers {
-    NSArray *orig = self.dynamicSectionControllers.copy;
-
+- (void)initializeSectionControllers {
     // Remove everything and start over, add tweak type back to array
     NSMutableArray *controllers = self.dynamicSectionControllers;
     [controllers removeAllObjects];
     [controllers addObject:self.hookTypeSectionController];
 
-    #warning FIXME the below code will clear all existing values when toggled even in Expert mode
+#warning FIXME the below code will clear all existing values when toggled even in Expert mode
 
     // Add chirp hook controller
     if (self.hookType & TBHookTypeChirpCode) {
@@ -100,8 +97,14 @@
             [controllers addObject:controller];
         }
     }
+}
 
-    [self updateTableViewWithOriginalSections:orig newSections:controllers];
+/// Refreshes the contents of self.dynamicSectionControllers and updates the table view's contents.
+- (void)reloadSectionControllers {
+    NSArray *orig = self.dynamicSectionControllers.copy;
+
+    [self initializeSectionControllers];
+    [self updateTableViewWithOriginalSections:orig newSections:self.dynamicSectionControllers];
 }
 
 /// Performs a "diff" on the table view given the original sections array and the new sections.
