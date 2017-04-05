@@ -20,6 +20,8 @@
 @property (nonatomic, readonly) TBValueCoordinator *coordinator;
 @property (nonatomic, readonly) UITableView *tableView;
 
+- (void)didUpdateValue:(id)value;
+
 @end
 
 

@@ -58,6 +58,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.delegate.currentResponder = nil;
+    [self.delegate didUpdateValue:textField.text];
 }
 
 @end

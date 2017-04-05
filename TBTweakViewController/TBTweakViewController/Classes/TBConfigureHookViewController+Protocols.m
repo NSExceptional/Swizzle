@@ -49,6 +49,10 @@
 
  #pragma mark Controller delegate methods
 
+- (TBValue *)valueForArgumentAtIndex:(NSUInteger)idx {
+    return self.hookedArguments[idx];
+}
+
 - (void)setArgumentHookValue:(TBValue *)value atIndex:(NSUInteger)idx {
     self.hookedArguments[idx] = value;
 }

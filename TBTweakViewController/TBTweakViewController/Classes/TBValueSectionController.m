@@ -164,4 +164,8 @@
     return self.delegate.tableView;
 }
 
+- (void)didUpdateValue:(id)value {
+    self.coordinator.object = value;
+}
+
 @end

@@ -86,6 +86,7 @@
 - (void)setHook:(TBMethodHook *)hook {
     _hook = hook;
     _hookType = hook.type;
+    self.navigationItem.rightBarButtonItem.enabled = _hookType != TBHookTypeUnspecified;
 
     switch (_hookType) {
         case TBHookTypeUnspecified: {

@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, TBArgHookRow) {
 };
 
 @protocol TBArgHookSectionDelegate <TBSectionControllerDelegate>
+- (TBValue *)valueForArgumentAtIndex:(NSUInteger)idx;
 - (void)setArgumentHookValue:(TBValue *)value atIndex:(NSUInteger)idx;
 @end
 

@@ -35,18 +35,25 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
 @implementation TBArgValueHookSectionController
 @dynamic delegate;
 
-+ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
++ (instancetype)delegate:(id<TBArgHookSectionDelegate>)delegate
                signature:(NSMethodSignature *)signature
            argumentIndex:(NSUInteger)idx {
     const char *type = [signature getArgumentTypeAtIndex:idx];
     TBArgValueHookSectionController *controller = [super delegate:delegate type:type];
     controller->_argIdx              = idx;
-    controller.coordinator.container = [TBValue orig];
+    controller.coordinator.container = [delegate valueForArgumentAtIndex:idx];
     return controller;
 }
 
 - (NSIndexPath *)convertToValueRow:(NSIndexPath *)ip {
     return [NSIndexPath indexPathForRow:TBValueRowFromArgHookRow(ip.row) inSection:ip.section];
+}
+
+#pragma mark TBValueCellDelegate
+
+- (void)didUpdateValue:(id)value {
+    [super didUpdateValue:value];
+    [self.delegate setArgumentHookValue:self.coordinator.container atIndex:self.argIdx];
 }
 
 #pragma mark Overrides
@@ -107,7 +114,6 @@ static inline TBValueRow TBValueRowFromArgHookRow(TBArgHookRow row) {
         self.coordinator.container = [TBValue orig];
     }
     
-    [self.delegate setArgumentHookValue:self.coordinator.container atIndex:self.argIdx];
     [self.delegate.tableView reloadSection:section];
 }
 
