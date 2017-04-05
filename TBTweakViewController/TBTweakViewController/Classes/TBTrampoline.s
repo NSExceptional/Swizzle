@@ -9,6 +9,9 @@
 .text
 .global _TBTrampoline
 .global _TBTrampolineFP
+.global _originalIMP
+.global _landingIMP
+.global _TBTrampolineEnd
 .align 4
 
 #if __arm64__
@@ -27,7 +30,6 @@ _TBTrampoline:
     mov     x29, sp                     // (x29 is frame pointer, not fp)
 
     // Save general purpose registers
-    stp     x11, x12, [sp, #-16]!       // x11 for no reason and x12 for Floating-point flag
     stp     x8, x9, [sp, #-16]!         // x8 for struct return addr and x9 for Floating-point flag
     stp     x6, x7, [sp, #-16]!
     stp     x4, x5, [sp, #-16]!
@@ -58,15 +60,26 @@ landing_func_call:
 
     stp     xzr, x4, [sp, #-16]!        // Save x4 as new Floating-point flag
 
+    ldr     x10, _originalIMP           // orig in x10
+    add     x2, x29, #16                // Stack arguments in x2
+
+    // CallState callState = { x2, x3, x4, x10 };
+    stp     x4, x10, [sp, #-16]!
+    stp     x2,  x3, [sp, #-16]!
+    add     x2,  sp, #0                 // x2 = &callState
+
+    // Replace arguments
+    //
     // self and _cmd already in
     // x0 and x1, as arg0 and arg1
     //
-    // TBTrampolineLanding(self, _cmd, stackArgs, GPRegisters, FPRegisters)
-    add     x2, x29, #16                // Stack arguments in r2
-    bl      _TBTrampolineLanding        // Replace arguments, get original IMP
+    // TBTrampolineLanding(self, _cmd, &callState)
+    ldr     x10, _landingIMP            // Load absolute address of TBTrampolineLanding
+    blr     x10
 
-    // Save original IMP in x10
-    mov     x10, x0
+    // TODO cleanup callState allocation,
+    // then make sure x4 is restored properly
+    add     sp, sp, #32
 
     // Maybe skip restore Floating-point registers
     ldp     xzr, x4, [sp], #16          // Load x4 from stack
@@ -93,7 +106,17 @@ restore_gp_registers:
     ldp     x29, x30, [sp], #16         // `[sp], #16` loads at sp then adds 16 to sp
 
     // Call original method
-    br       x10
+    ldr     x10, _originalIMP           // Load it again, x10 may be clobbered
+    br      x10
+
+_originalIMP:
+    nop
+    nop
+_landingIMP:
+    nop
+    nop
+_TBTrampolineEnd:
+    nop
 
 
 #elif __arm__

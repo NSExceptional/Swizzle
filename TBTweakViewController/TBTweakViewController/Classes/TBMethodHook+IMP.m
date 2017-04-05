@@ -9,7 +9,10 @@
 #import "TBMethodHook+IMP.h"
 #import "TBValueTypes.h"
 #import "TBTrampoline.h"
+#import "TBTrampolineLanding.h"
+#import <sys/mman.h>
 
+typedef uint8_t byte;
 
 #define BlockReturnSelector(sel) ({ \
     id value = self.hookedReturnValue.value; \
@@ -145,11 +148,48 @@
             value.type == TBValueTypeDouble ||
             value.structType & TBStructTypeDualCGFloat ||
             value.structType & TBStructTypeQuadCGFloat) {
-            return (IMP)TBTrampolineFP;
+
+            return [self _IMPFromTrampolineAddress:(uintptr_t)TBTrampolineFP];
         }
     }
 
-    return (IMP)TBTrampoline;
+    return [self _IMPFromTrampolineAddress:(uintptr_t)TBTrampoline];
+}
+
+- (IMP)_IMPFromTrampolineAddress:(uintptr_t)functionStart {
+    uintptr_t functionEnd   = (uintptr_t)TBTrampolineEnd;
+    uintptr_t functionSize  = functionEnd - functionStart;
+    uintptr_t originalIMPOffset = (uintptr_t)originalIMP - functionStart;
+    uintptr_t landingIMPOffset  = (uintptr_t)landingIMP - functionStart;
+
+    // Allocate memory for function copy
+    byte *impl = mmap(NULL, functionSize, PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+    // Copy function to new allocation
+    memcpy(impl, (void *)functionStart, functionSize);
+    // Write address to original implementation at end of function
+    *(IMP *)(impl + originalIMPOffset) = self.originalImplementation;
+    *(IMP *)(impl + landingIMPOffset)  = (IMP)TBTrampolineLanding;
+
+    // Change protections: exec for function, read for variable
+    [self mprotect:impl length:functionSize options:PROT_READ | PROT_EXEC];
+    return (IMP)impl;
+}
+
+- (void)mprotect:(void *)addr length:(ssize_t)length options:(int)protections {
+    size_t pagesize = sysconf(_SC_PAGESIZE);
+
+    //  Calculate start of page for mprotect.
+    void *pagestart = (void*)((uintptr_t)addr & -pagesize);
+
+    if (pagestart != addr) {
+        length += (addr - pagestart);
+    }
+
+    //  Change memory protection.
+    if (mprotect(pagestart, length, protections)) {
+        perror("mprotect");
+        exit(EXIT_FAILURE);
+    }
 }
 
 @end

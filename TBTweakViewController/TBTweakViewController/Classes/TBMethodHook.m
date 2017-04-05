@@ -17,6 +17,7 @@
     NSUInteger _hash;
 }
 @property (nonatomic) BOOL delta;
+@property (nonatomic,         ) IMP allocatedImplementation;
 @property (nonatomic, readonly) IMP implementation;
 @property (nonatomic, readonly) NSError *impError;
 @property (nonatomic, readonly) NSString *action;
@@ -146,10 +147,20 @@
 }
 
 - (void)buildIMPFromHooks {
+    // Free previously allocated hook
+    if (self.allocatedImplementation) {
+        free(self.allocatedImplementation);
+    }
+
     if (self.hookedReturnValue) {
         _implementation = [self IMPForHookedReturnType];
     } else if (self.hookedArguments) {
         _implementation = [self IMPForHookedArguments];
+
+        // Save pointer to allocated implementation
+        if (_implementation != _originalImplementation) {
+            self.allocatedImplementation = _implementation;
+        }
     } else {
         _impError = [NSError error:[NSString stringWithFormat:@"No hooks installed for [%@ %@]", self.target, self.method.selectorString]];
     }

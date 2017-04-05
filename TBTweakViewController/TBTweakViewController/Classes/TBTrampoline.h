@@ -26,3 +26,7 @@ void TBTrampoline(id receiver, SEL _cmd, ...);
 /// take Floating-point arguments or HFAs. TBTrampoline
 /// itself does not automatically handle FP registers.
 void TBTrampolineFP(id receiver, SEL _cmd, ...);
+
+void originalIMP();
+void landingIMP();
+void TBTrampolineEnd();
