@@ -166,9 +166,17 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
+        #warning TODO Fix all of the TBValue initializers to use one single init
         _overriden = [decoder decodeBoolForKey:@"override"];
         _value     = [decoder decodeObjectForKey:@"value"];
         _type      = [decoder decodeIntegerForKey:@"type"];
+        _structType = [decoder decodeIntegerForKey:@"structType"];
+
+        if ([_value isKindOfClass:[NSValue class]]) {
+            _structValue = TBStructFromNSValue(TBStructTypePrimitiveValue, (id)_value);
+        } else {
+            _structValue.object = (__bridge void *)_value;
+        }
     }
     
     return self;
@@ -178,6 +186,7 @@
     [coder encodeBool:_overriden forKey:@"override"];
     [coder encodeObject:_value   forKey:@"value"];
     [coder encodeInteger:_type   forKey:@"type"];
+    [coder encodeInteger:_structType forKey:@"structType"];
 }
 
 #pragma mark NSCopying
