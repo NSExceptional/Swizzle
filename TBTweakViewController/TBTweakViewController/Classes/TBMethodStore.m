@@ -29,14 +29,14 @@ void TBMethodStoreInit() {
 
 #pragma mark Queries
 
-void TBMethodStorePut(Method key, TBMethodHook *value) {
-    [methodStore.lookup addObject:(__bridge id)key];
-    [methodStore.storage setObject:value forKey:(__bridge id)key];
+void TBMethodStorePut(IMP key, TBMethodHook *value) {
+    [methodStore.lookup addObject:(__bridge id)(void *)key];
+    [methodStore.storage setObject:value forKey:(__bridge id)(void *)key];
 }
 
-void TBMethodStoreRemove(Method key) {
-    [methodStore.lookup removeObject:(__bridge id)key];
-    [methodStore.storage removeObjectForKey:(__bridge id)key];
+void TBMethodStoreRemove(IMP key) {
+    [methodStore.lookup removeObject:(__bridge id)(void *)key];
+    [methodStore.storage removeObjectForKey:(__bridge id)(void *)key];
 }
 
 //inline TBMethodInfo * TBMethodStoreGet(Method method) {

@@ -26,16 +26,9 @@ extern NSCharacterSet *HFACharacters;
 /// Initializes singleton
 extern void TBMethodStoreInit();
 
-/// Methods are used as keys
-static inline Method TBMethodStoreGetKey(id obj, SEL sel) {
-    Class cls = [obj class];
-    BOOL instance = cls != obj;
-    return instance ? class_getInstanceMethod(cls, sel) : class_getClassMethod(cls, sel);
+static inline TBMethodHook * TBMethodStoreGet(IMP method) {
+    return [methodStore.storage objectForKey:(__bridge id)(void *)method];
 }
 
-static inline TBMethodHook * TBMethodStoreGet(Method method) {
-    return [methodStore.storage objectForKey:(__bridge id)method];
-}
-
-void TBMethodStorePut(Method key, TBMethodHook *value);
-void TBMethodStoreRemove(Method key);
+void TBMethodStorePut(IMP key, TBMethodHook *value);
+void TBMethodStoreRemove(IMP key);
