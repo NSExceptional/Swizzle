@@ -81,7 +81,7 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
 #pragma mark Private
 
 - (void)unsetHook:(TBMethodHook *)hook {
-    TBMethodStoreRemove(hook.method.objc_method);
+    TBMethodStoreRemove(hook.originalImplementation);
 
     Class cls = NSClassFromString(hook.target);
     [cls replaceImplementationOfMethod:hook.method with:hook.originalImplementation];
@@ -91,27 +91,43 @@ NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
 
 - (void)tryEnable:(void (^)(NSError *))callback {
     NSAssert(!self.enabled, @"Cannot enable tweak that is already enabled");
+    _enabled = YES;
+
+    __block NSError *error   = nil;
+    NSMutableArray *setHooks = [NSMutableArray array];
 
     [self.hooks enumerateObjectsUsingBlock:^(TBMethodHook *hook, NSUInteger idx, BOOL *stop) {
-        [hook getImplementation:^(IMP implementation, NSError *error) {
+        [hook getImplementation:^(IMP implementation, NSError *_error) {
             if (implementation) {
                 // Check if already set
-                if (TBMethodStoreGet(hook.method.objc_method)) {
-                    *stop = YES;
-                    callback([NSError error:@"You can only hook a method once."]);
+                if (TBMethodStoreGet(hook.originalImplementation)) {
+                    *stop    = YES;
+                    _enabled = NO;
+                    error    = [NSError error:@"You can only hook a method once."];
                 } else {
-                    TBMethodStorePut(hook.method.objc_method, hook);
+                    TBMethodStorePut(hook.originalImplementation, hook);
                     Class cls = NSClassFromString(hook.target);
                     [cls replaceImplementationOfMethod:hook.method with:implementation];
-                    _enabled = YES;
+                    [setHooks addObject:cls];
                 }
             } else {
-                *stop = YES;
                 assert(error);
-                callback(error);
+                *stop    = YES;
+                _enabled = NO;
+                error    = _error;
             }
         }];
     }];
+
+    // Unset all set hooks if one failed to be set
+    // and callback with the associated error
+    if (!_enabled) {
+        for (TBMethodHook *hook in setHooks) {
+            [self unsetHook:hook];
+        }
+
+        callback(error);
+    }
 }
 
 - (void)disable {
