@@ -7,15 +7,12 @@
 //
 
 #import "TBTrampolineLanding.h"
+#import "TBTrampoline.h"
 #import "MirrorKit.h"
 #import "TBMethodHook.h"
 #import "TBValue+ValueHelpers.h"
 #import "TBMethodStore.h"
 @import ObjectiveC;
-
-#import <UIKit/UIGeometry.h>
-#import <QuartzCore/QuartzCore.h>
-#import <CoreMedia/CoreMedia.h>
 
 
 #pragma mark Macros
@@ -39,10 +36,13 @@ static inline NSString * TBTypeIsHFA(const char * fullType);
 
 #pragma mark PUBLIC
 
-IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters, double *FPRegisters) {
+void TBTrampolineLanding(id obj, SEL sel, CallState callState) {
+    byte *stackArgs = callState.stackArgs;
+    double *FPRegisters = callState.FPRegisters;
+    uintptr_t *GPRegisters = callState.GPRegisters;
+
     // Get method info
-    Method method                 = TBMethodStoreGetKey(obj, sel);
-    TBMethodHook *hook            = TBMethodStoreGet(method);
+    TBMethodHook *hook            = TBMethodStoreGet(callState.orig);
     NSArray<TBValue*> *hookedArgs = hook.hookedArguments;
     assert(hook);
 
@@ -60,7 +60,7 @@ IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters
 
     for (NSUInteger i = 2; i < argc; i++) {
         // Grab optionally hooked-value and type signature
-        TBValue *replacement = hookedArgs[i-2];
+        TBValue *replacement = hookedArgs[i];
         const char *fullArgType = [signature getArgumentTypeAtIndex:i];
         MKTypeEncoding type = fullArgType[0];
 
@@ -175,8 +175,6 @@ IMP TBTrampolineLanding(id obj, SEL sel, byte *stackArgs, uintptr_t *GPRegisters
             NSAA += size;
         }
     }
-
-    return hook.originalImplementation;
 }
 
 #pragma mark Private
