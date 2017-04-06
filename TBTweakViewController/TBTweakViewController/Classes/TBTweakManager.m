@@ -234,12 +234,13 @@
     
     cell.switchh.on     = tweak.enabled;
     cell.textLabel.text = tweak.title;
+    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
 
     // Actually toggles the tweak
     UISwitch *switchh = cell.switchh;
     cell.switchToggleAction = ^(BOOL enabled) {
         if (enabled) {
-            [tweak tryEnable:^(NSError * _Nonnull error) {
+            [tweak tryEnable:^(NSError *error) {
                 [switchh setOn:NO animated:YES];
 
                 NSString *title = @"Failed to enable tweak";

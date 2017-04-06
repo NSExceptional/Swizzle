@@ -38,7 +38,7 @@
 - (void)configure {
     self.text               = @"";
     self.scrollEnabled      = NO;
-    self.textContainerInset = UIEdgeInsetsMake(0, 0, -2.5, 0);
+    self.textContainerInset = UIEdgeInsetsMake(0, -5, -2.5, 0);
 
     self.autocorrectionType     = UITextAutocorrectionTypeNo;
     self.autocapitalizationType = UITextAutocapitalizationTypeNone;
