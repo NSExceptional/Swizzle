@@ -53,14 +53,15 @@
 
     [self.sections addObject:[TBAddElementSectionController delegate:self onTap:^{
         TBSectionController *section = [TBDictionaryEntrySectionController delegate:self];
-        [self.sections insertObject:section atIndex:self.sections.count-2];
+        [self.sections insertObject:section atIndex:self.sections.count-1];
         [self.tableView insertSection:self.sections.count-2];
         [self.tableView deselectSelectedRow];
     }]];
 }
 
 - (void)prepareStorageForReturn {
-    for (TBDictionaryEntrySectionController *section in self.sections) {
+    NSArray *withoutAddSection = [self.sections subarrayWithRange:NSMakeRange(0, self.sections.count-1)];
+    for (TBDictionaryEntrySectionController *section in withoutAddSection) {
         self.dictionary[section.key] = section.value;
     }
 }

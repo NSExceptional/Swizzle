@@ -29,7 +29,7 @@ typedef id (^IndexPathBlock)(NSIndexPath *ip);
 }
 
 + (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate key:(id)key value:(id)value {
-    TBDictionaryEntrySectionController *controller = [super delegate:delegate];
+    TBDictionaryEntrySectionController *controller = [self delegate:delegate];
     controller.keyController.coordinator.object   = key;
     controller.valueController.coordinator.object = value;
 
@@ -57,20 +57,22 @@ typedef id (^IndexPathBlock)(NSIndexPath *ip);
                 return key(ip);
             } else {
                 // Convert to first row in value section
-                ip = [NSIndexPath indexPathForRow:0 inSection:1];
+                ip = [NSIndexPath indexPathForRow:0 inSection:ip.section];
                 return value(ip);
             }
         case 2:
             if (self.keyController.sectionRowCount == 2) {
                 // Convert to first row in value section
-                ip = [NSIndexPath indexPathForRow:0 inSection:1];
+                ip = [NSIndexPath indexPathForRow:0 inSection:ip.section];
                 return value(ip);
             } else {
                 // Convert to second row in value section
-                ip = [NSIndexPath indexPathForRow:1 inSection:1];
+                ip = [NSIndexPath indexPathForRow:1 inSection:ip.section];
                 return value(ip);
             }
         case 3:
+            // Convert to second row in value section
+            ip = [NSIndexPath indexPathForRow:1 inSection:ip.section];
             return value(ip);
         default:
             @throw NSGenericException;
