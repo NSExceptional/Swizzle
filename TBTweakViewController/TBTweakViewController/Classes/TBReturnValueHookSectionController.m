@@ -10,6 +10,19 @@
 
 @implementation TBReturnValueHookSectionController
 
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
+                    type:(const char *)typeEncoding
+            initialValue:(TBValue *)initialvalue {
+    TBReturnValueHookSectionController *controller = [super delegate:delegate type:typeEncoding];
+    controller.coordinator.container = initialvalue;
+    return controller;
+}
+
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate type:(const char *)typeEncoding {
+    @throw NSInternalInconsistencyException;
+    return nil;
+}
+
 #pragma mark Overrides
 
 - (NSString *)typePickerTitle {

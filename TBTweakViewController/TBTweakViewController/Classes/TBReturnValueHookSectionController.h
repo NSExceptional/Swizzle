@@ -11,4 +11,8 @@
 
 @interface TBReturnValueHookSectionController : TBValueSectionController
 
++ (instancetype)delegate:(id<TBSectionControllerDelegate>)delegate
+                    type:(const char *)typeEncoding
+            initialValue:(TBValue *)initialvalue;
+
 @end

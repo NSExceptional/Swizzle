@@ -96,13 +96,13 @@
             self.chirpString = hook.chirpString;
             break;
         }
-        case TBHookTypeReturnValue: {
-            self.hookedReturnValue = hook.hookedReturnValue;
-            break;
-        }
-        case TBHookTypeArguments: {
-            self.hookedArguments = hook.hookedArguments.mutableCopy;
-            break;
+        default: {
+            if (self.hookType & TBHookTypeReturnValue) {
+                self.hookedReturnValue = hook.hookedReturnValue;
+            }
+            if (self.hookType & TBHookTypeArguments) {
+                self.hookedArguments = hook.hookedArguments.mutableCopy;
+            }
         }
     }
 }
@@ -124,7 +124,8 @@
         }
         default: {
             if (self.hookType & TBHookTypeReturnValue) {
-                self.hook.hookedReturnValue = self.hookedReturnValue;
+                #warning TODO This is messy compared to how it should be
+                self.hook.hookedReturnValue = self.returnValueHookSectionController.coordinator.container;
             }
             if (self.hookType & TBHookTypeArguments) {
                 self.hook.hookedArguments = self.hookedArguments;

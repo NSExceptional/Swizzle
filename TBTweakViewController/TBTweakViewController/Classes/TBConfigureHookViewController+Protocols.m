@@ -79,17 +79,20 @@
     [controllers removeAllObjects];
     [controllers addObject:self.hookTypeSectionController];
 
-#warning FIXME the below code will clear all existing values when toggled even in Expert mode
+    #warning FIXME the below code will clear all existing values when toggled even in Expert mode
 
     // Add chirp hook controller
     if (self.hookType & TBHookTypeChirpCode) {
+        #warning TODO chirp section controller
         [controllers addObject:[TBReturnValueHookSectionController delegate:self]];
     }
     // Add return value hook controller
     if (self.hookType & TBHookTypeReturnValue) {
         NSMethodSignature *signature = self.hook.method.signature;
         const char *type = signature.methodReturnType;
-        [controllers addObject:[TBReturnValueHookSectionController delegate:self type:type]];
+        [controllers addObject:[TBReturnValueHookSectionController
+                                delegate:self type:type
+                                initialValue:self.hookedReturnValue]];
     }
     // Add argument value hook controllers
     if (self.hookType & TBHookTypeArguments) {
