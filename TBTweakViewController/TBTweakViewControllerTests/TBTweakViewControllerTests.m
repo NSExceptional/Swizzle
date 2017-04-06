@@ -9,17 +9,22 @@
 #import <XCTest/XCTest.h>
 #import "TBTweak.h"
 #import "NSTestClass.h"
+#import "NSObject+Reflection.h"
 
-#define Tweak(target, sel) [TBTweak tweakWithTarget:[target class] instanceMethod:@selector(sel)]
-#define ClassTweak(target, sel) [TBTweak tweakWithTarget:[target class] method:@selector(sel)]
+#define Hook(target, sel, inst) [TBMethodHook hook:[MKLazyMethod methodForSelector:@selector(sel) class:[target class] instance:inst]]
+#define Tweak(target, sel, inst) TBTweak *tweak = [TBTweak tweakWithTitle:@"Test tweak"]; \
+[tweak addHook:Hook(target, sel, inst)]; \
+TBMethodHook *hook = tweak.hooks.firstObject
 
 @interface TBTweakViewControllerTests : XCTestCase
 @property (nonatomic) NSTestClass *testInstance;
+@property (nonatomic) TBTweak *tweak;
 @end
 
 @implementation TBTweakViewControllerTests
 
 - (void)setUp {
+    self.tweak = [TBTweak tweakWithTitle:@"Test tweak"];
     self.testInstance = [NSTestClass new];
     self.testInstance.name      = @"foo";
     self.testInstance.length    = 3;
@@ -30,41 +35,45 @@
 
 - (void)testBasics {
     // Tweak
-    TBTweak *tweak = Tweak(NSTestClass, length);
+    Tweak(NSTestClass, length, YES);
     XCTAssertFalse(tweak.enabled);
     
     // Hook
-    XCTAssertTrue(tweak.hook.canOverrideReturnValue);
-    XCTAssertFalse(tweak.hook.canOverrideAllArgumentValues);
-    XCTAssertEqual(tweak.hook.method.signature.numberOfArguments, 2);
-    XCTAssertEqualObjects(tweak.hook.target, @"NSTestClass");
-    XCTAssertFalse(tweak.hook.isClassMethod);
+    XCTAssertTrue(hook.canOverrideReturnValue);
+    XCTAssertFalse(hook.canOverrideAllArgumentValues);
+    XCTAssertEqual(hook.method.signature.numberOfArguments, 2);
+    XCTAssertEqualObjects(hook.target, @"NSTestClass");
+    XCTAssertFalse(hook.isClassMethod);
     
     // Method
     MKMethod *same = [MKMethod methodForSelector:@selector(length) class:[NSTestClass class] instance:YES];
-    XCTAssertEqualObjects(tweak.hook.method.typeEncoding, same.typeEncoding);
-    
-    tweak = Tweak(NSTestClass, multiple:param:method:);
-    same = [MKMethod methodForSelector:@selector(multiple:param:method:) class:[NSTestClass class] instance:YES];
-    XCTAssertEqualObjects(tweak.hook.method.typeEncoding, same.typeEncoding);
-    
-    // Invalid tweaks
-    tweak = Tweak(NSTestClass, unimplemented);
-    XCTAssertNil(tweak);
-    
-    // Unhookables
-    tweak = Tweak(NSTestClass, returnsAndTakesAnonymousStructs:);
-    XCTAssertFalse(tweak.hook.canOverrideReturnValue);
-    XCTAssertFalse(tweak.hook.canOverrideAllArgumentValues);
+    XCTAssertEqualObjects(hook.method.typeEncoding, same.typeEncoding);
+}
+
+- (void)testMutlipleParamMethod {
+    Tweak(NSTestClass, multiple:param:method:, YES);
+    MKMethod *same = [MKMethod methodForSelector:@selector(multiple:param:method:) class:[NSTestClass class] instance:YES];
+    XCTAssertEqualObjects(hook.method.typeEncoding, same.typeEncoding);
+}
+
+- (void)testInvalidHook {
+    XCTAssertThrows(Hook(NSTestClass, unimplemented, YES));
+}
+
+- (void)testUnhookables {
+    Tweak(NSTestClass, returnsAndTakesAnonymousStructs:, YES);
+    XCTAssertFalse(hook.canOverrideReturnValue);
+    XCTAssertFalse(hook.canOverrideAllArgumentValues);
 }
 
 - (void)testDoNothingFormat {
     // Object
-    TBTweak *tweak = Tweak(NSTestClass, name);
-    tweak.hook.chirpString = @"";
+    Tweak(NSTestClass, name, YES);
+    hook.chirpString = @"";
+
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -77,11 +86,11 @@
 }
 
 - (void)testHookReturnValue_primitive {
-    TBTweak *tweak = Tweak(NSTestClass, length);
-    tweak.hook.hookedReturnValue = [TBValue value:@1337 type:TBValueTypeInteger];
-    
+    Tweak(NSTestClass, length, YES);
+    hook.hookedReturnValue = [TBValue value:@1337 type:TBValueTypeInteger];
+
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -94,12 +103,12 @@
 }
 
 - (void)testHookReturnValue_object {
-    TBTweak *tweak = Tweak(NSString, lastPathComponent);
+    Tweak(NSString, lastPathComponent, YES);
     XCTAssertNotNil(tweak);
-    tweak.hook.hookedReturnValue = [TBValue value:@"foo" type:TBValueTypeString];
+    hook.hookedReturnValue = [TBValue value:@"foo" type:TBValueTypeString];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -118,12 +127,12 @@
     CGRect orig = self.testInstance.frame;
     XCTAssertFalse(CGRectEqualToRect(r, orig));
     
-    TBTweak *tweak = Tweak(NSTestClass, frame);
-    XCTAssertTrue(tweak.hook.canOverrideReturnValue);
-    tweak.hook.hookedReturnValue = [TBValue value:[NSValue valueWithCGRect:r] structType:TBStructTypeRect];
+    Tweak(NSTestClass, frame, YES);
+    XCTAssertTrue(hook.canOverrideReturnValue);
+    hook.hookedReturnValue = [TBValue value:[NSValue valueWithCGRect:r] structType:TBStructTypeRect];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -138,11 +147,12 @@
 - (void)testHookFirstArgument {
     id val = [NSDate date];
     id param = @"foo";
-    TBTweak *tweak = Tweak(NSTestClass, multiple:param:method:);
-    tweak.hook.hookedArguments = @[[TBValue value:val type:TBValueTypeDate], [TBValue orig], [TBValue orig]];
+    Tweak(NSTestClass, multiple:param:method:, YES);
+    hook.hookedArguments = @[[TBValue orig], [TBValue orig],
+                             [TBValue value:val type:TBValueTypeDate], [TBValue orig], [TBValue orig]];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -156,11 +166,12 @@
 }
 
 - (void)testHookSecondArgument {
-    TBTweak *tweak = Tweak(NSTestClass, multiple:param:method:);
-    tweak.hook.hookedArguments = @[[TBValue orig], [TBValue value:@NO type:TBValueTypeInteger], [TBValue orig]];
+    Tweak(NSTestClass, multiple:param:method:, YES);
+    hook.hookedArguments = @[[TBValue orig], [TBValue orig],
+                             [TBValue orig], [TBValue value:@NO type:TBValueTypeInteger], [TBValue orig]];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -173,11 +184,11 @@
 }
 
 - (void)testHookAllArguments {
-    TBTweak *tweak = Tweak(NSTestClass, multiple:param:method:);
-    tweak.hook.hookedArguments = @[[TBValue null], [TBValue null], [TBValue null]];
+    Tweak(NSTestClass, multiple:param:method:, YES);
+    hook.hookedArguments = @[[TBValue orig], [TBValue orig], [TBValue null], [TBValue null], [TBValue null]];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
@@ -190,11 +201,11 @@
 }
 
 - (void)testHookClassMethod {
-    TBTweak *tweak = ClassTweak(NSTestClass, classLength);
-    tweak.hook.hookedReturnValue = [TBValue value:@8 type:TBValueTypeInteger];
+    Tweak(NSTestClass, classLength, NO);
+    hook.hookedReturnValue = [TBValue value:@8 type:TBValueTypeInteger];
     
     // Enable and test
-    [tweak tryEnable:^(NSError * _Nonnull error) {
+    [tweak tryEnable:^(NSError *error) {
         XCTFail(@"Should succeed: %@", error);
     }];
     XCTAssertTrue(tweak.enabled);
