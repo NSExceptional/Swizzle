@@ -97,6 +97,16 @@
     [self.navigationController pushViewController:config animated:YES];
 }
 
+- (BOOL)shouldIncludeMethodInResults:(MKMethod *)method {
+    for (TBMethodHook *hook in self.tweak.hooks) {
+        if (hook.method.objc_method == method.objc_method) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 #pragma mark Long press action
 
 - (NSString *)longPressItemSELPrefix { return @"tb_"; }

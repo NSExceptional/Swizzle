@@ -16,7 +16,9 @@
 @property (nonatomic, readonly) UINavigationController *navigationController;
 
 @property (nonatomic, readonly) NSString *longPressItemSELPrefix;
+
 - (void)didSelectMethod:(MKMethod *)method;
+- (BOOL)shouldIncludeMethodInResults:(MKMethod *)method;
 @end
 
 @interface TBKeyPathSearchController : NSObject <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>

@@ -167,7 +167,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (_keyPath.methodKey) {
                     _bundlesOrClasses = nil;
-                    _methods = models;
+                    _methods = [models map:^id(MKMethod *method) {
+                        return [self.delegate shouldIncludeMethodInResults:method] ? method : nil;
+                    }];
                 } else {
                     _bundlesOrClasses = models;
                     _methods = nil;

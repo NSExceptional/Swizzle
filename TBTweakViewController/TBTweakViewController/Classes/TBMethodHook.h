@@ -65,9 +65,7 @@ IMP TBGetOriginalMethodIMP(id instanceOrClass, SEL sel);
 /// @brief Use [TBValue orig] to leave an argument unmodified if you only wish to hook some arguments.
 ///
 /// @discussion Each argument must be present to hook any arguments. Behavior is undefined
-/// if this array has fewer arguments than the method takes, excluding `self` and `_cmd` which
-/// are implicit parameters to every method call. In the future I will provide a property
-/// called `fullyHookedArguments` or something to allow overriding `self` and `_cmd` as well.
+/// if this array has fewer arguments than the method takes. You must include `self` and `_cmd`.
 ///
 /// @note `hookedReturnValue` and `chirpString` are set to nil when this property is set.
 @property (nonatomic, nullable, copy) NSArray<TBValue*> *hookedArguments;
