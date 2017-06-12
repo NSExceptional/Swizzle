@@ -50,6 +50,9 @@
 		C31198A91E87A10F0098F583 /* TBRuntimeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C31198A81E87A10F0098F583 /* TBRuntimeControllerTests.m */; };
 		C326C2A71E74EDF300039F4E /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = C326C2A61E74EDF300039F4E /* NSArray+Functional.m */; };
 		C326C2AA1E79F46100039F4E /* TBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C326C2A91E79F46100039F4E /* TBTableViewCell.m */; };
+		C32F51221EEE2C7800B8632A /* TBKeyPathToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51211EEE2C7800B8632A /* TBKeyPathToolbar.m */; };
+		C32F51271EEF2D0900B8632A /* TBKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51241EEF2D0900B8632A /* TBKeyboardToolbar.m */; };
+		C32F51281EEF2D0900B8632A /* TBToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51261EEF2D0900B8632A /* TBToolbarButton.m */; };
 		C34E04D21E847FA900688ED6 /* TBKeyPathSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E04D11E847FA900688ED6 /* TBKeyPathSearchController.m */; };
 		C34E04D51E84866A00688ED6 /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E04D41E84866A00688ED6 /* NSTimer+Blocks.m */; };
 		C34E04DB1E85D9C700688ED6 /* TBCodeFontCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E04DA1E85D9C700688ED6 /* TBCodeFontCell.m */; };
@@ -204,6 +207,12 @@
 		C326C2A61E74EDF300039F4E /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
 		C326C2A81E79F46100039F4E /* TBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewCell.h; sourceTree = "<group>"; };
 		C326C2A91E79F46100039F4E /* TBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewCell.m; sourceTree = "<group>"; };
+		C32F51201EEE2C7800B8632A /* TBKeyPathToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBKeyPathToolbar.h; sourceTree = "<group>"; };
+		C32F51211EEE2C7800B8632A /* TBKeyPathToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyPathToolbar.m; sourceTree = "<group>"; };
+		C32F51231EEF2D0900B8632A /* TBKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBKeyboardToolbar.h; sourceTree = "<group>"; };
+		C32F51241EEF2D0900B8632A /* TBKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyboardToolbar.m; sourceTree = "<group>"; };
+		C32F51251EEF2D0900B8632A /* TBToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBToolbarButton.h; sourceTree = "<group>"; };
+		C32F51261EEF2D0900B8632A /* TBToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBToolbarButton.m; sourceTree = "<group>"; };
 		C34E04D01E847FA900688ED6 /* TBKeyPathSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBKeyPathSearchController.h; sourceTree = "<group>"; };
 		C34E04D11E847FA900688ED6 /* TBKeyPathSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyPathSearchController.m; sourceTree = "<group>"; };
 		C34E04D31E84866A00688ED6 /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
@@ -448,6 +457,8 @@
 				C358213F1E847819008FEF2E /* TBKeyPathViewController.m */,
 				C34E04D01E847FA900688ED6 /* TBKeyPathSearchController.h */,
 				C34E04D11E847FA900688ED6 /* TBKeyPathSearchController.m */,
+				C32F51201EEE2C7800B8632A /* TBKeyPathToolbar.h */,
+				C32F51211EEE2C7800B8632A /* TBKeyPathToolbar.m */,
 				C34E04D91E85D9C700688ED6 /* TBCodeFontCell.h */,
 				C34E04DA1E85D9C700688ED6 /* TBCodeFontCell.m */,
 				B478B6E01D78CAB9009E7771 /* TBSwitchCell.h */,
@@ -670,6 +681,10 @@
 		C3E531051E8331C7001D33E1 /* Key paths */ = {
 			isa = PBXGroup;
 			children = (
+				C32F51231EEF2D0900B8632A /* TBKeyboardToolbar.h */,
+				C32F51241EEF2D0900B8632A /* TBKeyboardToolbar.m */,
+				C32F51251EEF2D0900B8632A /* TBToolbarButton.h */,
+				C32F51261EEF2D0900B8632A /* TBToolbarButton.m */,
 				C3E531011E8331BB001D33E1 /* TBToken.h */,
 				C3E531021E8331BB001D33E1 /* TBToken.m */,
 				C3E530FE1E8330F2001D33E1 /* TBKeyPath.h */,
@@ -842,7 +857,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		81F43BF0748ED6A320C7BE09 /* [CP] Check Pods Manifest.lock */ = {
@@ -905,6 +920,7 @@
 				C326C2AA1E79F46100039F4E /* TBTableViewCell.m in Sources */,
 				C3BB84A81E8DBF1D00EE457A /* TBDictionaryEntrySubsectionController.m in Sources */,
 				C3FA6B1D1E845B1C00A01279 /* NSScanner+debug.m in Sources */,
+				C32F51221EEE2C7800B8632A /* TBKeyPathToolbar.m in Sources */,
 				B44936F21DA7501F008DB45E /* TBDetailDisclosureCell.m in Sources */,
 				B4B9C7EC1D70D1670025E1FB /* TBTypePickerViewController.m in Sources */,
 				C35821431E8479EC008FEF2E /* TBRuntimeController.m in Sources */,
@@ -943,6 +959,7 @@
 				B41AE6631DA869C400CFCCD7 /* TBArgValueHookSectionController.m in Sources */,
 				C3BB84B01E8ED8A200EE457A /* TBDictionaryViewController.m in Sources */,
 				B4504C9A1D652AD200C4B568 /* TBTweak.m in Sources */,
+				C32F51281EEF2D0900B8632A /* TBToolbarButton.m in Sources */,
 				B4504CB61D6BCF6C00C4B568 /* TBConfigureHookViewController.m in Sources */,
 				C3BB84AC1E8DC09D00EE457A /* TBAddElementSectionController.m in Sources */,
 				B4504C771D65230700C4B568 /* main.m in Sources */,
@@ -952,6 +969,7 @@
 				B4B9C7FB1D70D4340025E1FB /* TBBaseValueCell.m in Sources */,
 				B4B9C7E61D70D0EA0025E1FB /* TBChirpCell.m in Sources */,
 				C3C3846A1E70817900B1BC55 /* TBTrampoline.s in Sources */,
+				C32F51271EEF2D0900B8632A /* TBKeyboardToolbar.m in Sources */,
 				C3BB84B91E8EEA4B00EE457A /* TBCollectionViewController.m in Sources */,
 				C3BB84B31E8EDA1F00EE457A /* TBObjectCreationViewController.m in Sources */,
 				B41AE6691DAAE92A00CFCCD7 /* TBReturnValueHookSectionController.m in Sources */,
