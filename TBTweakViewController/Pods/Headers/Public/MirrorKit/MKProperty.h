@@ -1,1 +1,1 @@
-../../../MirrorKit/MirrorKit/Classes/MKProperty.h
+../../../../../../../MirrorKit/MirrorKit/Classes/MKProperty.h
