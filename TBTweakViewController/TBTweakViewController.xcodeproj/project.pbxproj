@@ -50,6 +50,7 @@
 		C31198A91E87A10F0098F583 /* TBRuntimeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C31198A81E87A10F0098F583 /* TBRuntimeControllerTests.m */; };
 		C326C2A71E74EDF300039F4E /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = C326C2A61E74EDF300039F4E /* NSArray+Functional.m */; };
 		C326C2AA1E79F46100039F4E /* TBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C326C2A91E79F46100039F4E /* TBTableViewCell.m */; };
+		C32E0E5B1EF090E700910F37 /* UITextField+Range.m in Sources */ = {isa = PBXBuildFile; fileRef = C32E0E5A1EF090E700910F37 /* UITextField+Range.m */; };
 		C32F51221EEE2C7800B8632A /* TBKeyPathToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51211EEE2C7800B8632A /* TBKeyPathToolbar.m */; };
 		C32F51271EEF2D0900B8632A /* TBKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51241EEF2D0900B8632A /* TBKeyboardToolbar.m */; };
 		C32F51281EEF2D0900B8632A /* TBToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C32F51261EEF2D0900B8632A /* TBToolbarButton.m */; };
@@ -207,6 +208,8 @@
 		C326C2A61E74EDF300039F4E /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
 		C326C2A81E79F46100039F4E /* TBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewCell.h; sourceTree = "<group>"; };
 		C326C2A91E79F46100039F4E /* TBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewCell.m; sourceTree = "<group>"; };
+		C32E0E591EF090E700910F37 /* UITextField+Range.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+Range.h"; sourceTree = "<group>"; };
+		C32E0E5A1EF090E700910F37 /* UITextField+Range.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Range.m"; sourceTree = "<group>"; };
 		C32F51201EEE2C7800B8632A /* TBKeyPathToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBKeyPathToolbar.h; sourceTree = "<group>"; };
 		C32F51211EEE2C7800B8632A /* TBKeyPathToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBKeyPathToolbar.m; sourceTree = "<group>"; };
 		C32F51231EEF2D0900B8632A /* TBKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBKeyboardToolbar.h; sourceTree = "<group>"; };
@@ -626,6 +629,8 @@
 				C3BB848F1E8C524600EE457A /* UITableView+FUCK.m */,
 				C3BB84B41E8EDE9900EE457A /* UITableView+TextViewResizing.h */,
 				C3BB84B51E8EDE9900EE457A /* UITableView+TextViewResizing.m */,
+				C32E0E591EF090E700910F37 /* UITextField+Range.h */,
+				C32E0E5A1EF090E700910F37 /* UITextField+Range.m */,
 			);
 			name = "Misc categories";
 			sourceTree = "<group>";
@@ -987,6 +992,7 @@
 				C3E531001E8330F2001D33E1 /* TBKeyPath.m in Sources */,
 				C3BB849F1E8DAB1200EE457A /* TBDictionaryValueSectionController.m in Sources */,
 				C3B676A61E71FE46004E5122 /* UIViewController+Convenience.m in Sources */,
+				C32E0E5B1EF090E700910F37 /* UITextField+Range.m in Sources */,
 				C35821401E847819008FEF2E /* TBKeyPathViewController.m in Sources */,
 				C3E530FD1E8330C9001D33E1 /* TBKeyPathTokenizer.m in Sources */,
 				C3601AD21E7C733300985E0D /* TBObjcCells.m in Sources */,

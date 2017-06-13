@@ -16,4 +16,5 @@
 #import "UIImage+TBBundleResources.h"
 #import "UITableView+Convenience.h"
 #import "UITableView+FUCK.h"
+#import "UITextField+Range.h"
 #import "UIViewController+Convenience.h"
