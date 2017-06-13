@@ -6,6 +6,7 @@
 //
 
 #import "TBToolbarButton.h"
+#import "UIFont+Swizzle.h"
 
 
 @interface TBToolbarButton ()
@@ -35,11 +36,11 @@
         _title = title;
         self.layer.cornerRadius = 5.0f;
         self.layer.borderWidth  = 1.0f;
-        self.titleLabel.font    = [UIFont systemFontOfSize:14.f];
+        self.titleLabel.font    = [UIFont codeFont];
         [self setTitle:self.title forState:UIControlStateNormal];
         [self sizeToFit];
         CGRect frame = self.frame;
-        frame.size.width  += 10;
+        frame.size.width  += 40;
         frame.size.height += 10;
         self.frame = frame;
         self.appearance = UIKeyboardAppearanceLight;
@@ -82,6 +83,18 @@
             [self setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
             break;
     }
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[TBToolbarButton class]]) {
+        return [self.title isEqualToString:[object title]];
+    }
+
+    return NO;
+}
+
+- (NSUInteger)hash {
+    return self.title.hash;
 }
 
 @end

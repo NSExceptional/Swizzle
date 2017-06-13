@@ -124,14 +124,14 @@
     _scrollView.contentSize = contentSize;
 }
 
-- (void)setButtons:(NSArray *)buttons {
+- (void)setButtons:(NSArray<TBToolbarButton*> *)buttons {
     [_buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _buttons = buttons.copy;
     
     [self addButtons];
 }
 
-- (void)setButtons:(NSArray *)buttons animated:(BOOL)animated {
+- (void)setButtons:(NSArray<TBToolbarButton*> *)buttons animated:(BOOL)animated {
     if (!animated) {
         self.buttons = buttons;
         return;
@@ -139,48 +139,33 @@
     
     NSMutableSet *buttonstoRemove = [NSMutableSet setWithArray:_buttons];
     [buttonstoRemove minusSet:[NSSet setWithArray:buttons]];
+
     NSMutableSet *buttonsToAdd = [NSMutableSet setWithArray:buttons];
     [buttonsToAdd minusSet:[NSSet setWithArray:_buttons]];
-    _buttons = [buttons copy];
-    
-    // Calculate end frames
-    NSUInteger originX = 8;
-    NSMutableArray *buttonFrames = [NSMutableArray arrayWithCapacity:_buttons.count];
-    
-    for (TBToolbarButton *button in _buttons) {
-        button.appearance = self.appearance;
-        
-        CGRect frame = CGRectMake(originX, 0, CGRectGetWidth(button.frame), CGRectGetHeight(button.frame));
-        [buttonFrames addObject:[NSValue valueWithCGRect:frame]];
-        
-        originX += button.bounds.size.width + 8;
+
+    if (!buttonstoRemove.count && !buttonsToAdd.count) {
+        return;
     }
-    
-    CGSize contentSize = _scrollView.contentSize;
-    contentSize.width = originX - 8;
-    if (contentSize.width > _scrollView.contentSize.width) {
-        _scrollView.contentSize = contentSize;
+
+    // New buttons are invisible at first
+    for (TBToolbarButton *button in buttons) {
+        button.alpha = 0;
     }
-    
-    // Make added buttons appear from the right
-    [buttonsToAdd enumerateObjectsUsingBlock:^(TBToolbarButton *button, BOOL *stop) {
-        button.frame = CGRectMake(originX, 0, CGRectGetWidth(button.frame), CGRectGetHeight(button.frame));
-        [_scrollView addSubview:button];
-    }];
-    
-    // Animate
-    [UIView animateWithDuration:0.2 animations:^{
-        [buttonstoRemove enumerateObjectsUsingBlock:^(TBToolbarButton *button, BOOL *stop) {
+
+    [UIView animateWithDuration:0.1 animations:^{
+        // Fade out old buttons
+        for (TBToolbarButton *button in _buttons) {
             button.alpha = 0;
-        }];
-        
-        [_buttons enumerateObjectsUsingBlock:^(TBToolbarButton *button, NSUInteger idx, BOOL *stop) {
-            button.frame = [buttonFrames[idx] CGRectValue];
-        }];
-        
-        _scrollView.contentSize = contentSize;
+        }
     } completion:^(BOOL finished) {
-        [buttonstoRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        // Remove old, add new
+        self.buttons = buttons;
+        [UIView animateWithDuration:0.1 animations:^{
+            // Fade in new buttons
+            for (TBToolbarButton *button in buttons) {
+                button.alpha = 1;
+            }
+        }];
     }];
 }
 
