@@ -104,7 +104,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     const char **imageNames = objc_copyImageNames(&imageCount);
 
     if (imageNames) {
-        NSMutableArray *imageNameStrings = [NSMutableArray upto:imageCount map:^id(NSUInteger i) {
+        NSMutableArray *imageNameStrings = [NSMutableArray tb_upto:imageCount map:^NSString *(NSUInteger i) {
             return @(imageNames[i]);
         }];
 
@@ -119,7 +119,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         }];
 
         // Cache image display names
-        _imageDisplayNames = [imageNameStrings map:^id(NSString *path) {
+        _imageDisplayNames = [imageNameStrings tb_map:^id(NSString *path) {
             return [self shortNameForImageName:path];
         }];
     }
@@ -159,7 +159,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     const char **classNames = objc_copyClassNamesForImage(path.UTF8String, &classCount);
 
     if (classNames) {
-        classNameStrings = [NSMutableArray upto:classCount map:^id(NSUInteger i) {
+        classNameStrings = [NSMutableArray tb_upto:classCount map:^id(NSUInteger i) {
             return @(classNames[i]);
         }];
 
@@ -187,7 +187,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
         }
 
         // No dot syntax because imageDisplayNames is only mutable internally
-        return [_imageDisplayNames map:^id(NSString *binary) {
+        return [_imageDisplayNames tb_map:^id(NSString *binary) {
             NSString *UIName = [self shortNameForImageName:binary];
             return TBWildcardMap(query, UIName, options);
         }];
@@ -206,7 +206,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             return self.imagePaths;
         }
 
-        return [self.imagePaths map:^id(NSString *binary) {
+        return [self.imagePaths tb_map:^id(NSString *binary) {
             NSString *UIName = [self shortNameForImageName:binary];
             return TBWildcardMap_(query, UIName, binary, options);
         }];
@@ -267,7 +267,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
             /// In practice, I don't think this case is ever used with methods
             case TBWildcardOptionsNone: {
                 SEL sel = (SEL)selector.UTF8String;
-                return [classes map:^id(NSString *name) {
+                return [classes tb_map:^id(NSString *name) {
                     Class cls = NSClassFromString(name);
 
                     // Method is absolute
@@ -275,7 +275,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                 }];
             }
             case TBWildcardOptionsAny: {
-                return [classes flatmap:^NSArray *(NSString *name) {
+                return [classes tb_flatmap:^NSArray *(NSString *name) {
                     // Any means `instance` was not specified
                     Class cls = NSClassFromString(name);
                     return [MKMirror allMethodsOf:cls];
@@ -285,9 +285,9 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                 // Only "if contains"
                 if (options & TBWildcardOptionsPrefix &&
                     options & TBWildcardOptionsSuffix) {
-                    return [classes flatmap:^NSArray *(NSString *name) {
+                    return [classes tb_flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
-                        return [[MKMirror allMethodsOf:cls] map:^id(MKMethod *method) {
+                        return [[MKMirror allMethodsOf:cls] tb_map:^id(MKMethod *method) {
 
                             // Method is a prefix-suffix wildcard
                             if (TBContains(method.selectorString, selector)) {
@@ -299,10 +299,10 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                 }
                 // Only "if method ends with with selector"
                 else if (options & TBWildcardOptionsPrefix) {
-                    return [classes flatmap:^NSArray *(NSString *name) {
+                    return [classes tb_flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
 
-                        return [[MKMirror allMethodsOf:cls] map:^id(MKMethod *method) {
+                        return [[MKMirror allMethodsOf:cls] tb_map:^id(MKMethod *method) {
                             // Method is a prefix wildcard
                             if (TBHasSuffix(method.selectorString, selector)) {
                                 return method;
@@ -315,7 +315,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                 else if (options & TBWildcardOptionsSuffix) {
                     assert(checkInstance);
 
-                    return [classes flatmap:^NSArray *(NSString *name) {
+                    return [classes tb_flatmap:^NSArray *(NSString *name) {
                         Class cls = NSClassFromString(name);
 
                         id mapping = ^id(MKMethod *method) {
@@ -332,9 +332,9 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
                         };
 
                         if (instance) {
-                            return [[MKMirror instanceMethodsOf:cls] map:mapping];
+                            return [[MKMirror instanceMethodsOf:cls] tb_map:mapping];
                         } else {
-                            return [[MKMirror classMethodsOf:cls] map:mapping];
+                            return [[MKMirror classMethodsOf:cls] tb_map:mapping];
                         }
                     }];
                 }

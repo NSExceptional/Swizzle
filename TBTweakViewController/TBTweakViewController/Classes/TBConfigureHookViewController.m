@@ -169,7 +169,7 @@
                 // Set up unmodified arguments
                 if (!self.hookedArguments.count) {
                     NSUInteger count = self.hook.method.numberOfArguments;
-                    self.hookedArguments = [NSArray of:[TBValue orig] count:count].mutableCopy;
+                    self.hookedArguments = [NSArray tb_of:[TBValue orig] count:count].mutableCopy;
                 }
             }
         }

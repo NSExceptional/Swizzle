@@ -70,7 +70,7 @@
         NSArray *superclasses = [self superclassesOf:self.bundlesOrClasses[row]];
 
         // Map to UIMenuItems, will delegate call into didSelectKeyPathOption:
-        return [superclasses map:^id(NSString *cls) {
+        return [superclasses tb_map:^id(NSString *cls) {
             NSString *sel = [self.delegate.longPressItemSELPrefix stringByAppendingString:cls];
             return [[UIMenuItem alloc] initWithTitle:cls action:NSSelectorFromString(sel)];
         }];
@@ -167,7 +167,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (_keyPath.methodKey) {
                     _bundlesOrClasses = nil;
-                    _methods = [models map:^id(MKMethod *method) {
+                    _methods = [models tb_map:^id(MKMethod *method) {
                         return [self.delegate shouldIncludeMethodInResults:method] ? method : nil;
                     }];
                 } else {
