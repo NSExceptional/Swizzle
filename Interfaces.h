@@ -8,7 +8,8 @@
 
 #pragma mark Imports
 
-
+#import "TBTweakRootViewController.h"
+#import "SwizzleInit.h"
 
 
 #pragma mark Macros
@@ -30,4 +31,55 @@ otherButtonTitles:nil] show]
 
 #pragma mark Interfaces
 
+typedef NS_ENUM(NSUInteger, FLEXExplorerMode) {
+    FLEXExplorerModeDefault,
+    FLEXExplorerModeSelect,
+    FLEXExplorerModeMove
+};
 
+@interface FLEXToolbarItem : UIButton
++ (instancetype)toolbarItemWithTitle:(NSString *)title image:(UIImage *)image;
+@end
+
+@interface FLEXExplorerToolbar : UIView
+@property FLEXToolbarItem *moveItem;
+@property NSMutableArray<FLEXToolbarItem*> *toolbarItems;
+@end
+
+@interface FLEXExplorerViewController : UIViewController
+@property (readonly) FLEXExplorerMode currentMode;
+@property FLEXExplorerToolbar *explorerToolbar;
+- (void)presentOrDismissViewControllerFromToolbar:(UIViewController *(^)())future
+                                    shouldDismiss:(BOOL)shouldDismiss
+                                       completion:(void(^)())completion;
+@end
+
+@interface FLEXManager : NSObject
++ (instancetype)sharedManager;
+- (void)__toggleSwizzleMenu;
+@property UIWindow *explorerWindow;
+@property FLEXExplorerViewController *explorerViewController;
+@end
+
+@interface FLEXResources : NSObject
+
++ (UIImage *)closeIcon;
++ (UIImage *)dragHandle;
++ (UIImage *)globeIcon;
++ (UIImage *)hierarchyIndentPattern;
++ (UIImage *)listIcon;
++ (UIImage *)moveIcon;
++ (UIImage *)selectIcon;
+
++ (UIImage *)jsonIcon;
++ (UIImage *)textPlainIcon;
++ (UIImage *)htmlIcon;
++ (UIImage *)audioIcon;
++ (UIImage *)jsIcon;
++ (UIImage *)plistIcon;
++ (UIImage *)textIcon;
++ (UIImage *)videoIcon;
++ (UIImage *)xmlIcon;
++ (UIImage *)binaryIcon;
+
+@end
