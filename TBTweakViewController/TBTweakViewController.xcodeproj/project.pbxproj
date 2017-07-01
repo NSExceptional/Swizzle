@@ -86,7 +86,7 @@
 		C3C3845E1E70795C00B1BC55 /* TBMethodHook+IMP.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C3845D1E70795C00B1BC55 /* TBMethodHook+IMP.m */; };
 		C3C384611E7079D000B1BC55 /* TBMethodHook+Limitations.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384601E7079D000B1BC55 /* TBMethodHook+Limitations.m */; };
 		C3C384691E70817900B1BC55 /* TBTrampolineLanding.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384641E70817900B1BC55 /* TBTrampolineLanding.m */; };
-		C3C3846A1E70817900B1BC55 /* TBTrampoline.s in Sources */ = {isa = PBXBuildFile; fileRef = C3C384661E70817900B1BC55 /* TBTrampoline.s */; };
+		C3C3846A1E70817900B1BC55 /* TBTrampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = C3C384661E70817900B1BC55 /* TBTrampoline.S */; };
 		C3C384701E70823000B1BC55 /* TBMethodStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C3846F1E70823000B1BC55 /* TBMethodStore.m */; };
 		C3C384761E70B3D400B1BC55 /* TBValueTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C384751E70B3D400B1BC55 /* TBValueTypes.m */; };
 		C3E530F41E808680001D33E1 /* UIFont+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E530F31E808680001D33E1 /* UIFont+Swizzle.m */; };
@@ -284,7 +284,7 @@
 		C3C384631E70817900B1BC55 /* TBTrampolineLanding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTrampolineLanding.h; sourceTree = "<group>"; };
 		C3C384641E70817900B1BC55 /* TBTrampolineLanding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTrampolineLanding.m; sourceTree = "<group>"; };
 		C3C384651E70817900B1BC55 /* TBTrampoline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTrampoline.h; sourceTree = "<group>"; };
-		C3C384661E70817900B1BC55 /* TBTrampoline.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = TBTrampoline.s; sourceTree = "<group>"; };
+		C3C384661E70817900B1BC55 /* TBTrampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = TBTrampoline.S; sourceTree = "<group>"; };
 		C3C3846E1E70823000B1BC55 /* TBMethodStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMethodStore.h; sourceTree = "<group>"; };
 		C3C3846F1E70823000B1BC55 /* TBMethodStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMethodStore.m; sourceTree = "<group>"; };
 		C3C384741E70B39D00B1BC55 /* TBValueTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBValueTypes.h; sourceTree = "<group>"; };
@@ -639,7 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				C3C384651E70817900B1BC55 /* TBTrampoline.h */,
-				C3C384661E70817900B1BC55 /* TBTrampoline.s */,
+				C3C384661E70817900B1BC55 /* TBTrampoline.S */,
 				C3C384631E70817900B1BC55 /* TBTrampolineLanding.h */,
 				C3C384641E70817900B1BC55 /* TBTrampolineLanding.m */,
 				C3C3846E1E70823000B1BC55 /* TBMethodStore.h */,
@@ -973,7 +973,7 @@
 				B4B9C7F81D70D3410025E1FB /* TBDateCell.m in Sources */,
 				B4B9C7FB1D70D4340025E1FB /* TBBaseValueCell.m in Sources */,
 				B4B9C7E61D70D0EA0025E1FB /* TBChirpCell.m in Sources */,
-				C3C3846A1E70817900B1BC55 /* TBTrampoline.s in Sources */,
+				C3C3846A1E70817900B1BC55 /* TBTrampoline.S in Sources */,
 				C32F51271EEF2D0900B8632A /* TBKeyboardToolbar.m in Sources */,
 				C3BB84B91E8EEA4B00EE457A /* TBCollectionViewController.m in Sources */,
 				C3BB84B31E8EDA1F00EE457A /* TBObjectCreationViewController.m in Sources */,
@@ -1124,6 +1124,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F220448A0847475F5C8C4DF2 /* Pods-TBTweakViewController.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
@@ -1139,6 +1140,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E88550082165D15F0205EB4 /* Pods-TBTweakViewController.release.xcconfig */;
 			buildSettings = {
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S6N2F22V2Z;
