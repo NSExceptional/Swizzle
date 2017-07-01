@@ -16,19 +16,22 @@
 #pragma mark Initialization
 
 static NSCharacterSet *firstAllowed      = nil;
-static NSCharacterSet *allowed           = nil;
+static NSCharacterSet *identifierAllowed = nil;
+static NSCharacterSet *filenameAllowed   = nil;
 static NSCharacterSet *keyPathDisallowed = nil;
 static NSCharacterSet *methodAllowed     = nil;
 + (void)initialize {
     if (self == [self class]) {
-        NSString *_firstAllowed  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$";
-        NSString *_bothAllowed   = [_firstAllowed stringByAppendingString:@"1234567890"];
-        NSString *_methodAllowed = [_bothAllowed stringByAppendingString:@":"];
-        firstAllowed  = [NSCharacterSet characterSetWithCharactersInString:_firstAllowed];
-        allowed       = [NSCharacterSet characterSetWithCharactersInString:_bothAllowed];
-        methodAllowed = [NSCharacterSet characterSetWithCharactersInString:_methodAllowed];
+        NSString *_methodFirstAllowed    = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$";
+        NSString *_identifierAllowed     = [_methodFirstAllowed stringByAppendingString:@"1234567890"];
+        NSString *_methodAllowedSansType = [_identifierAllowed stringByAppendingString:@":"];
+        NSString *_filenameNameAllowed   = [_identifierAllowed stringByAppendingString:@"-+?!"];
+        firstAllowed      = [NSCharacterSet characterSetWithCharactersInString:_methodFirstAllowed];
+        identifierAllowed = [NSCharacterSet characterSetWithCharactersInString:_identifierAllowed];
+        filenameAllowed   = [NSCharacterSet characterSetWithCharactersInString:_filenameNameAllowed];
+        methodAllowed     = [NSCharacterSet characterSetWithCharactersInString:_methodAllowedSansType];
 
-        NSString *_kpDisallowed = [_bothAllowed stringByAppendingString:@"-+:\\.*"];
+        NSString *_kpDisallowed = [_identifierAllowed stringByAppendingString:@"-+:\\.*"];
         keyPathDisallowed = [NSCharacterSet characterSetWithCharactersInString:_kpDisallowed].invertedSet;
     }
 }
@@ -51,8 +54,8 @@ static NSCharacterSet *methodAllowed     = nil;
 
     NSNumber *instance = nil;
     NSScanner *scanner = [NSScanner scannerWithString:userInput];
-    TBToken *bundle    = [self scanToken:scanner allowed:allowed first:allowed];
-    TBToken *cls       = [self scanToken:scanner allowed:allowed first:firstAllowed];
+    TBToken *bundle    = [self scanToken:scanner allowed:filenameAllowed first:filenameAllowed];
+    TBToken *cls       = [self scanToken:scanner allowed:identifierAllowed first:firstAllowed];
     TBToken *method    = tokens > 2 ? [self scanMethodToken:scanner instance:&instance] : nil;
 
     return [TBKeyPath bundle:bundle
