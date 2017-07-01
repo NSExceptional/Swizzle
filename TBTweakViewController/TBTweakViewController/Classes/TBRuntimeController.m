@@ -92,12 +92,12 @@ static TBRuntimeController *controller = nil;
     BOOL shouldCache = token == TBWildcardOptionsNone;
 
     if (shouldCache) {
-        NSMutableArray *cached = [self.bundlePathsCache objectForKey:token];
+        NSMutableArray<NSString*> *cached = [self.bundlePathsCache objectForKey:token];
         if (cached) {
             return cached;
         }
 
-        NSMutableArray *bundles = [[TBRuntime runtime] bundlePathsForToken:token];
+        NSMutableArray<NSString*> *bundles = [[TBRuntime runtime] bundlePathsForToken:token];
         [self.bundlePathsCache setObject:bundles forKey:token];
         return bundles;
     }
@@ -106,17 +106,17 @@ static TBRuntimeController *controller = nil;
     }
 }
 
-- (NSMutableArray *)bundleNamesForToken:(TBToken *)token {
+- (NSMutableArray<NSString*> *)bundleNamesForToken:(TBToken *)token {
     // Only cache if no wildcard
     BOOL shouldCache = token == TBWildcardOptionsNone;
 
     if (shouldCache) {
-        NSMutableArray *cached = [self.bundleNamesCache objectForKey:token];
+        NSMutableArray<NSString*> *cached = [self.bundleNamesCache objectForKey:token];
         if (cached) {
             return cached;
         }
 
-        NSMutableArray *bundles = [[TBRuntime runtime] bundleNamesForToken:token];
+        NSMutableArray<NSString*> *bundles = [[TBRuntime runtime] bundleNamesForToken:token];
         [self.bundleNamesCache setObject:bundles forKey:token];
         return bundles;
     }
@@ -125,21 +125,21 @@ static TBRuntimeController *controller = nil;
     }
 }
 
-- (NSMutableArray *)classesForClassToken:(TBToken *)clsToken andBundleToken:(TBToken *)bundleToken {
+- (NSMutableArray<NSString*> *)classesForClassToken:(TBToken *)clsToken andBundleToken:(TBToken *)bundleToken {
     // Only cache if no wildcard
     BOOL shouldCache = bundleToken.options == 0 && clsToken.options == 0;
     NSString *key = nil;
 
     if (shouldCache) {
         key = [@[bundleToken.description, clsToken.description] componentsJoinedByString:@"+"];
-        NSMutableArray *cached = [self.classNamesCache objectForKey:key];
+        NSMutableArray<NSString*> *cached = [self.classNamesCache objectForKey:key];
         if (cached) {
             return cached;
         }
     }
 
-    NSMutableArray *bundles = [self bundlePathsForToken:bundleToken];
-    NSMutableArray *classes = [[TBRuntime runtime] classesForToken:clsToken inBundles:bundles];
+    NSMutableArray<NSString*> *bundles = [self bundlePathsForToken:bundleToken];
+    NSMutableArray<NSString*> *classes = [[TBRuntime runtime] classesForToken:clsToken inBundles:bundles];
 
     if (shouldCache) {
         [self.classNamesCache setObject:classes forKey:key];
@@ -148,17 +148,17 @@ static TBRuntimeController *controller = nil;
     return classes;
 }
 
-- (NSMutableArray *)methodsForKeyPath:(TBKeyPath *)keyPath {
+- (NSMutableArray<MKMethod*> *)methodsForKeyPath:(TBKeyPath *)keyPath {
     // Only cache if no wildcard, but check cache anyway bc I'm lazy
-    NSMutableArray *cached = [self.methodsCache objectForKey:keyPath];
+    NSMutableArray<MKMethod*> *cached = [self.methodsCache objectForKey:keyPath];
     if (cached) {
         return cached;
     }
 
-    NSMutableArray *classes = [self classesForClassToken:keyPath.classKey andBundleToken:keyPath.bundleKey];
-    NSMutableArray *methods = [[TBRuntime runtime] methodsForToken:keyPath.methodKey
-                                                          instance:keyPath.instanceMethods
-                                                          inClasses:classes];
+    NSMutableArray<NSString*> *classes = [self classesForClassToken:keyPath.classKey andBundleToken:keyPath.bundleKey];
+    NSMutableArray<MKMethod*> *methods = [[TBRuntime runtime] methodsForToken:keyPath.methodKey
+                                                                     instance:keyPath.instanceMethods
+                                                                    inClasses:classes];
 
     [methods sortUsingComparator:^NSComparisonResult(MKMethod *m1, MKMethod *m2) {
         return [m1.fullName caseInsensitiveCompare:m2.fullName];

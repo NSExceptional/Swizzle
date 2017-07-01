@@ -21,6 +21,6 @@
 
 + (NSString *)shortBundleNameForClass:(NSString *)name;
 
-+ (NSArray *)allBundleNames;
++ (NSArray<NSString*> *)allBundleNames;
 
 @end

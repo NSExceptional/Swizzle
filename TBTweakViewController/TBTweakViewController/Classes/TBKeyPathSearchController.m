@@ -67,7 +67,7 @@
 
 - (NSArray *)menuItemsForRow:(NSUInteger)row {
     if (!self.keyPath.methodKey && self.keyPath.classKey) {
-        NSArray *superclasses = [self superclassesOf:self.bundlesOrClasses[row]];
+        NSArray<NSString*> *superclasses = [self superclassesOf:self.bundlesOrClasses[row]];
 
         // Map to UIMenuItems, will delegate call into didSelectKeyPathOption:
         return [superclasses tb_map:^id(NSString *cls) {

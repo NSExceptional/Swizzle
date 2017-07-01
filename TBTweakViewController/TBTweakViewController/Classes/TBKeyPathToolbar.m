@@ -26,8 +26,6 @@
 }
 
 + (NSArray<TBToolbarButton*> *)buttonsForKeyPath:(TBKeyPath *)keyPath handler:(TBToolbarAction)handler {
-    NSParameterAssert(keyPath);
-
     NSMutableArray *buttons = [NSMutableArray array];
     TBToken *lastKey = nil;
     BOOL lastKeyIsMethod = NO;
@@ -41,9 +39,6 @@
 
     switch (lastKey.options) {
         case TBWildcardOptionsNone:
-            @throw NSInternalInconsistencyException;
-            break;
-
         case TBWildcardOptionsAny:
             if (lastKeyIsMethod) {
                 if (!keyPath.instanceMethods) {
@@ -56,7 +51,6 @@
                 [buttons addObject:[TBToolbarButton buttonWithTitle:@"*" action:handler]];
                 [buttons addObject:[TBToolbarButton buttonWithTitle:@"." action:handler]];
             }
-
             break;
 
         case TBWildcardOptionsPrefix:
