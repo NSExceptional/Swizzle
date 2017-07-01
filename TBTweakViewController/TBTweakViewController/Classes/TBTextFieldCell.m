@@ -7,7 +7,7 @@
 //
 
 #import "TBTextFieldCell.h"
-#import "Masonry.h"
+#import "Masonry/Masonry.h"
 
 
 @implementation TBTextFieldCell

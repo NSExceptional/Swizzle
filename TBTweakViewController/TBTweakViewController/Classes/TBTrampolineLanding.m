@@ -8,11 +8,11 @@
 
 #import "TBTrampolineLanding.h"
 #import "TBTrampoline.h"
-#import "MirrorKit.h"
+#import "MirrorKit/MirrorKit.h"
 #import "TBMethodHook.h"
 #import "TBValue+ValueHelpers.h"
 #import "TBMethodStore.h"
-@import ObjectiveC;
+#import <objc/runtime.h>
 
 
 #pragma mark Macros
@@ -52,7 +52,7 @@ void TBTrampolineLanding(id obj, SEL sel, CallState callState) {
     assert(argc > 2); assert(hookedArgs.count == argc);
 
 
-    // Register allocation pointers, source/destination pointers
+    // Register allocation pointers/counters, source/destination pointers
     byte       NFRN = FPRegisters == NULL ? 8 : 0;
     byte       NGRN = kArgRegStart;
     NSUInteger NSAA = 0;

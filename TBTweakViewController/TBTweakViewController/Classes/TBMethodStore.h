@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@import ObjectiveC;
+#import <objc/runtime.h>
 
 @class TBMethodHook;
 
@@ -18,6 +18,10 @@ typedef struct _TBMethodStore {
     /// Full type encodings to in-memory layouts, for HFA checking
     __unsafe_unretained NSMutableDictionary<NSString*, NSString*> *typeEncodings;
 } TBMethodStore;
+
+#if defined __cplusplus
+extern "C" {
+#endif
 
 /// Singleton instance
 extern TBMethodStore methodStore;
@@ -32,3 +36,7 @@ static inline TBMethodHook * TBMethodStoreGet(IMP method) {
 
 void TBMethodStorePut(IMP key, TBMethodHook *value);
 void TBMethodStoreRemove(IMP key);
+
+#if defined __cplusplus
+};
+#endif 

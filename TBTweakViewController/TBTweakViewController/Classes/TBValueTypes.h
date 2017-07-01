@@ -9,7 +9,7 @@
 #import <UIKit/UIGeometry.h>
 #import <QuartzCore/QuartzCore.h>
 #import <CoreMedia/CoreMedia.h>
-#import "MirrorKit-Constants.h"
+#import "MirrorKit/MirrorKit-Constants.h"
 
 @class TBValue, EnumSet;
 

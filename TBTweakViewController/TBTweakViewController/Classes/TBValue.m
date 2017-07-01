@@ -8,7 +8,8 @@
 
 #import "TBValue.h"
 #import <UIKit/UIColor.h>
-#import "MirrorKit-Constants.h"
+#import "MirrorKit/MirrorKit-Constants.h"
+#import "EnumSet.h"
 
 
 @implementation TBValue

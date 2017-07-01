@@ -8,7 +8,7 @@
 
 #import "TBRuntimeController.h"
 #import "TBRuntime.h"
-#import "MKMethod.h"
+#import "MirrorKit/MKMethod.h"
 
 
 @interface TBRuntimeController ()

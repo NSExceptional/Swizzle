@@ -10,7 +10,7 @@
 #import "TBKeyPathViewController.h"
 #import "TBConfigureHookViewController.h"
 #import "Categories.h"
-#import "TBAlertController.h"
+#import "TBAlertController/TBAlertController.h"
 
 #import "TBTweakManager.h"
 #import "TBTweakHookCell.h"

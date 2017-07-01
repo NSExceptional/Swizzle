@@ -9,7 +9,7 @@
 #import "TBTextViewCell.h"
 #import "TBTextEditorView.h"
 #import "UITableView+TextViewResizing.h"
-#import "Masonry.h"
+#import "Masonry/Masonry.h"
 
 
 @implementation TBTextViewCell

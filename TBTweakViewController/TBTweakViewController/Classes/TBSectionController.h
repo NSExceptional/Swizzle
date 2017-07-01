@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tanner Bennett. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 @class TBValue, TBTableViewCell, TBSectionController;
 
 

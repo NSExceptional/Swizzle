@@ -10,7 +10,7 @@
 #import "TBHookListViewController.h"
 #import "TBSwitchCell.h"
 #import "NSMapTable+Subscripting.h"
-#import "TBAlertController.h"
+#import "TBAlertController/TBAlertController.h"
 #import "UITableView+Convenience.h"
 
 

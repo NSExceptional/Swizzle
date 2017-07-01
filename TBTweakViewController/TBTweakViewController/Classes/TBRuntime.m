@@ -8,8 +8,10 @@
 
 #import "TBRuntime.h"
 #import "Categories.h"
-#import "MKMirror+Reflection.h"
-#import "MKMethod.h"
+#import "MirrorKit/MKMirror+Reflection.h"
+#import "MirrorKit/MKMethod.h"
+#import "MirrorKit/MKRuntimeSafety.h"
+
 
 #define TBEquals(a, b) ([a compare:b options:NSCaseInsensitiveSearch] == NSOrderedSame)
 #define TBContains(a, b) ([a rangeOfString:b options:NSCaseInsensitiveSearch].location != NSNotFound)

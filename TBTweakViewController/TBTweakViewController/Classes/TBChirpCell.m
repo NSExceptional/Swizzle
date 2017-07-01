@@ -8,7 +8,7 @@
 
 #import "TBChirpCell.h"
 #import "Categories.h"
-#import "Masonry.h"
+#import "Masonry/Masonry.h"
 
 
 @implementation TBChirpCell

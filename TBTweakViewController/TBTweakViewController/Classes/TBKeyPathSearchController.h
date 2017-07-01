@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKMethod.h"
+#import "MirrorKit/MKMethod.h"
 
 
 @protocol TBKeyPathSearchControllerDelegate <NSObject>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TBValue.h"
-#import "MirrorKit-Constants.h"
+#import "MirrorKit/MirrorKit-Constants.h"
 
 
 @interface TBTypePickerViewController : UITableViewController

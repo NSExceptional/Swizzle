@@ -7,7 +7,7 @@
 //
 
 #import "TBTextFieldCell.h"
-#import "MirrorKit-Constants.h"
+#import "MirrorKit/MirrorKit-Constants.h"
 
 
 @interface TBNumberCell : TBTextFieldCell
