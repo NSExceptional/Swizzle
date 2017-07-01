@@ -98,7 +98,7 @@
     return nil;
 }
 
-- (void)setDoublefloat:(NSNumber *)newValue {
+- (void)setDoubleFloat:(NSNumber *)newValue {
     _container = [TBValue value:newValue type:TBValueTypeDouble];
 }
 

@@ -92,6 +92,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     if (self) {
         _imagePaths = [NSMutableArray array];
         _bundles_pathToShort = [NSMutableDictionary dictionary];
+        _bundles_pathToClassNames = [NSCache new];
     }
 
     return self;

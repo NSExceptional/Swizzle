@@ -162,7 +162,7 @@
         default: {
             if (hookType & TBHookTypeReturnValue) {
                 if (!self.hookedReturnValue) {
-                    self.hookedReturnValue = [TBValue orig];
+                    self.hookedReturnValue = [TBValue defaultValueForTypeMKTypeEncoding:self.hook.method.returnType];
                 }
             }
             if (hookType & TBHookTypeArguments) {

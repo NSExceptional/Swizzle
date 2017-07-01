@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TBMethodStore.h"
+#import "TBTweakManager.h"
 
 /// Must be called on the main thread before using any part of Swizzle
 static inline void SwizzleInit() {
@@ -15,4 +16,5 @@ static inline void SwizzleInit() {
 
     TBMethodStoreInit();
     [NSClassFromString(@"_UICompatibilityTextView") new];
+    [TBTweakManager sharedManager];
 }
