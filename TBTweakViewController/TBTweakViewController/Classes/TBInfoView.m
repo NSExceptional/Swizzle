@@ -11,14 +11,14 @@
 
 
 @interface TBInfoView ()
-@property (nonatomic, readonly) UILabel *label;
+@property (nonatomic, readonly) UILabel *infoLabel;
 @end
 
 @implementation TBInfoView
 
 + (instancetype)text:(NSString *)text {
     TBInfoView *view = [self new];
-    view.label.text  = text;
+    view.infoLabel.text = text;
     return view;
 }
 
@@ -31,25 +31,21 @@
     return self;
 }
 
-- (id)init {
-    return [self initWithFrame:CGRectZero];
-}
-
 - (void)configure {
-    _label = [[UILabel alloc] initWithFrame:CGRectZero];
+    _infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _hairline = [[UIView alloc] initWithFrame:CGRectZero];
 
-    self.label.numberOfLines = 0;
-    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.infoLabel.numberOfLines = 0;
+    self.infoLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 //    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
 
     self.backgroundColor = [UIColor colorWithWhite:0.937 alpha:1.000];
 //    self.backgroundColor = [UIColor colorWithRed:0.937 green:0.937 blue:0.957 alpha:1.000];
-    self.label.textColor = [UIColor blackColor];
+    self.infoLabel.textColor = [UIColor blackColor];
 //    self.label.textColor = [UIColor colorWithRed:0.427 green:0.427 blue:0.447 alpha:1.000];
     self.hairline.backgroundColor = [UIColor colorWithWhite:0.698 alpha:1.000];
 
-    [self addSubview:self.label];
+    [self addSubview:self.infoLabel];
     [self addSubview:self.hairline];
 }
 
@@ -58,7 +54,7 @@
 }
 
 - (void)updateConstraints {
-    [self.label mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.infoLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).insets(UIEdgeInsetsMake(10, 15, 10, 15));
 //        make.edges.equalTo(self).insets(UIEdgeInsetsMake(15, 15, 15, 15));
     }];
