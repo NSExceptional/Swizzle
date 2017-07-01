@@ -119,38 +119,20 @@ _TBTrampolineEnd:
     nop
 
 
-#elif __arm__
+#elif !__arm__
 _TBTrampolineFP:
-movt	r12, #0xdead
-movw	r12, #0xbeef
-movt	r9,  #0xdead
-movw	r9,  #0xbeef
-b       _TBTrampoline
-
-_TBTrampoline:
-    // Prologue
-    push    {r7, lr}
-    mov     r7, sp                  // Frame pointer
-
-    // Save argument registers
-    push    {r3, r2, r1, r0}
-
-    // exit(1), no armv7 support at the moment
-    mov     x0, #1
-    b       _exit
-
-    // Epilogue
-    mov     sp, r7
-    pop     {r7, lr}
-
-    // Jump back to Objc land
-    b       _TBTrampolineLanding
-
-#else
-_TBTrampolineFP:
-    xorl	%edi, %edi
+    xorl    %edi, %edi
     callq   _exit
 _TBTrampoline:
-    xorl	%edi, %edi
+    xorl    %edi, %edi
     callq   _exit
+
+_originalIMP:
+    nop
+    nop
+_landingIMP:
+    nop
+    nop
+_TBTrampolineEnd:
+    nop
 #endif
