@@ -133,6 +133,11 @@
     return [self value:TBDefaultValueForStruct(encoding) structType:TBStructTypeFromTypeEncoding(encoding)];
 }
 
++ (instancetype)defaultValueForTypeMKTypeEncoding:(char)encoding {
+    EnumSet *allowed = TBAllowedTypesForEncoding(encoding);
+    return [self defaultForValueType:allowed.first];
+}
+
 + (instancetype)defaultValueForTypeEncoding:(const char *)encoding {
     TBValueType type = TBValueTypeFromTypeEncoding(encoding);
     if (type == TBValueTypeStruct) {

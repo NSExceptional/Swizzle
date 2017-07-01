@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)defaultForAgumentAtIndex:(NSUInteger)idx ofMethodWith:(NSMethodSignature *)signature;
 
++ (instancetype)defaultValueForTypeMKTypeEncoding:(char)encoding;
 + (instancetype)defaultValueForTypeEncoding:(const char *)encoding;
 
 /// Only `NO` if you use +new or +orig to initialize
