@@ -53,24 +53,27 @@
             }
             break;
 
-        case TBWildcardOptionsPrefix:
-            if (lastKeyIsMethod) {
-                if (lastKey.string.length) {
-                    [buttons addObject:[TBToolbarButton buttonWithTitle:@"*" action:handler]];
+        default: {
+            if (lastKey.options & TBWildcardOptionsPrefix) {
+                if (lastKeyIsMethod) {
+                    if (lastKey.string.length) {
+                        [buttons addObject:[TBToolbarButton buttonWithTitle:@"*" action:handler]];
+                    }
+                } else {
+                    if (lastKey.string.length) {
+                        [buttons addObject:[TBToolbarButton buttonWithTitle:@"*." action:handler]];
+                    }
+                    [buttons addObject:[TBToolbarButton buttonWithTitle:@"." action:handler]];
                 }
-            } else {
-                if (lastKey.string.length) {
-                    [buttons addObject:[TBToolbarButton buttonWithTitle:@"*." action:handler]];
-                }
-                [buttons addObject:[TBToolbarButton buttonWithTitle:@"." action:handler]];
             }
-            break;
 
-        case TBWildcardOptionsSuffix:
-            if (!lastKeyIsMethod) {
-                [buttons addObject:[TBToolbarButton buttonWithTitle:@"." action:handler]];
+            else if (lastKey.options & TBWildcardOptionsSuffix) {
+                if (!lastKeyIsMethod) {
+                    [buttons addObject:[TBToolbarButton buttonWithTitle:@"*." action:handler]];
+                    [buttons addObject:[TBToolbarButton buttonWithTitle:@"." action:handler]];
+                }
             }
-            break;
+        }
     }
 
     return buttons;

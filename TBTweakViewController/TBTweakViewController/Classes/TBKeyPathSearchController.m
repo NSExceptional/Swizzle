@@ -40,6 +40,10 @@
     TBKeyPathSearchController *controller = [self new];
     controller->_bundlesOrClasses = [TBRuntimeController allBundleNames];
     controller->_delegate         = delegate;
+
+    NSParameterAssert(delegate.tableView);
+    NSParameterAssert(delegate.searchBar);
+
     delegate.tableView.delegate   = controller;
     delegate.tableView.dataSource = controller;
     delegate.searchBar.delegate   = controller;
@@ -148,6 +152,14 @@
     self.methods          = nil;
 }
 
+- (void)didPressButton:(NSString *)text insertInto:(UISearchBar *)searchBar {
+    UITextField *field = [searchBar valueForKey:@"_searchField"];
+
+    if ([self searchBar:searchBar shouldChangeTextInRange:field.selectedRange replacementText:text]) {
+        [field replaceRange:field.selectedTextRange withText:text];
+    }
+}
+
 #pragma mark - Filtering + UISearchBarDelegate
 
 - (void)updateTable {
@@ -200,6 +212,9 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [_timer invalidate];
+
+    // Update toolbar buttons
+    [self.toolbar setKeyPath:self.keyPath animated:YES];
 
     // Schedule update timer
     if (searchText.length) {

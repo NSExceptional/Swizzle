@@ -9,6 +9,7 @@
 #import "TBKeyPathViewController.h"
 #import "TBKeyPathSearchController.h"
 #import "TBConfigureHookViewController.h"
+#import "TBKeyPathToolbar.h"
 #import "TBCodeFontCell.h"
 #import "Categories.h"
 #import "Masonry/Masonry.h"
@@ -43,6 +44,8 @@
     self.searchBar = [UISearchBar new];
     self.view = self.tableView;
     [self.searchBar sizeToFit];
+
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 - (void)viewDidLoad {
@@ -50,11 +53,16 @@
 
     self.title = @"Choose Hook";
 
+    // Search controller stuff
+    _searchController = [TBKeyPathSearchController delegate:self];
+    _searchController.toolbar = [TBKeyPathToolbar toolbarWithHandler:^(NSString *buttonTitle) {
+        [self.searchController didPressButton:buttonTitle insertInto:self.searchBar];
+    }];
+
     // Search bar stuff
-    _searchController          = [TBKeyPathSearchController delegate:self];
     self.searchBar.delegate    = self.searchController;
     self.searchBar.placeholder = @"UIKit*.UIView.-setFrame:";
-    self.tableView.tableHeaderView = self.searchBar;
+    self.searchBar.inputAccessoryView = self.searchController.toolbar;
 
     // Cancel button
     id cancel = [UIBarButtonItem item:UIBBItemCancel target:self.navigationController action:@selector(dismissAnimated)];

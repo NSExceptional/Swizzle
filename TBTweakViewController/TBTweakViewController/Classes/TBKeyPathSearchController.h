@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBKeyPathToolbar.h"
 #import "MirrorKit/MKMethod.h"
 
 
@@ -19,14 +20,18 @@
 
 - (void)didSelectMethod:(MKMethod *)method;
 - (BOOL)shouldIncludeMethodInResults:(MKMethod *)method;
+
 @end
 
 @interface TBKeyPathSearchController : NSObject <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 + (instancetype)delegate:(id<TBKeyPathSearchControllerDelegate>)delegate;
 
+@property (nonatomic) TBKeyPathToolbar *toolbar;
+
 - (void)longPressedRect:(CGRect)rect at:(NSIndexPath *)indexPath;
 - (void)didSelectKeyPathOption:(NSString *)text;
 - (void)didSelectSuperclass:(NSString *)name;
+- (void)didPressButton:(NSString *)text insertInto:(UISearchBar *)searchBar;
 
 @end
