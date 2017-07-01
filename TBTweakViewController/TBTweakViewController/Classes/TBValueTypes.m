@@ -324,6 +324,12 @@ EnumSet * TBAllowedTypesForEncoding(MKTypeEncoding encoding) {
         case MKTypeEncodingUnknown: {
             break;
         }
+        case MKTypeEncodingFloat:
+        case MKTypeEncodingDouble: {
+            [allowed addIndex:TBValueTypeFloat];
+            [allowed addIndex:TBValueTypeDouble];
+            // Explicit fallthrough
+        }
         case MKTypeEncodingChar:
         case MKTypeEncodingInt:
         case MKTypeEncodingShort:
@@ -335,12 +341,8 @@ EnumSet * TBAllowedTypesForEncoding(MKTypeEncoding encoding) {
         case MKTypeEncodingUnsignedLong:
         case MKTypeEncodingUnsignedLongLong:
         case MKTypeEncodingPointer:
-        case MKTypeEncodingFloat:
-        case MKTypeEncodingDouble:
         case MKTypeEncodingCBool: {
             [allowed addIndex:TBValueTypeInteger];
-            [allowed addIndex:TBValueTypeFloat];
-            [allowed addIndex:TBValueTypeDouble];
             break;
         }
         case MKTypeEncodingVoid: {
