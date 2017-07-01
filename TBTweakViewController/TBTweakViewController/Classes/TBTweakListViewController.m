@@ -42,11 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Done button
-    UITabBarController *tabBarController = self.navigationController.tabBarController;
-    id done = [UIBarButtonItem item:UIBBItemDone target:tabBarController action:@selector(dismissAnimated)];
-    self.navigationItem.leftBarButtonItem  = done;
 
     // Table view stuff
     self.tableView.rowHeight = UITableViewAutomaticDimension;

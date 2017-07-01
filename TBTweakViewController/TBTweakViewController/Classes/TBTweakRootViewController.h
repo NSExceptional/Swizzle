@@ -13,4 +13,6 @@
 /// Local tweaks, system tweaks, and settings.
 @interface TBTweakRootViewController : UITabBarController
 
++ (instancetype)dismissAction:(void(^)())dismissAction;
+
 @end
