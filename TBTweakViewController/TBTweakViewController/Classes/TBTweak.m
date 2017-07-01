@@ -12,24 +12,14 @@
 #import "TBSettings.h"
 
 
-NSString * const kLoadTweaksAtLaunch = @"TBTweaksLoadTweaksAtLaunch";
-
-
 @interface TBTweak () {
     NSMutableArray<TBMethodHook*> *_hooks;
 }
-@property (nonatomic, readonly) BOOL loadTweaksAtLaunch;
 @end
 
 @implementation TBTweak
 
 #pragma mark Initialization
-
-+ (void)initialize {
-    if (self == [self class]) {
-        [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLoadTweaksAtLaunch: @YES}];
-    }
-}
 
 + (instancetype)tweakWithTitle:(NSString *)title {
     return [[self alloc] initWithTitle:title hooks:@[]];

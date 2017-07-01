@@ -8,8 +8,16 @@
 
 #import "TBSettings.h"
 
+#define DEFAULTS [NSUserDefaults standardUserDefaults]
+NSString * const kLoadTweaksAtLaunch = @"com.pantsthief.swizzle.LoadTweaksAtLaunch";
 
 @implementation TBSettings
+
++ (void)initialize {
+    if (self == [self class]) {
+        [DEFAULTS registerDefaults:@{kLoadTweaksAtLaunch: @YES}];
+    }
+}
 
 static BOOL _expertMode = NO;
 + (BOOL)expertMode {
@@ -21,7 +29,7 @@ static BOOL _expertMode = NO;
 }
 
 + (BOOL)loadTweaksAtLaunch {
-    return YES;
+    return [DEFAULTS boolForKey:kLoadTweaksAtLaunch];
 }
 
 @end
