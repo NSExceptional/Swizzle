@@ -45,20 +45,22 @@
 }
 
 + (NSString *)localSaveLocation {
-    static NSString *sharedLocation = nil;
+    static NSString *localLocation = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedLocation = [NSLibraryDirectory() stringByAppendingPathComponent:@"TBLocalTweaks.plist"];
+        NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
+        NSString *filename = [NSString stringWithFormat:@"%@.SwizzleTweaks.plist", bundleID];
+        localLocation = [NSLibraryDirectory() stringByAppendingPathComponent:filename];
     });
     
-    return sharedLocation;
+    return localLocation;
 }
 
 + (NSString *)sharedSaveLocation {
     static NSString *sharedLocation = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedLocation = nil;
+        sharedLocation = [NSLibraryDirectory() stringByAppendingPathComponent:@"global.SwizzleTweaks.plist"];
     });
     
     return sharedLocation;
@@ -154,6 +156,11 @@
 
 #pragma mark Public interface
 
+- (void)rootViewDidDismiss {
+    _appTweaksTableViewController = nil;
+    _systemTweaksTableViewController = nil;
+}
+
 - (void)setAppTweaksTableViewController:(UITableViewController *)appTweaksTableViewController {
     assert(!_appTweaksTableViewController);
     _appTweaksTableViewController = appTweaksTableViewController;
@@ -239,6 +246,14 @@
     // Actually toggles the tweak
     UISwitch *switchh = cell.switchh;
     cell.switchToggleAction = ^(BOOL enabled) {
+        void (^saveTweaks)() = ^{
+            if (tableView == self.appTweaksTableViewController.tableView) {
+                [self saveAppTweaks];
+            } else {
+                [self saveSystemTweaks];
+            }
+        };
+
         if (enabled) {
             [tweak tryEnable:^(NSError *error) {
                 [switchh setOn:NO animated:YES];
@@ -248,8 +263,14 @@
                 TBAlertController *alert = [TBAlertController simpleOKAlertWithTitle:title message:message];
                 [alert showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
             }];
+
+            // Save tweak enabled state after toggling
+            if (tweak.enabled) {
+                saveTweaks();
+            }
         } else {
             [tweak disable];
+            saveTweaks();
         }
     };
     

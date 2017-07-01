@@ -26,6 +26,7 @@
 
 - (void)saveAppTweaks;
 - (void)saveSystemTweaks;
+- (void)rootViewDidDismiss;
 
 @property (nonatomic) BOOL appTweakDelta;
 @property (nonatomic) BOOL systemTweakDelta;
