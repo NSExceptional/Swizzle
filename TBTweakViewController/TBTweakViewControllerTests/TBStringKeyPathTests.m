@@ -22,6 +22,7 @@
                        @[@"Bundle.cla", @"class", @"Bundle.class."],
                        @[@"Bundle.*ass", @"class", @"Bundle.class."],
                        @[@"UIKit\\.frame", @"UIKit.framework", @"UIKit\\.framework."],
+                       @[@"UIKit++\\.frame", @"UIKit++.framework", @"UIKit++\\.framework."],
                        @[@"UIKit\\.framework.*ass", @"class", @"UIKit\\.framework.class."],
                        @[@"UIKit\\.framework.cool\\.class.met", @"method:", @"UIKit\\.framework.cool\\.class.method:."]];
 
