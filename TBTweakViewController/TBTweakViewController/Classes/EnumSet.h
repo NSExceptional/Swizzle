@@ -14,4 +14,6 @@
 
 - (NSNumber *)objectAtIndexedSubscript:(NSUInteger)idx;
 
+@property (nonatomic, readonly) NSInteger first;
+
 @end

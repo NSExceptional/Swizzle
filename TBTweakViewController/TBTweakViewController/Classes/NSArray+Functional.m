@@ -15,7 +15,7 @@
 void test() {
 }
 
-+ (instancetype)of:(id)obj count:(NSUInteger)count {
++ (instancetype)tb_of:(id)obj count:(NSUInteger)count {
     NSMutableArray *array = [NSMutableArray array];
     for (NSUInteger i = 0; i < count; i++) {
         [array addObject:obj];
@@ -28,7 +28,7 @@ void test() {
     return array;
 }
 
-+ (instancetype)upto:(NSUInteger)bound map:(id(^)(NSUInteger))block {
++ (instancetype)tb_upto:(NSUInteger)bound map:(id(^)(NSUInteger))block {
     NSMutableArray *array = [NSMutableArray array];
     for (NSUInteger i = 0; i < bound; i++) {
         id obj = block(i);
@@ -44,7 +44,7 @@ void test() {
     return array;
 }
 
-- (instancetype)map:(id(^)(id))block {
+- (instancetype)tb_map:(id(^)(id))block {
     NSMutableArray *array = [NSMutableArray array];
     for (id element in self) {
         id obj = block(element);
@@ -60,7 +60,7 @@ void test() {
     return array;
 }
 
-- (instancetype)flatmap:(NSArray *(^)(id))block {
+- (instancetype)tb_flatmap:(NSArray *(^)(id))block {
     NSMutableArray *array = [NSMutableArray array];
     for (id element in self) {
         NSArray *obj = block(element);

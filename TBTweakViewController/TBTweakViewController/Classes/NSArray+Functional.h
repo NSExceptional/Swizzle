@@ -11,14 +11,14 @@
 @interface NSArray<ObjectType> (Functional)
 
 /// Repeated value array
-+ (instancetype)of:(ObjectType)obj count:(NSUInteger)count;
++ (instancetype)tb_of:(ObjectType)obj count:(NSUInteger)count;
 /// Map over 0..<bound
-+ (instancetype)upto:(NSUInteger)bound map:(ObjectType(^)(NSUInteger i))block;
++ (instancetype)tb_upto:(NSUInteger)bound map:(ObjectType(^)(NSUInteger i))block;
 /// Like Swift's map
-- (instancetype)map:(id(^)(ObjectType obj))block;
+- (instancetype)tb_map:(id(^)(ObjectType obj))block;
 
 /// Adds all elements into a single array
-- (instancetype)flatmap:(NSArray *(^)(ObjectType obj))block;
+- (instancetype)tb_flatmap:(NSArray *(^)(ObjectType obj))block;
 
 - (instancetype)sortedUsingSelector:(SEL)selector;
 

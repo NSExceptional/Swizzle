@@ -11,6 +11,7 @@
 @interface EnumSet ()
 @property (nonatomic, readonly) NSMutableArray<NSNumber*> *array;
 @end
+
 @implementation EnumSet
 
 + (instancetype)set {
@@ -24,6 +25,10 @@
     }
 
     return self;
+}
+
+- (NSInteger)first {
+    return self[0].integerValue;
 }
 
 - (NSNumber *)objectAtIndexedSubscript:(NSUInteger)idx {
