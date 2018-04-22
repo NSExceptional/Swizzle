@@ -33,6 +33,23 @@ TBMethodHook *hook = tweak.hooks.firstObject
     self.testInstance.character = 'a';
 }
 
+typedef struct _class {
+    Class _Nonnull isa;
+    Class _Nullable super_class;
+    const char * _Nonnull name;
+} _class;
+
+- (void)testNSObjectAssumptions {
+    NSObject *obj = [NSObject new];
+    _class * cls = (__bridge _class *)object_getClass(obj);
+    _class * stillClass = (__bridge _class *)object_getClass(obj);
+    _class * meta = (__bridge _class *)objc_getMetaClass("NSObject");
+    _class * stillmeta = (__bridge _class *)objc_getClass(meta);
+    XCTAssert(cls == stillClass);
+    XCTAssert(class_isMetaClass((__bridge Class)meta));
+    XCTAssert(meta == stillmeta);
+}
+
 - (void)testBasics {
     // Tweak
     Tweak(NSTestClass, length, YES);
