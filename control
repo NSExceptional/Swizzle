@@ -1,6 +1,7 @@
 Package: com.pantsthief.swizzle
 Name: Swizzle
-Depends: mobilesubstrate
+Pre-Depends: firmware (>= 8.0)
+Depends: mobilesubstrate, com.pantsthief.flexing
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: Make tweaks from anywhere!

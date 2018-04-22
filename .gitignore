@@ -8,3 +8,5 @@ obj
 *.xcuserstate
 
 *.xcbkptlist
+/packages
+/test.m
