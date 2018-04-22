@@ -62,8 +62,8 @@
 
 - (NSUInteger)sectionRowCount {
     TBValue *container = self.coordinator.container;
-    BOOL showsValueRow = (container != [TBValue null]) || container.overriden;
-    return showsValueRow ? 1 : 2;
+    BOOL showsValueRow = (container != [TBValue null]) && container.overriden;
+    return showsValueRow ? 2 : 1;
 }
 
 #pragma mark Overrides
