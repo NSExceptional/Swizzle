@@ -9,21 +9,20 @@
 #import "UIImage+TBBundleResources.h"
 
 
-UIImage * TBImageNamed(NSString *name) {
-#if THEOS
-    NSString *imagePath = [[self bundleForImages] pathForResource:name ofType:@"png"];
-    return [UIImage imageWithContentsOfFile:imagePath];
+static NSBundle * TBBundleForImages() {
+#if 1
+    return [NSBundle bundleWithPath:@"/Library/Application Support/Swizzle.bundle"];
 #else
-    return [UIImage imageNamed:name];
+    return [NSBundle mainBundle];
 #endif
+}
+
+UIImage * TBImageNamed(NSString *name) {
+    return [UIImage imageNamed:name inBundle:TBBundleForImages() compatibleWithTraitCollection:nil];
 }
 
 
 @implementation UIImage (TBBundleResources)
-
-+ (NSBundle *)bundleForImages {
-    return [NSBundle bundleForClass:[self class]];
-}
 
 + (UIImage *)appsTabImage {
     return TBImageNamed(@"tab_app");
