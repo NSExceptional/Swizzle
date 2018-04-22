@@ -40,3 +40,11 @@ DM me on Twitter or chat me on Reddit (chat, not DM) with any questions! @NSExce
 - [ ] Disallow deleting hooks from tweaks that are turned on
 - [ ] Fix crashes and other performance issues in the "hook chooser" screen, specifically related to performing complex, large queries like `*.*view.*` or tapping on a result from a previous query before the current query finishes loading.
 - [ ] Make value hooks more modular to allow third party extensions
+
+# LEGAL
+
+Swizzle is licensed under a
+Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. This means you cannot use it commercially, but you are free to distribute and modify it and send me PRs and the like.
+
+TLDR: 
+https://tldrlegal.com/license/creative-commons-attribution-noncommercial-4.0-international-(cc-by-nc-4.0)
