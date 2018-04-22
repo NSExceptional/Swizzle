@@ -28,7 +28,7 @@
     TBTweakListViewController *controller = [self title:title configuration:^(UINavigationItem *item, id vc) {
         item.rightBarButtonItem = [UIBarButtonItem item:UIBBItemAdd target:vc action:@selector(addTweak)];
     }];
-    controller.tabBarItem.image = [UIImage appsTabImage];
+    controller.tabBarItem.image = image;
     return controller;
 }
 

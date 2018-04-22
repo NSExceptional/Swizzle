@@ -43,13 +43,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(
+        0, 0, self.tableView.frame.size.width, [UIScreen mainScreen].bounds.size.height - 200
+    )];
+    self.tableView.tableFooterView.backgroundColor = self.tableView.backgroundColor;
+
     if (!self.collection) {
         @throw NSInternalInconsistencyException;
     } else {
-        
+        // ?
     }
 
     [self reloadSectionControllers];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 - (void)reloadSectionControllers {

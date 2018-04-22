@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, TBWildcardOptions)
 @property (nonatomic, readonly) NSString *string;
 @property (nonatomic, readonly) TBWildcardOptions options;
 
+/// Opposite of "is ambiguous"
 @property (nonatomic, readonly) BOOL isAbsolute;
 @property (nonatomic, readonly) BOOL isAny;
 
