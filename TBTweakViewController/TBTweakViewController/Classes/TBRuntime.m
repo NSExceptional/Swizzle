@@ -136,7 +136,7 @@ static inline NSString * TBWildcardMap(NSString *token, NSString *candidate, TBW
     NSArray *components = [imageName componentsSeparatedByString:@"/"];
     if (components.count >= 2) {
         NSString *parentDir = components[components.count - 2];
-        if ([parentDir hasSuffix:@".framework"]) {
+        if ([parentDir hasSuffix:@".framework"] || [parentDir hasSuffix:@".axbundle"]) {
             shortName = parentDir;
         }
     }
