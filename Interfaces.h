@@ -49,9 +49,7 @@ typedef NS_ENUM(NSUInteger, FLEXExplorerMode) {
 @interface FLEXExplorerViewController : UIViewController
 @property (readonly) FLEXExplorerMode currentMode;
 @property FLEXExplorerToolbar *explorerToolbar;
-- (void)presentOrDismissViewControllerFromToolbar:(UIViewController *(^)())future
-                                    shouldDismiss:(BOOL)shouldDismiss
-                                       completion:(void(^)())completion;
+- (void)toggleToolWithViewControllerProvider:(UIViewController *(^)())future completion:(void(^)())completion;
 @end
 
 @interface FLEXManager : NSObject

@@ -19,11 +19,13 @@ FLEXExplorerViewController *TBFLEXExplorerVC() {
 
 void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXToolbarItem *item) {
     NSInteger idx = [toolbar.toolbarItems indexOfObject:toolbar.moveItem];
-    
+    NSMutableArray *items = toolbar.toolbarItems.mutableCopy;
+
     [toolbar.moveItem removeFromSuperview];
     [toolbar addSubview:item];
     toolbar.moveItem = item;
-    [toolbar.toolbarItems replaceObjectAtIndex:idx withObject:item];
+    [items replaceObjectAtIndex:idx withObject:item];
+    toolbar.toolbarItems = items;
     
     [toolbar setNeedsLayout];
     [toolbar layoutIfNeeded];
@@ -35,11 +37,11 @@ void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXT
 %hook FLEXManager
 %new
 - (void)__toggleSwizzleMenu {
-    [TBFLEXExplorerVC() presentOrDismissViewControllerFromToolbar:^UIViewController *{
+    [TBFLEXExplorerVC() toggleToolWithViewControllerProvider:^UIViewController *{
         return [TBTweakRootViewController dismissAction:^{
             [self __toggleSwizzleMenu];
         }];
-    } shouldDismiss:showingSwizzle completion:^{
+    } completion:^{
         showingSwizzle = !showingSwizzle;
     }];
 }
@@ -68,13 +70,6 @@ void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXT
 %group Main
 %hookf(int, UIApplicationMain, int argc, char *argv[], NSString *principalClassName, NSString *delegateClassName) {
     SwizzleInit();
-    return %orig;
-}
-%end
-
-%ctor {
-    %init(Main);
-    
     FLEXManager *flex = [NSClassFromString(@"FLEXManager") sharedManager];
     
     if (flex) {
@@ -86,4 +81,10 @@ void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXT
         // Add it to the FLEXExplorerViewController toolbar
         %init(Explorer);
     }
+    return %orig;
+}
+%end
+
+%ctor {
+    %init(Main);
 }
