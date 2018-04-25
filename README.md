@@ -28,7 +28,7 @@ The `\.` escape is needed in some bundle names to prevent interpreting `MapKit\.
 
 Installing Swizzle as a tweak is straightforward if you already have the Xcode project building. Just do `make package install` like usual.
 
-The Xcode project has a podfile that relies on MirrorKit. In the podfile, change `pod 'MirrorKit', :path => '../../../MirrorKit'` to `pod 'MirrorKit', :git => 'https://github.com/NSExceptional/MirrorKit.git`, then run `pod install` from Terminal in the same directory as the podfile. The Xcode project builds an app that you can use to test Swizzle without being jailbroken or needing Theos to install.
+The Xcode project has a podfile that relies on MirrorKit. In the podfile, change `pod 'MirrorKit', :path => '../../../MirrorKit'` to `pod 'MirrorKit', :git => 'https://github.com/NSExceptional/MirrorKit.git, :branch => '2.0'`, then run `pod install` from Terminal in the same directory as the podfile. The Xcode project builds an app that you can use to test Swizzle without being jailbroken or needing Theos to install.
 
 DM me on Twitter or chat me on Reddit (chat, not DM) with any questions! @NSExceptional, /u/ThePantsThief.
 
