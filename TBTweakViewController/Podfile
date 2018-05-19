@@ -3,7 +3,7 @@ inhibit_all_warnings!
 target 'TBTweakViewController' do
   pod 'MirrorKit', :path => '../../../MirrorKit'
   pod 'TBAlertController'
-  pod 'Masonry'
+  pod 'Masonry', :path => 'Pods/Masonry'
 end
 
 target 'TBTweakViewControllerTests' do
