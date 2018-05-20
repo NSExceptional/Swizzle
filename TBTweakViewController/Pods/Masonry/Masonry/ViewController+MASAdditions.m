@@ -12,24 +12,24 @@
 
 @implementation MAS_VIEW_CONTROLLER (MASAdditions)
 
-- (MASViewAttribute *)mas_topLayoutGuide {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
+- (SWZViewAttribute *)mas__topLayoutGuide {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
 }
-- (MASViewAttribute *)mas_topLayoutGuideTop {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeTop];
+- (SWZViewAttribute *)mas__topLayoutGuideTop {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeTop];
 }
-- (MASViewAttribute *)mas_topLayoutGuideBottom {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
+- (SWZViewAttribute *)mas__topLayoutGuideBottom {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.topLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
 }
 
-- (MASViewAttribute *)mas_bottomLayoutGuide {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeTop];
+- (SWZViewAttribute *)mas__bottomLayoutGuide {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeTop];
 }
-- (MASViewAttribute *)mas_bottomLayoutGuideTop {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeTop];
+- (SWZViewAttribute *)mas__bottomLayoutGuideTop {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeTop];
 }
-- (MASViewAttribute *)mas_bottomLayoutGuideBottom {
-    return [[MASViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
+- (SWZViewAttribute *)mas__bottomLayoutGuideBottom {
+    return [[SWZViewAttribute alloc] initWithView:self.view item:self.bottomLayoutGuide layoutAttribute:NSLayoutAttributeBottom];
 }
 
 

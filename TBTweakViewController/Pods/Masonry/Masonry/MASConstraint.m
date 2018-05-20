@@ -1,5 +1,5 @@
 //
-//  MASConstraint.m
+//  SWZConstraint.m
 //  Masonry
 //
 //  Created by Nick Tymchenko on 1/20/14.
@@ -13,48 +13,48 @@
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass.", NSStringFromSelector(_cmd)] \
                                  userInfo:nil]
 
-@implementation MASConstraint
+@implementation SWZConstraint
 
 #pragma mark - Init
 
 - (id)init {
-	NSAssert(![self isMemberOfClass:[MASConstraint class]], @"MASConstraint is an abstract class, you should not instantiate it directly.");
+	NSAssert(![self isMemberOfClass:[SWZConstraint class]], @"MASConstraint is an abstract class, you should not instantiate it directly.");
 	return [super init];
 }
 
 #pragma mark - NSLayoutRelation proxies
 
-- (MASConstraint * (^)(id))equalTo {
+- (SWZConstraint * (^)(id))equalTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationEqual);
     };
 }
 
-- (MASConstraint * (^)(id))mas_equalTo {
+- (SWZConstraint * (^)(id))mas__equalTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationEqual);
     };
 }
 
-- (MASConstraint * (^)(id))greaterThanOrEqualTo {
+- (SWZConstraint * (^)(id))greaterThanOrEqualTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationGreaterThanOrEqual);
     };
 }
 
-- (MASConstraint * (^)(id))mas_greaterThanOrEqualTo {
+- (SWZConstraint * (^)(id))mas__greaterThanOrEqualTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationGreaterThanOrEqual);
     };
 }
 
-- (MASConstraint * (^)(id))lessThanOrEqualTo {
+- (SWZConstraint * (^)(id))lessThanOrEqualTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationLessThanOrEqual);
     };
 }
 
-- (MASConstraint * (^)(id))mas_lessThanOrEqualTo {
+- (SWZConstraint * (^)(id))mas__lessThanOrEqualTo {
     return ^id(id attribute) {
         return self.equalToWithRelation(attribute, NSLayoutRelationLessThanOrEqual);
     };
@@ -62,21 +62,21 @@
 
 #pragma mark - MASLayoutPriority proxies
 
-- (MASConstraint * (^)(void))priorityLow {
+- (SWZConstraint * (^)(void))priorityLow {
     return ^id{
         self.priority(MASLayoutPriorityDefaultLow);
         return self;
     };
 }
 
-- (MASConstraint * (^)(void))priorityMedium {
+- (SWZConstraint * (^)(void))priorityMedium {
     return ^id{
         self.priority(MASLayoutPriorityDefaultMedium);
         return self;
     };
 }
 
-- (MASConstraint * (^)(void))priorityHigh {
+- (SWZConstraint * (^)(void))priorityHigh {
     return ^id{
         self.priority(MASLayoutPriorityDefaultHigh);
         return self;
@@ -85,42 +85,42 @@
 
 #pragma mark - NSLayoutConstraint constant proxies
 
-- (MASConstraint * (^)(MASEdgeInsets))insets {
+- (SWZConstraint * (^)(MASEdgeInsets))insets {
     return ^id(MASEdgeInsets insets){
         self.insets = insets;
         return self;
     };
 }
 
-- (MASConstraint * (^)(CGFloat))inset {
+- (SWZConstraint * (^)(CGFloat))inset {
     return ^id(CGFloat inset){
         self.inset = inset;
         return self;
     };
 }
 
-- (MASConstraint * (^)(CGSize))sizeOffset {
+- (SWZConstraint * (^)(CGSize))sizeOffset {
     return ^id(CGSize offset) {
         self.sizeOffset = offset;
         return self;
     };
 }
 
-- (MASConstraint * (^)(CGPoint))centerOffset {
+- (SWZConstraint * (^)(CGPoint))centerOffset {
     return ^id(CGPoint offset) {
         self.centerOffset = offset;
         return self;
     };
 }
 
-- (MASConstraint * (^)(CGFloat))offset {
+- (SWZConstraint * (^)(CGFloat))offset {
     return ^id(CGFloat offset){
         self.offset = offset;
         return self;
     };
 }
 
-- (MASConstraint * (^)(NSValue *value))valueOffset {
+- (SWZConstraint * (^)(NSValue *value))valueOffset {
     return ^id(NSValue *offset) {
         NSAssert([offset isKindOfClass:NSValue.class], @"expected an NSValue offset, got: %@", offset);
         [self setLayoutConstantWithValue:offset];
@@ -128,7 +128,7 @@
     };
 }
 
-- (MASConstraint * (^)(id offset))mas_offset {
+- (SWZConstraint * (^)(id offset))mas__offset {
     // Will never be called due to macro
     return nil;
 }
@@ -157,70 +157,70 @@
 
 #pragma mark - Semantic properties
 
-- (MASConstraint *)with {
+- (SWZConstraint *)with {
     return self;
 }
 
-- (MASConstraint *)and {
+- (SWZConstraint *)and {
     return self;
 }
 
 #pragma mark - Chaining
 
-- (MASConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute __unused)layoutAttribute {
+- (SWZConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute __unused)layoutAttribute {
     MASMethodNotImplemented();
 }
 
-- (MASConstraint *)left {
+- (SWZConstraint *)left {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeft];
 }
 
-- (MASConstraint *)top {
+- (SWZConstraint *)top {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTop];
 }
 
-- (MASConstraint *)right {
+- (SWZConstraint *)right {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeRight];
 }
 
-- (MASConstraint *)bottom {
+- (SWZConstraint *)bottom {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBottom];
 }
 
-- (MASConstraint *)leading {
+- (SWZConstraint *)leading {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeading];
 }
 
-- (MASConstraint *)trailing {
+- (SWZConstraint *)trailing {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTrailing];
 }
 
-- (MASConstraint *)width {
+- (SWZConstraint *)width {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeWidth];
 }
 
-- (MASConstraint *)height {
+- (SWZConstraint *)height {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeHeight];
 }
 
-- (MASConstraint *)centerX {
+- (SWZConstraint *)centerX {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterX];
 }
 
-- (MASConstraint *)centerY {
+- (SWZConstraint *)centerY {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterY];
 }
 
-- (MASConstraint *)baseline {
+- (SWZConstraint *)baseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBaseline];
 }
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
 
-- (MASConstraint *)firstBaseline {
+- (SWZConstraint *)firstBaseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeFirstBaseline];
 }
-- (MASConstraint *)lastBaseline {
+- (SWZConstraint *)lastBaseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLastBaseline];
 }
 
@@ -228,35 +228,35 @@
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
-- (MASConstraint *)leftMargin {
+- (SWZConstraint *)leftMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeftMargin];
 }
 
-- (MASConstraint *)rightMargin {
+- (SWZConstraint *)rightMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeRightMargin];
 }
 
-- (MASConstraint *)topMargin {
+- (SWZConstraint *)topMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTopMargin];
 }
 
-- (MASConstraint *)bottomMargin {
+- (SWZConstraint *)bottomMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBottomMargin];
 }
 
-- (MASConstraint *)leadingMargin {
+- (SWZConstraint *)leadingMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeadingMargin];
 }
 
-- (MASConstraint *)trailingMargin {
+- (SWZConstraint *)trailingMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTrailingMargin];
 }
 
-- (MASConstraint *)centerXWithinMargins {
+- (SWZConstraint *)centerXWithinMargins {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterXWithinMargins];
 }
 
-- (MASConstraint *)centerYWithinMargins {
+- (SWZConstraint *)centerYWithinMargins {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterYWithinMargins];
 }
 
@@ -264,15 +264,15 @@
 
 #pragma mark - Abstract
 
-- (MASConstraint * (^)(CGFloat multiplier))multipliedBy { MASMethodNotImplemented(); }
+- (SWZConstraint * (^)(CGFloat multiplier))multipliedBy { MASMethodNotImplemented(); }
 
-- (MASConstraint * (^)(CGFloat divider))dividedBy { MASMethodNotImplemented(); }
+- (SWZConstraint * (^)(CGFloat divider))dividedBy { MASMethodNotImplemented(); }
 
-- (MASConstraint * (^)(MASLayoutPriority priority))priority { MASMethodNotImplemented(); }
+- (SWZConstraint * (^)(MASLayoutPriority priority))priority { MASMethodNotImplemented(); }
 
-- (MASConstraint * (^)(id, NSLayoutRelation))equalToWithRelation { MASMethodNotImplemented(); }
+- (SWZConstraint * (^)(id, NSLayoutRelation))equalToWithRelation { MASMethodNotImplemented(); }
 
-- (MASConstraint * (^)(id key))key { MASMethodNotImplemented(); }
+- (SWZConstraint * (^)(id key))key { MASMethodNotImplemented(); }
 
 - (void)setInsets:(MASEdgeInsets __unused)insets { MASMethodNotImplemented(); }
 
@@ -286,7 +286,7 @@
 
 #if TARGET_OS_MAC && !(TARGET_OS_IPHONE || TARGET_OS_TV)
 
-- (MASConstraint *)animator { MASMethodNotImplemented(); }
+- (SWZConstraint *)animator { MASMethodNotImplemented(); }
 
 #endif
 

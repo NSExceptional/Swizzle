@@ -11,62 +11,62 @@
 #ifdef MAS_SHORTHAND
 
 /**
- *	Shorthand view additions without the 'mas_' prefixes,
+ *	Shorthand view additions without the 'mas__' prefixes,
  *  only enabled if MAS_SHORTHAND is defined
  */
 @interface MAS_VIEW (MASShorthandAdditions)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *left;
-@property (nonatomic, strong, readonly) MASViewAttribute *top;
-@property (nonatomic, strong, readonly) MASViewAttribute *right;
-@property (nonatomic, strong, readonly) MASViewAttribute *bottom;
-@property (nonatomic, strong, readonly) MASViewAttribute *leading;
-@property (nonatomic, strong, readonly) MASViewAttribute *trailing;
-@property (nonatomic, strong, readonly) MASViewAttribute *width;
-@property (nonatomic, strong, readonly) MASViewAttribute *height;
-@property (nonatomic, strong, readonly) MASViewAttribute *centerX;
-@property (nonatomic, strong, readonly) MASViewAttribute *centerY;
-@property (nonatomic, strong, readonly) MASViewAttribute *baseline;
-@property (nonatomic, strong, readonly) MASViewAttribute *(^attribute)(NSLayoutAttribute attr);
+@property (nonatomic, strong, readonly) SWZViewAttribute *left;
+@property (nonatomic, strong, readonly) SWZViewAttribute *top;
+@property (nonatomic, strong, readonly) SWZViewAttribute *right;
+@property (nonatomic, strong, readonly) SWZViewAttribute *bottom;
+@property (nonatomic, strong, readonly) SWZViewAttribute *leading;
+@property (nonatomic, strong, readonly) SWZViewAttribute *trailing;
+@property (nonatomic, strong, readonly) SWZViewAttribute *width;
+@property (nonatomic, strong, readonly) SWZViewAttribute *height;
+@property (nonatomic, strong, readonly) SWZViewAttribute *centerX;
+@property (nonatomic, strong, readonly) SWZViewAttribute *centerY;
+@property (nonatomic, strong, readonly) SWZViewAttribute *baseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *(^attribute)(NSLayoutAttribute attr);
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *firstBaseline;
-@property (nonatomic, strong, readonly) MASViewAttribute *lastBaseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *firstBaseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *lastBaseline;
 
 #endif
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *leftMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *rightMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *topMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *bottomMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *leadingMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *trailingMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *centerXWithinMargins;
-@property (nonatomic, strong, readonly) MASViewAttribute *centerYWithinMargins;
+@property (nonatomic, strong, readonly) SWZViewAttribute *leftMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *rightMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *topMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *bottomMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *leadingMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *trailingMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *centerXWithinMargins;
+@property (nonatomic, strong, readonly) SWZViewAttribute *centerYWithinMargins;
 
 #endif
 
 #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 110000) || (__TV_OS_VERSION_MAX_ALLOWED >= 110000)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *safeAreaLayoutGuideTop API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *safeAreaLayoutGuideBottom API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *safeAreaLayoutGuideLeft API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *safeAreaLayoutGuideRight API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *safeAreaLayoutGuideTop API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *safeAreaLayoutGuideBottom API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *safeAreaLayoutGuideLeft API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *safeAreaLayoutGuideRight API_AVAILABLE(ios(11.0),tvos(11.0));
 
 #endif
 
-- (NSArray *)makeConstraints:(void(^)(MASConstraintMaker *make))block;
-- (NSArray *)updateConstraints:(void(^)(MASConstraintMaker *make))block;
-- (NSArray *)remakeConstraints:(void(^)(MASConstraintMaker *make))block;
+- (NSArray *)makeConstraints:(void(^)(SWZConstraintMaker *make))block;
+- (NSArray *)updateConstraints:(void(^)(SWZConstraintMaker *make))block;
+- (NSArray *)remakeConstraints:(void(^)(SWZConstraintMaker *make))block;
 
 @end
 
 #define MAS_ATTR_FORWARD(attr)  \
-- (MASViewAttribute *)attr {    \
-    return [self mas_##attr];   \
+- (SWZViewAttribute *)attr {    \
+    return [self mas__##attr];   \
 }
 
 @implementation MAS_VIEW (MASShorthandAdditions)
@@ -112,20 +112,20 @@ MAS_ATTR_FORWARD(safeAreaLayoutGuideRight);
 
 #endif
 
-- (MASViewAttribute *(^)(NSLayoutAttribute))attribute {
-    return [self mas_attribute];
+- (SWZViewAttribute *(^)(NSLayoutAttribute))attribute {
+    return [self mas__attribute];
 }
 
-- (NSArray *)makeConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *))block {
-    return [self mas_makeConstraints:block];
+- (NSArray *)makeConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *))block {
+    return [self mas__makeConstraints:block];
 }
 
-- (NSArray *)updateConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *))block {
-    return [self mas_updateConstraints:block];
+- (NSArray *)updateConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *))block {
+    return [self mas__updateConstraints:block];
 }
 
-- (NSArray *)remakeConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *))block {
-    return [self mas_remakeConstraints:block];
+- (NSArray *)remakeConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *))block {
+    return [self mas__remakeConstraints:block];
 }
 
 @end

@@ -45,7 +45,7 @@
 /**
  *	Allows you to attach keys to objects matching the variable names passed.
  *
- *  view1.mas_key = @"view1", view2.mas_key = @"view2";
+ *  view1.mas__key = @"view1", view2.mas__key = @"view2";
  *
  *  is equivalent to:
  *
@@ -57,7 +57,7 @@
         for (id key in keyPairs.allKeys) {                                        \
             id obj = keyPairs[key];                                               \
             NSAssert([obj respondsToSelector:@selector(setMas_key:)],             \
-                     @"Cannot attach mas_key to %@", obj);                        \
+                     @"Cannot attach mas__key to %@", obj);                        \
             [obj setMas_key:key];                                                 \
         }                                                                         \
     }

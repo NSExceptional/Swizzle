@@ -1,5 +1,5 @@
 //
-//  MASViewAttribute.m
+//  SWZViewAttribute.m
 //  Masonry
 //
 //  Created by Jonas Budelmann on 21/07/13.
@@ -8,7 +8,7 @@
 
 #import "MASViewAttribute.h"
 
-@implementation MASViewAttribute
+@implementation SWZViewAttribute
 
 - (id)initWithView:(MAS_VIEW *)view layoutAttribute:(NSLayoutAttribute)layoutAttribute {
     self = [self initWithView:view item:view layoutAttribute:layoutAttribute];
@@ -31,7 +31,7 @@
         || self.layoutAttribute == NSLayoutAttributeHeight;
 }
 
-- (BOOL)isEqual:(MASViewAttribute *)viewAttribute {
+- (BOOL)isEqual:(SWZViewAttribute *)viewAttribute {
     if ([viewAttribute isKindOfClass:self.class]) {
         return self.view == viewAttribute.view
             && self.layoutAttribute == viewAttribute.layoutAttribute;

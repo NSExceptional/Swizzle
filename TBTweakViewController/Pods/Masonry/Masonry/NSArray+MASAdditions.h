@@ -18,36 +18,36 @@ typedef NS_ENUM(NSUInteger, MASAxisType) {
 @interface NSArray (MASAdditions)
 
 /**
- *  Creates a MASConstraintMaker with each view in the callee.
+ *  Creates a SWZConstraintMaker with each view in the callee.
  *  Any constraints defined are added to the view or the appropriate superview once the block has finished executing on each view
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to each view.
  *
- *  @return Array of created MASConstraints
+ *  @return Array of created SWZConstraints
  */
-- (NSArray *)mas_makeConstraints:(void (NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__makeConstraints:(void (NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 /**
- *  Creates a MASConstraintMaker with each view in the callee.
+ *  Creates a SWZConstraintMaker with each view in the callee.
  *  Any constraints defined are added to each view or the appropriate superview once the block has finished executing on each view.
  *  If an existing constraint exists then it will be updated instead.
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to each view.
  *
- *  @return Array of created/updated MASConstraints
+ *  @return Array of created/updated SWZConstraints
  */
-- (NSArray *)mas_updateConstraints:(void (NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__updateConstraints:(void (NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 /**
- *  Creates a MASConstraintMaker with each view in the callee.
+ *  Creates a SWZConstraintMaker with each view in the callee.
  *  Any constraints defined are added to each view or the appropriate superview once the block has finished executing on each view.
  *  All constraints previously installed for the views will be removed.
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to each view.
  *
- *  @return Array of created/updated MASConstraints
+ *  @return Array of created/updated SWZConstraints
  */
-- (NSArray *)mas_remakeConstraints:(void (NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__remakeConstraints:(void (NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 /**
  *  distribute with fixed spacing
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger, MASAxisType) {
  *  @param leadSpacing  the spacing before the first item and the container
  *  @param tailSpacing  the spacing after the last item and the container
  */
-- (void)mas_distributeViewsAlongAxis:(MASAxisType)axisType withFixedSpacing:(CGFloat)fixedSpacing leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing;
+- (void)mas__distributeViewsAlongAxis:(MASAxisType)axisType withFixedSpacing:(CGFloat)fixedSpacing leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing;
 
 /**
  *  distribute with fixed item size
@@ -67,6 +67,6 @@ typedef NS_ENUM(NSUInteger, MASAxisType) {
  *  @param leadSpacing     the spacing before the first item and the container
  *  @param tailSpacing     the spacing after the last item and the container
  */
-- (void)mas_distributeViewsAlongAxis:(MASAxisType)axisType withFixedItemLength:(CGFloat)fixedItemLength leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing;
+- (void)mas__distributeViewsAlongAxis:(MASAxisType)axisType withFixedItemLength:(CGFloat)fixedItemLength leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing;
 
 @end

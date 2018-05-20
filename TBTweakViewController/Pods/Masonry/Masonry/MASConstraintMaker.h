@@ -1,5 +1,5 @@
 //
-//  MASConstraintMaker.h
+//  SWZConstraintMaker.h
 //  Masonry
 //
 //  Created by Jonas Budelmann on 20/07/13.
@@ -45,75 +45,75 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 };
 
 /**
- *  Provides factory methods for creating MASConstraints.
+ *  Provides factory methods for creating SWZConstraints.
  *  Constraints are collected until they are ready to be installed
  *
  */
-@interface MASConstraintMaker : NSObject
+@interface SWZConstraintMaker : NSObject
 
 /**
- *	The following properties return a new MASViewConstraint
- *  with the first item set to the makers associated view and the appropriate MASViewAttribute
+ *	The following properties return a new SWZViewConstraint
+ *  with the first item set to the makers associated view and the appropriate SWZViewAttribute
  */
-@property (nonatomic, strong, readonly) MASConstraint *left;
-@property (nonatomic, strong, readonly) MASConstraint *top;
-@property (nonatomic, strong, readonly) MASConstraint *right;
-@property (nonatomic, strong, readonly) MASConstraint *bottom;
-@property (nonatomic, strong, readonly) MASConstraint *leading;
-@property (nonatomic, strong, readonly) MASConstraint *trailing;
-@property (nonatomic, strong, readonly) MASConstraint *width;
-@property (nonatomic, strong, readonly) MASConstraint *height;
-@property (nonatomic, strong, readonly) MASConstraint *centerX;
-@property (nonatomic, strong, readonly) MASConstraint *centerY;
-@property (nonatomic, strong, readonly) MASConstraint *baseline;
+@property (nonatomic, strong, readonly) SWZConstraint *left;
+@property (nonatomic, strong, readonly) SWZConstraint *top;
+@property (nonatomic, strong, readonly) SWZConstraint *right;
+@property (nonatomic, strong, readonly) SWZConstraint *bottom;
+@property (nonatomic, strong, readonly) SWZConstraint *leading;
+@property (nonatomic, strong, readonly) SWZConstraint *trailing;
+@property (nonatomic, strong, readonly) SWZConstraint *width;
+@property (nonatomic, strong, readonly) SWZConstraint *height;
+@property (nonatomic, strong, readonly) SWZConstraint *centerX;
+@property (nonatomic, strong, readonly) SWZConstraint *centerY;
+@property (nonatomic, strong, readonly) SWZConstraint *baseline;
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
 
-@property (nonatomic, strong, readonly) MASConstraint *firstBaseline;
-@property (nonatomic, strong, readonly) MASConstraint *lastBaseline;
+@property (nonatomic, strong, readonly) SWZConstraint *firstBaseline;
+@property (nonatomic, strong, readonly) SWZConstraint *lastBaseline;
 
 #endif
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
-@property (nonatomic, strong, readonly) MASConstraint *leftMargin;
-@property (nonatomic, strong, readonly) MASConstraint *rightMargin;
-@property (nonatomic, strong, readonly) MASConstraint *topMargin;
-@property (nonatomic, strong, readonly) MASConstraint *bottomMargin;
-@property (nonatomic, strong, readonly) MASConstraint *leadingMargin;
-@property (nonatomic, strong, readonly) MASConstraint *trailingMargin;
-@property (nonatomic, strong, readonly) MASConstraint *centerXWithinMargins;
-@property (nonatomic, strong, readonly) MASConstraint *centerYWithinMargins;
+@property (nonatomic, strong, readonly) SWZConstraint *leftMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *rightMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *topMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *bottomMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *leadingMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *trailingMargin;
+@property (nonatomic, strong, readonly) SWZConstraint *centerXWithinMargins;
+@property (nonatomic, strong, readonly) SWZConstraint *centerYWithinMargins;
 
 #endif
 
 /**
- *  Returns a block which creates a new MASCompositeConstraint with the first item set
+ *  Returns a block which creates a new SWZCompositeConstraint with the first item set
  *  to the makers associated view and children corresponding to the set bits in the
  *  MASAttribute parameter. Combine multiple attributes via binary-or.
  */
-@property (nonatomic, strong, readonly) MASConstraint *(^attributes)(MASAttribute attrs);
+@property (nonatomic, strong, readonly) SWZConstraint *(^attributes)(MASAttribute attrs);
 
 /**
- *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeEdges
- *  which generates the appropriate MASViewConstraint children (top, left, bottom, right)
+ *	Creates a SWZCompositeConstraint with type SWZCompositeConstraintTypeEdges
+ *  which generates the appropriate SWZViewConstraint children (top, left, bottom, right)
  *  with the first item set to the makers associated view
  */
-@property (nonatomic, strong, readonly) MASConstraint *edges;
+@property (nonatomic, strong, readonly) SWZConstraint *edges;
 
 /**
- *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeSize
- *  which generates the appropriate MASViewConstraint children (width, height)
+ *	Creates a SWZCompositeConstraint with type SWZCompositeConstraintTypeSize
+ *  which generates the appropriate SWZViewConstraint children (width, height)
  *  with the first item set to the makers associated view
  */
-@property (nonatomic, strong, readonly) MASConstraint *size;
+@property (nonatomic, strong, readonly) SWZConstraint *size;
 
 /**
- *	Creates a MASCompositeConstraint with type MASCompositeConstraintTypeCenter
- *  which generates the appropriate MASViewConstraint children (centerX, centerY)
+ *	Creates a SWZCompositeConstraint with type SWZCompositeConstraintTypeCenter
+ *  which generates the appropriate SWZViewConstraint children (centerX, centerY)
  *  with the first item set to the makers associated view
  */
-@property (nonatomic, strong, readonly) MASConstraint *center;
+@property (nonatomic, strong, readonly) SWZConstraint *center;
 
 /**
  *  Whether or not to check for an existing constraint instead of adding constraint
@@ -128,19 +128,19 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 /**
  *	initialises the maker with a default view
  *
- *	@param	view	any MASConstraint are created with this view as the first item
+ *	@param	view	any SWZConstraint are created with this view as the first item
  *
- *	@return	a new MASConstraintMaker
+ *	@return	a new SWZConstraintMaker
  */
 - (id)initWithView:(MAS_VIEW *)view;
 
 /**
- *	Calls install method on any MASConstraints which have been created by this maker
+ *	Calls install method on any SWZConstraints which have been created by this maker
  *
- *	@return	an array of all the installed MASConstraints
+ *	@return	an array of all the installed SWZConstraints
  */
 - (NSArray *)install;
 
-- (MASConstraint * (^)(dispatch_block_t))group;
+- (SWZConstraint * (^)(dispatch_block_t))group;
 
 @end

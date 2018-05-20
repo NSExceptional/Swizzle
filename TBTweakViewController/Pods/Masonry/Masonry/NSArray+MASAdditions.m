@@ -11,48 +11,48 @@
 
 @implementation NSArray (MASAdditions)
 
-- (NSArray *)mas_makeConstraints:(void(^)(MASConstraintMaker *make))block {
+- (NSArray *)mas__makeConstraints:(void(^)(SWZConstraintMaker *make))block {
     NSMutableArray *constraints = [NSMutableArray array];
     for (MAS_VIEW *view in self) {
         NSAssert([view isKindOfClass:[MAS_VIEW class]], @"All objects in the array must be views");
-        [constraints addObjectsFromArray:[view mas_makeConstraints:block]];
+        [constraints addObjectsFromArray:[view mas__makeConstraints:block]];
     }
     return constraints;
 }
 
-- (NSArray *)mas_updateConstraints:(void(^)(MASConstraintMaker *make))block {
+- (NSArray *)mas__updateConstraints:(void(^)(SWZConstraintMaker *make))block {
     NSMutableArray *constraints = [NSMutableArray array];
     for (MAS_VIEW *view in self) {
         NSAssert([view isKindOfClass:[MAS_VIEW class]], @"All objects in the array must be views");
-        [constraints addObjectsFromArray:[view mas_updateConstraints:block]];
+        [constraints addObjectsFromArray:[view mas__updateConstraints:block]];
     }
     return constraints;
 }
 
-- (NSArray *)mas_remakeConstraints:(void(^)(MASConstraintMaker *make))block {
+- (NSArray *)mas__remakeConstraints:(void(^)(SWZConstraintMaker *make))block {
     NSMutableArray *constraints = [NSMutableArray array];
     for (MAS_VIEW *view in self) {
         NSAssert([view isKindOfClass:[MAS_VIEW class]], @"All objects in the array must be views");
-        [constraints addObjectsFromArray:[view mas_remakeConstraints:block]];
+        [constraints addObjectsFromArray:[view mas__remakeConstraints:block]];
     }
     return constraints;
 }
 
-- (void)mas_distributeViewsAlongAxis:(MASAxisType)axisType withFixedSpacing:(CGFloat)fixedSpacing leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing {
+- (void)mas__distributeViewsAlongAxis:(MASAxisType)axisType withFixedSpacing:(CGFloat)fixedSpacing leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing {
     if (self.count < 2) {
         NSAssert(self.count>1,@"views to distribute need to bigger than one");
         return;
     }
     
-    MAS_VIEW *tempSuperView = [self mas_commonSuperviewOfViews];
+    MAS_VIEW *tempSuperView = [self mas__commonSuperviewOfViews];
     if (axisType == MASAxisTypeHorizontal) {
         MAS_VIEW *prev;
         for (int i = 0; i < self.count; i++) {
             MAS_VIEW *v = self[i];
-            [v mas_makeConstraints:^(MASConstraintMaker *make) {
+            [v mas__makeConstraints:^(SWZConstraintMaker *make) {
                 if (prev) {
                     make.width.equalTo(prev);
-                    make.left.equalTo(prev.mas_right).offset(fixedSpacing);
+                    make.left.equalTo(prev.mas__right).offset(fixedSpacing);
                     if (i == self.count - 1) {//last one
                         make.right.equalTo(tempSuperView).offset(-tailSpacing);
                     }
@@ -69,10 +69,10 @@
         MAS_VIEW *prev;
         for (int i = 0; i < self.count; i++) {
             MAS_VIEW *v = self[i];
-            [v mas_makeConstraints:^(MASConstraintMaker *make) {
+            [v mas__makeConstraints:^(SWZConstraintMaker *make) {
                 if (prev) {
                     make.height.equalTo(prev);
-                    make.top.equalTo(prev.mas_bottom).offset(fixedSpacing);
+                    make.top.equalTo(prev.mas__bottom).offset(fixedSpacing);
                     if (i == self.count - 1) {//last one
                         make.bottom.equalTo(tempSuperView).offset(-tailSpacing);
                     }                    
@@ -87,18 +87,18 @@
     }
 }
 
-- (void)mas_distributeViewsAlongAxis:(MASAxisType)axisType withFixedItemLength:(CGFloat)fixedItemLength leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing {
+- (void)mas__distributeViewsAlongAxis:(MASAxisType)axisType withFixedItemLength:(CGFloat)fixedItemLength leadSpacing:(CGFloat)leadSpacing tailSpacing:(CGFloat)tailSpacing {
     if (self.count < 2) {
         NSAssert(self.count>1,@"views to distribute need to bigger than one");
         return;
     }
     
-    MAS_VIEW *tempSuperView = [self mas_commonSuperviewOfViews];
+    MAS_VIEW *tempSuperView = [self mas__commonSuperviewOfViews];
     if (axisType == MASAxisTypeHorizontal) {
         MAS_VIEW *prev;
         for (int i = 0; i < self.count; i++) {
             MAS_VIEW *v = self[i];
-            [v mas_makeConstraints:^(MASConstraintMaker *make) {
+            [v mas__makeConstraints:^(SWZConstraintMaker *make) {
                 make.width.equalTo(@(fixedItemLength));
                 if (prev) {
                     if (i == self.count - 1) {//last one
@@ -120,7 +120,7 @@
         MAS_VIEW *prev;
         for (int i = 0; i < self.count; i++) {
             MAS_VIEW *v = self[i];
-            [v mas_makeConstraints:^(MASConstraintMaker *make) {
+            [v mas__makeConstraints:^(SWZConstraintMaker *make) {
                 make.height.equalTo(@(fixedItemLength));
                 if (prev) {
                     if (i == self.count - 1) {//last one
@@ -140,7 +140,7 @@
     }
 }
 
-- (MAS_VIEW *)mas_commonSuperviewOfViews
+- (MAS_VIEW *)mas__commonSuperviewOfViews
 {
     MAS_VIEW *commonSuperview = nil;
     MAS_VIEW *previousView = nil;
@@ -148,7 +148,7 @@
         if ([object isKindOfClass:[MAS_VIEW class]]) {
             MAS_VIEW *view = (MAS_VIEW *)object;
             if (previousView) {
-                commonSuperview = [view mas_closestCommonSuperview:commonSuperview];
+                commonSuperview = [view mas__closestCommonSuperview:commonSuperview];
             } else {
                 commonSuperview = view;
             }

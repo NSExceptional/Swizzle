@@ -1,5 +1,5 @@
 //
-//  MASLayoutConstraint.m
+//  SWZLayoutConstraint.m
 //  Masonry
 //
 //  Created by Jonas Budelmann on 3/08/13.
@@ -8,6 +8,6 @@
 
 #import "MASLayoutConstraint.h"
 
-@implementation MASLayoutConstraint
+@implementation SWZLayoutConstraint
 
 @end

@@ -12,60 +12,60 @@
 
 /**
  *	Provides constraint maker block
- *  and convience methods for creating MASViewAttribute which are view + NSLayoutAttribute pairs
+ *  and convience methods for creating SWZViewAttribute which are view + NSLayoutAttribute pairs
  */
 @interface MAS_VIEW (MASAdditions)
 
 /**
- *	following properties return a new MASViewAttribute with current view and appropriate NSLayoutAttribute
+ *	following properties return a new SWZViewAttribute with current view and appropriate NSLayoutAttribute
  */
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_left;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_top;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_right;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_bottom;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_leading;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_trailing;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_width;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_height;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_centerX;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_centerY;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_baseline;
-@property (nonatomic, strong, readonly) MASViewAttribute *(^mas_attribute)(NSLayoutAttribute attr);
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__left;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__top;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__right;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__bottom;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__leading;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__trailing;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__width;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__height;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__centerX;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__centerY;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__baseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *(^mas__attribute)(NSLayoutAttribute attr);
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_firstBaseline;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_lastBaseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__firstBaseline;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__lastBaseline;
 
 #endif
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_leftMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_rightMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_topMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_bottomMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_leadingMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_trailingMargin;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_centerXWithinMargins;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_centerYWithinMargins;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__leftMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__rightMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__topMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__bottomMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__leadingMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__trailingMargin;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__centerXWithinMargins;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__centerYWithinMargins;
 
 #endif
 
 #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 110000) || (__TV_OS_VERSION_MAX_ALLOWED >= 110000)
 
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_safeAreaLayoutGuide API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_safeAreaLayoutGuideTop API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_safeAreaLayoutGuideBottom API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_safeAreaLayoutGuideLeft API_AVAILABLE(ios(11.0),tvos(11.0));
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_safeAreaLayoutGuideRight API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__safeAreaLayoutGuide API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__safeAreaLayoutGuideTop API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__safeAreaLayoutGuideBottom API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__safeAreaLayoutGuideLeft API_AVAILABLE(ios(11.0),tvos(11.0));
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__safeAreaLayoutGuideRight API_AVAILABLE(ios(11.0),tvos(11.0));
 
 #endif
 
 /**
  *	a key to associate with this view
  */
-@property (nonatomic, strong) id mas_key;
+@property (nonatomic, strong) id mas__key;
 
 /**
  *	Finds the closest common superview between this view and another view
@@ -74,38 +74,38 @@
  *
  *	@return	returns nil if common superview could not be found
  */
-- (instancetype)mas_closestCommonSuperview:(MAS_VIEW *)view;
+- (instancetype)mas__closestCommonSuperview:(MAS_VIEW *)view;
 
 /**
- *  Creates a MASConstraintMaker with the callee view.
+ *  Creates a SWZConstraintMaker with the callee view.
  *  Any constraints defined are added to the view or the appropriate superview once the block has finished executing
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to the view.
  *
- *  @return Array of created MASConstraints
+ *  @return Array of created SWZConstraints
  */
-- (NSArray *)mas_makeConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__makeConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 /**
- *  Creates a MASConstraintMaker with the callee view.
+ *  Creates a SWZConstraintMaker with the callee view.
  *  Any constraints defined are added to the view or the appropriate superview once the block has finished executing.
  *  If an existing constraint exists then it will be updated instead.
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to the view.
  *
- *  @return Array of created/updated MASConstraints
+ *  @return Array of created/updated SWZConstraints
  */
-- (NSArray *)mas_updateConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__updateConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 /**
- *  Creates a MASConstraintMaker with the callee view.
+ *  Creates a SWZConstraintMaker with the callee view.
  *  Any constraints defined are added to the view or the appropriate superview once the block has finished executing.
  *  All constraints previously installed for the view will be removed.
  *
  *  @param block scope within which you can build up the constraints which you wish to apply to the view.
  *
- *  @return Array of created/updated MASConstraints
+ *  @return Array of created/updated SWZConstraints
  */
-- (NSArray *)mas_remakeConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *make))block;
+- (NSArray *)mas__remakeConstraints:(void(NS_NOESCAPE ^)(SWZConstraintMaker *make))block;
 
 @end

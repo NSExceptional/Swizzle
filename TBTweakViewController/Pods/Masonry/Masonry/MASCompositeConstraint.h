@@ -10,14 +10,14 @@
 #import "MASUtilities.h"
 
 /**
- *	A group of MASConstraint objects
+ *	A group of SWZConstraint objects
  */
-@interface MASCompositeConstraint : MASConstraint
+@interface SWZCompositeConstraint : SWZConstraint
 
 /**
  *	Creates a composite with a predefined array of children
  *
- *	@param	children	child MASConstraints
+ *	@param	children	child SWZConstraints
  *
  *	@return	a composite constraint
  */

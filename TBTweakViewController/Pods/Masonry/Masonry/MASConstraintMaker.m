@@ -1,5 +1,5 @@
 //
-//  MASConstraintMaker.m
+//  SWZConstraintMaker.m
 //  Masonry
 //
 //  Created by Jonas Budelmann on 20/07/13.
@@ -13,14 +13,14 @@
 #import "MASViewAttribute.h"
 #import "View+MASAdditions.h"
 
-@interface MASConstraintMaker () <MASConstraintDelegate>
+@interface SWZConstraintMaker () <SWZConstraintDelegate>
 
 @property (nonatomic, weak) MAS_VIEW *view;
 @property (nonatomic, strong) NSMutableArray *constraints;
 
 @end
 
-@implementation MASConstraintMaker
+@implementation SWZConstraintMaker
 
 - (id)initWithView:(MAS_VIEW *)view {
     self = [super init];
@@ -34,13 +34,13 @@
 
 - (NSArray *)install {
     if (self.removeExisting) {
-        NSArray *installedConstraints = [MASViewConstraint installedConstraintsForView:self.view];
-        for (MASConstraint *constraint in installedConstraints) {
+        NSArray *installedConstraints = [SWZViewConstraint installedConstraintsForView:self.view];
+        for (SWZConstraint *constraint in installedConstraints) {
             [constraint uninstall];
         }
     }
     NSArray *constraints = self.constraints.copy;
-    for (MASConstraint *constraint in constraints) {
+    for (SWZConstraint *constraint in constraints) {
         constraint.updateExisting = self.updateExisting;
         [constraint install];
     }
@@ -48,21 +48,21 @@
     return constraints;
 }
 
-#pragma mark - MASConstraintDelegate
+#pragma mark - SWZConstraintDelegate
 
-- (void)constraint:(MASConstraint *)constraint shouldBeReplacedWithConstraint:(MASConstraint *)replacementConstraint {
+- (void)constraint:(SWZConstraint *)constraint shouldBeReplacedWithConstraint:(SWZConstraint *)replacementConstraint {
     NSUInteger index = [self.constraints indexOfObject:constraint];
     NSAssert(index != NSNotFound, @"Could not find constraint %@", constraint);
     [self.constraints replaceObjectAtIndex:index withObject:replacementConstraint];
 }
 
-- (MASConstraint *)constraint:(MASConstraint *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
-    MASViewAttribute *viewAttribute = [[MASViewAttribute alloc] initWithView:self.view layoutAttribute:layoutAttribute];
-    MASViewConstraint *newConstraint = [[MASViewConstraint alloc] initWithFirstViewAttribute:viewAttribute];
-    if ([constraint isKindOfClass:MASViewConstraint.class]) {
+- (SWZConstraint *)constraint:(SWZConstraint *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
+    SWZViewAttribute *viewAttribute = [[SWZViewAttribute alloc] initWithView:self.view layoutAttribute:layoutAttribute];
+    SWZViewConstraint *newConstraint = [[SWZViewConstraint alloc] initWithFirstViewAttribute:viewAttribute];
+    if ([constraint isKindOfClass:SWZViewConstraint.class]) {
         //replace with composite constraint
         NSArray *children = @[constraint, newConstraint];
-        MASCompositeConstraint *compositeConstraint = [[MASCompositeConstraint alloc] initWithChildren:children];
+        SWZCompositeConstraint *compositeConstraint = [[SWZCompositeConstraint alloc] initWithChildren:children];
         compositeConstraint.delegate = self;
         [self constraint:constraint shouldBeReplacedWithConstraint:compositeConstraint];
         return compositeConstraint;
@@ -74,7 +74,7 @@
     return newConstraint;
 }
 
-- (MASConstraint *)addConstraintWithAttributes:(MASAttribute)attrs {
+- (SWZConstraint *)addConstraintWithAttributes:(MASAttribute)attrs {
     __unused MASAttribute anyAttribute = (MASAttributeLeft | MASAttributeRight | MASAttributeTop | MASAttributeBottom | MASAttributeLeading
                                           | MASAttributeTrailing | MASAttributeWidth | MASAttributeHeight | MASAttributeCenterX
                                           | MASAttributeCenterY | MASAttributeBaseline
@@ -92,45 +92,45 @@
     
     NSMutableArray *attributes = [NSMutableArray array];
     
-    if (attrs & MASAttributeLeft) [attributes addObject:self.view.mas_left];
-    if (attrs & MASAttributeRight) [attributes addObject:self.view.mas_right];
-    if (attrs & MASAttributeTop) [attributes addObject:self.view.mas_top];
-    if (attrs & MASAttributeBottom) [attributes addObject:self.view.mas_bottom];
-    if (attrs & MASAttributeLeading) [attributes addObject:self.view.mas_leading];
-    if (attrs & MASAttributeTrailing) [attributes addObject:self.view.mas_trailing];
-    if (attrs & MASAttributeWidth) [attributes addObject:self.view.mas_width];
-    if (attrs & MASAttributeHeight) [attributes addObject:self.view.mas_height];
-    if (attrs & MASAttributeCenterX) [attributes addObject:self.view.mas_centerX];
-    if (attrs & MASAttributeCenterY) [attributes addObject:self.view.mas_centerY];
-    if (attrs & MASAttributeBaseline) [attributes addObject:self.view.mas_baseline];
+    if (attrs & MASAttributeLeft) [attributes addObject:self.view.mas__left];
+    if (attrs & MASAttributeRight) [attributes addObject:self.view.mas__right];
+    if (attrs & MASAttributeTop) [attributes addObject:self.view.mas__top];
+    if (attrs & MASAttributeBottom) [attributes addObject:self.view.mas__bottom];
+    if (attrs & MASAttributeLeading) [attributes addObject:self.view.mas__leading];
+    if (attrs & MASAttributeTrailing) [attributes addObject:self.view.mas__trailing];
+    if (attrs & MASAttributeWidth) [attributes addObject:self.view.mas__width];
+    if (attrs & MASAttributeHeight) [attributes addObject:self.view.mas__height];
+    if (attrs & MASAttributeCenterX) [attributes addObject:self.view.mas__centerX];
+    if (attrs & MASAttributeCenterY) [attributes addObject:self.view.mas__centerY];
+    if (attrs & MASAttributeBaseline) [attributes addObject:self.view.mas__baseline];
     
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
     
-    if (attrs & MASAttributeFirstBaseline) [attributes addObject:self.view.mas_firstBaseline];
-    if (attrs & MASAttributeLastBaseline) [attributes addObject:self.view.mas_lastBaseline];
+    if (attrs & MASAttributeFirstBaseline) [attributes addObject:self.view.mas__firstBaseline];
+    if (attrs & MASAttributeLastBaseline) [attributes addObject:self.view.mas__lastBaseline];
     
 #endif
     
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
     
-    if (attrs & MASAttributeLeftMargin) [attributes addObject:self.view.mas_leftMargin];
-    if (attrs & MASAttributeRightMargin) [attributes addObject:self.view.mas_rightMargin];
-    if (attrs & MASAttributeTopMargin) [attributes addObject:self.view.mas_topMargin];
-    if (attrs & MASAttributeBottomMargin) [attributes addObject:self.view.mas_bottomMargin];
-    if (attrs & MASAttributeLeadingMargin) [attributes addObject:self.view.mas_leadingMargin];
-    if (attrs & MASAttributeTrailingMargin) [attributes addObject:self.view.mas_trailingMargin];
-    if (attrs & MASAttributeCenterXWithinMargins) [attributes addObject:self.view.mas_centerXWithinMargins];
-    if (attrs & MASAttributeCenterYWithinMargins) [attributes addObject:self.view.mas_centerYWithinMargins];
+    if (attrs & MASAttributeLeftMargin) [attributes addObject:self.view.mas__leftMargin];
+    if (attrs & MASAttributeRightMargin) [attributes addObject:self.view.mas__rightMargin];
+    if (attrs & MASAttributeTopMargin) [attributes addObject:self.view.mas__topMargin];
+    if (attrs & MASAttributeBottomMargin) [attributes addObject:self.view.mas__bottomMargin];
+    if (attrs & MASAttributeLeadingMargin) [attributes addObject:self.view.mas__leadingMargin];
+    if (attrs & MASAttributeTrailingMargin) [attributes addObject:self.view.mas__trailingMargin];
+    if (attrs & MASAttributeCenterXWithinMargins) [attributes addObject:self.view.mas__centerXWithinMargins];
+    if (attrs & MASAttributeCenterYWithinMargins) [attributes addObject:self.view.mas__centerYWithinMargins];
     
 #endif
     
     NSMutableArray *children = [NSMutableArray arrayWithCapacity:attributes.count];
     
-    for (MASViewAttribute *a in attributes) {
-        [children addObject:[[MASViewConstraint alloc] initWithFirstViewAttribute:a]];
+    for (SWZViewAttribute *a in attributes) {
+        [children addObject:[[SWZViewConstraint alloc] initWithFirstViewAttribute:a]];
     }
     
-    MASCompositeConstraint *constraint = [[MASCompositeConstraint alloc] initWithChildren:children];
+    SWZCompositeConstraint *constraint = [[SWZCompositeConstraint alloc] initWithChildren:children];
     constraint.delegate = self;
     [self.constraints addObject:constraint];
     return constraint;
@@ -138,55 +138,55 @@
 
 #pragma mark - standard Attributes
 
-- (MASConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
+- (SWZConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
     return [self constraint:nil addConstraintWithLayoutAttribute:layoutAttribute];
 }
 
-- (MASConstraint *)left {
+- (SWZConstraint *)left {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeft];
 }
 
-- (MASConstraint *)top {
+- (SWZConstraint *)top {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTop];
 }
 
-- (MASConstraint *)right {
+- (SWZConstraint *)right {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeRight];
 }
 
-- (MASConstraint *)bottom {
+- (SWZConstraint *)bottom {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBottom];
 }
 
-- (MASConstraint *)leading {
+- (SWZConstraint *)leading {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeading];
 }
 
-- (MASConstraint *)trailing {
+- (SWZConstraint *)trailing {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTrailing];
 }
 
-- (MASConstraint *)width {
+- (SWZConstraint *)width {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeWidth];
 }
 
-- (MASConstraint *)height {
+- (SWZConstraint *)height {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeHeight];
 }
 
-- (MASConstraint *)centerX {
+- (SWZConstraint *)centerX {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterX];
 }
 
-- (MASConstraint *)centerY {
+- (SWZConstraint *)centerY {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterY];
 }
 
-- (MASConstraint *)baseline {
+- (SWZConstraint *)baseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBaseline];
 }
 
-- (MASConstraint *(^)(MASAttribute))attributes {
+- (SWZConstraint *(^)(MASAttribute))attributes {
     return ^(MASAttribute attrs){
         return [self addConstraintWithAttributes:attrs];
     };
@@ -194,11 +194,11 @@
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000) || (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
 
-- (MASConstraint *)firstBaseline {
+- (SWZConstraint *)firstBaseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeFirstBaseline];
 }
 
-- (MASConstraint *)lastBaseline {
+- (SWZConstraint *)lastBaseline {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLastBaseline];
 }
 
@@ -207,35 +207,35 @@
 
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000) || (__TV_OS_VERSION_MIN_REQUIRED >= 9000)
 
-- (MASConstraint *)leftMargin {
+- (SWZConstraint *)leftMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeftMargin];
 }
 
-- (MASConstraint *)rightMargin {
+- (SWZConstraint *)rightMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeRightMargin];
 }
 
-- (MASConstraint *)topMargin {
+- (SWZConstraint *)topMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTopMargin];
 }
 
-- (MASConstraint *)bottomMargin {
+- (SWZConstraint *)bottomMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeBottomMargin];
 }
 
-- (MASConstraint *)leadingMargin {
+- (SWZConstraint *)leadingMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeadingMargin];
 }
 
-- (MASConstraint *)trailingMargin {
+- (SWZConstraint *)trailingMargin {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeTrailingMargin];
 }
 
-- (MASConstraint *)centerXWithinMargins {
+- (SWZConstraint *)centerXWithinMargins {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterXWithinMargins];
 }
 
-- (MASConstraint *)centerYWithinMargins {
+- (SWZConstraint *)centerYWithinMargins {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeCenterYWithinMargins];
 }
 
@@ -244,27 +244,27 @@
 
 #pragma mark - composite Attributes
 
-- (MASConstraint *)edges {
+- (SWZConstraint *)edges {
     return [self addConstraintWithAttributes:MASAttributeTop | MASAttributeLeft | MASAttributeRight | MASAttributeBottom];
 }
 
-- (MASConstraint *)size {
+- (SWZConstraint *)size {
     return [self addConstraintWithAttributes:MASAttributeWidth | MASAttributeHeight];
 }
 
-- (MASConstraint *)center {
+- (SWZConstraint *)center {
     return [self addConstraintWithAttributes:MASAttributeCenterX | MASAttributeCenterY];
 }
 
 #pragma mark - grouping
 
-- (MASConstraint *(^)(dispatch_block_t group))group {
+- (SWZConstraint *(^)(dispatch_block_t group))group {
     return ^id(dispatch_block_t group) {
         NSInteger previousCount = self.constraints.count;
         group();
 
         NSArray *children = [self.constraints subarrayWithRange:NSMakeRange(previousCount, self.constraints.count - previousCount)];
-        MASCompositeConstraint *constraint = [[MASCompositeConstraint alloc] initWithChildren:children];
+        SWZCompositeConstraint *constraint = [[SWZCompositeConstraint alloc] initWithChildren:children];
         constraint.delegate = self;
         return constraint;
     };

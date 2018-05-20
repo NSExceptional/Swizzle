@@ -1,5 +1,5 @@
 //
-//  MASViewAttribute.h
+//  SWZViewAttribute.h
 //  Masonry
 //
 //  Created by Jonas Budelmann on 21/07/13.
@@ -12,7 +12,7 @@
  *  An immutable tuple which stores the view and the related NSLayoutAttribute.
  *  Describes part of either the left or right hand side of a constraint equation
  */
-@interface MASViewAttribute : NSObject
+@interface SWZViewAttribute : NSObject
 
 /**
  *  The view which the reciever relates to. Can be nil if item is not a view.

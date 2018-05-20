@@ -15,14 +15,14 @@
 @interface MAS_VIEW_CONTROLLER (MASAdditions)
 
 /**
- *	following properties return a new MASViewAttribute with appropriate UILayoutGuide and NSLayoutAttribute
+ *	following properties return a new SWZViewAttribute with appropriate UILayoutGuide and NSLayoutAttribute
  */
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_topLayoutGuide;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_bottomLayoutGuide;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_topLayoutGuideTop;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_topLayoutGuideBottom;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_bottomLayoutGuideTop;
-@property (nonatomic, strong, readonly) MASViewAttribute *mas_bottomLayoutGuideBottom;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__topLayoutGuide;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__bottomLayoutGuide;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__topLayoutGuideTop;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__topLayoutGuideBottom;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__bottomLayoutGuideTop;
+@property (nonatomic, strong, readonly) SWZViewAttribute *mas__bottomLayoutGuideBottom;
 
 
 @end

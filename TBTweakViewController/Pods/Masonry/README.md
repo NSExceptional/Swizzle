@@ -99,13 +99,13 @@ Masonry will also call `view1.translatesAutoresizingMaskIntoConstraints = NO;` f
 
 These three equality constraints accept one argument which can be any of the following:
 
-#### 1. MASViewAttribute
+#### 1. SWZViewAttribute
 
 ```obj-c
 make.centerX.lessThanOrEqualTo(view2.mas_left);
 ```
 
-MASViewAttribute           |  NSLayoutAttribute
+SWZViewAttribute           |  NSLayoutAttribute
 -------------------------  |  --------------------------
 view.mas_left              |  NSLayoutAttributeLeft
 view.mas_right             |  NSLayoutAttributeRight

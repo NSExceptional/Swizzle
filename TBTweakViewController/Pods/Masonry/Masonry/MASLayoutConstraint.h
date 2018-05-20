@@ -12,11 +12,11 @@
  *	When you are debugging or printing the constraints attached to a view this subclass
  *  makes it easier to identify which constraints have been created via Masonry
  */
-@interface MASLayoutConstraint : NSLayoutConstraint
+@interface SWZLayoutConstraint : NSLayoutConstraint
 
 /**
  *	a key to associate with this constraint
  */
-@property (nonatomic, strong) id mas_key;
+@property (nonatomic, strong) id mas__key;
 
 @end

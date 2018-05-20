@@ -1,5 +1,5 @@
 //
-//  MASConstraint+Private.h
+//  SWZConstraint+Private.h
 //  Masonry
 //
 //  Created by Nick Tymchenko on 29/04/14.
@@ -8,10 +8,10 @@
 
 #import "MASConstraint.h"
 
-@protocol MASConstraintDelegate;
+@protocol SWZConstraintDelegate;
 
 
-@interface MASConstraint ()
+@interface SWZConstraint ()
 
 /**
  *  Whether or not to check for an existing constraint instead of adding constraint
@@ -19,9 +19,9 @@
 @property (nonatomic, assign) BOOL updateExisting;
 
 /**
- *	Usually MASConstraintMaker but could be a parent MASConstraint
+ *	Usually SWZConstraintMaker but could be a parent SWZConstraint
  */
-@property (nonatomic, weak) id<MASConstraintDelegate> delegate;
+@property (nonatomic, weak) id<SWZConstraintDelegate> delegate;
 
 /**
  *  Based on a provided value type, is equal to calling:
@@ -35,32 +35,32 @@
 @end
 
 
-@interface MASConstraint (Abstract)
+@interface SWZConstraint (Abstract)
 
 /**
  *	Sets the constraint relation to given NSLayoutRelation
  *  returns a block which accepts one of the following:
- *    MASViewAttribute, UIView, NSValue, NSArray
+ *    SWZViewAttribute, UIView, NSValue, NSArray
  *  see readme for more details.
  */
-- (MASConstraint * (^)(id, NSLayoutRelation))equalToWithRelation;
+- (SWZConstraint * (^)(id, NSLayoutRelation))equalToWithRelation;
 
 /**
  *	Override to set a custom chaining behaviour
  */
-- (MASConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute;
+- (SWZConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute;
 
 @end
 
 
-@protocol MASConstraintDelegate <NSObject>
+@protocol SWZConstraintDelegate <NSObject>
 
 /**
  *	Notifies the delegate when the constraint needs to be replaced with another constraint. For example
- *  A MASViewConstraint may turn into a MASCompositeConstraint when an array is passed to one of the equality blocks
+ *  A SWZViewConstraint may turn into a SWZCompositeConstraint when an array is passed to one of the equality blocks
  */
-- (void)constraint:(MASConstraint *)constraint shouldBeReplacedWithConstraint:(MASConstraint *)replacementConstraint;
+- (void)constraint:(SWZConstraint *)constraint shouldBeReplacedWithConstraint:(SWZConstraint *)replacementConstraint;
 
-- (MASConstraint *)constraint:(MASConstraint *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute;
+- (SWZConstraint *)constraint:(SWZConstraint *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute;
 
 @end
