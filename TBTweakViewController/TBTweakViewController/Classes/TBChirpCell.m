@@ -18,7 +18,7 @@
     self.textView.font = UIFont.codeFont;
 }
 
-- (void)updateConstraints:(MASConstraintMaker *)make {
+- (void)updateConstraints:(SWZConstraintMaker *)make {
     [super updateConstraints:make];
     make.height.greaterThanOrEqualTo(@120);
 }

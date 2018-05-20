@@ -20,14 +20,14 @@
 }
 
 - (void)updateConstraints {
-    [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.textView mas__updateConstraints:^(SWZConstraintMaker *make) {
         [self updateConstraints:make];
     }];
 
     [super updateConstraints];
 }
 
-- (void)updateConstraints:(MASConstraintMaker *)make {
+- (void)updateConstraints:(SWZConstraintMaker *)make {
     make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(13, 16, 13, 16));
 }
 

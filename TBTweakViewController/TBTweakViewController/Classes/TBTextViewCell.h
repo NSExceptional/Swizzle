@@ -7,7 +7,7 @@
 //
 
 #import "TBBaseValueCell.h"
-@class MASConstraintMaker;
+@class SWZConstraintMaker;
 
 
 #pragma mark - TBTextViewCell
@@ -19,6 +19,6 @@
 #pragma mark Internal
 @property (nonatomic, readonly) UITextView *textView;
 
-- (void)updateConstraints:(MASConstraintMaker *)make;
+- (void)updateConstraints:(SWZConstraintMaker *)make;
 
 @end

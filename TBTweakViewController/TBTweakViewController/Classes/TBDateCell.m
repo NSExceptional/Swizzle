@@ -25,7 +25,7 @@
 - (void)updateConstraints {
     [super updateConstraints];
     
-    [self.picker mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.picker mas__remakeConstraints:^(SWZConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
         make.height.equalTo(@216);
     }];

@@ -29,7 +29,7 @@
 - (void)updateConstraints {
     [super updateConstraints];
 
-    [self.textField mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.textField mas__remakeConstraints:^(SWZConstraintMaker *make) {
         make.edges.equalTo(self.contentView).with.insets(UIEdgeInsetsMake(11, 16, 11, 0));
     }];
 }

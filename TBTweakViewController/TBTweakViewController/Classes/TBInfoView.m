@@ -54,11 +54,11 @@
 }
 
 - (void)updateConstraints {
-    [self.infoLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.infoLabel mas__updateConstraints:^(SWZConstraintMaker *make) {
         make.edges.equalTo(self).insets(UIEdgeInsetsMake(10, 15, 10, 15));
 //        make.edges.equalTo(self).insets(UIEdgeInsetsMake(15, 15, 15, 15));
     }];
-    [self.hairline mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.hairline mas__updateConstraints:^(SWZConstraintMaker *make) {
         make.width.bottom.equalTo(self);
         make.height.equalTo(@0.5);
     }];
