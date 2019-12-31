@@ -67,8 +67,7 @@ void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXT
 
 %end
 
-%group Main
-%hookf(int, UIApplicationMain, int argc, char *argv[], NSString *principalClassName, NSString *delegateClassName) {
+%ctor {
     SwizzleInit();
     FLEXManager *flex = [NSClassFromString(@"FLEXManager") sharedManager];
     
@@ -81,10 +80,4 @@ void FLEXExplorerToolbarSwapItemWithMoveItem(FLEXExplorerToolbar *toolbar, FLEXT
         // Add it to the FLEXExplorerViewController toolbar
         %init(Explorer);
     }
-    return %orig;
-}
-%end
-
-%ctor {
-    %init(Main);
 }
